@@ -9,7 +9,10 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <title>Scan QR</title>
 </head>
-<body>
+<body  data-aos="zoom-in" data-aos-duration="3000" >
     <p>Scan QR</p>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
