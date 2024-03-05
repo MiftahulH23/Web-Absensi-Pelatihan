@@ -16,11 +16,11 @@
                 <img src="/images/logobrk.png" alt="logo" class="object-cover">
             </div>
             <div class="relative mt-8 animate-line">
-                <div class="w-full h-2 overflow-hidden mt-24">
+                <div class="w-full h-2 overflow-hidden mt-24 ml-2">
                     <img src="/images/linered.png" alt="line" class="object-cover">
                 </div>
-                <div class="w-8 h-20 overflow-hidden mt-32 absolute -top-14 -left-0">
-                    <img src="/images/logobrkkecil.png" alt="line" class="object-cover ">
+                <div class="w-20 h-20 overflow-hidden mt-32 absolute -top-[82px] -left-7">
+                    <img src="/images/logokecil.png" alt="line" class="object-cover ">
                 </div>
             </div>
         </div>
@@ -30,6 +30,12 @@
     </div>
     <script>
         AOS.init();
+    </script>
+    <script>
+        var scanRoute = "{{ route('scanqr')}}";
+        setTimeout(function() {
+            window.location.href = scanRoute
+        }, 3000);
     </script>
 </body>
 </html>
