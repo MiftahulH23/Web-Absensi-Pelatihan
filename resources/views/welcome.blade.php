@@ -12,7 +12,7 @@
 <body>
     <div>
         <div class="container grid place-items-center mt-16">
-            <div class="w-72 h-20 overflow-hidden">
+            <div class="w-60 h-20 overflow-hidden">
                 <img src="/images/logobrk.png" alt="logo" class="object-cover">
             </div>
             <div class="relative mt-8 animate-line">
