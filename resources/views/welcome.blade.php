@@ -23,8 +23,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-80 h-full overflow-hidden ml-16 mt-14">
-            <img src="/images/gedungbrk.png" alt="logo" class="object-cover">
+        <div class="w-80 overflow-hidden ml-16 mt-14 fixed right-0 bottom-0">
+            <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full">
         </div>
     </div>
     <script>
