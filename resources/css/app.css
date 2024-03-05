@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+  
+@keyframes moveRight {
+    0% {
+      left: 0%; /* Mulai dari sisi kiri kontainer */
+    }
+    100% {
+      left: 200%; /* Bergerak ke kanan hingga keluar dari sisi kanan kontainer */
+    }
+  }
+  
+  
+  .animate-line {
+    animation: moveRight 5s linear forwards; /* Durasi 4 detik, gerakan linear, dan berhenti pada posisi terakhir */
+  }
+  

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <title>Document</title>
+    <title>Selamat Datang</title>
 </head>
 <body>
     <div>
@@ -14,12 +15,12 @@
             <div class="w-72 h-20 overflow-hidden">
                 <img src="/images/logobrk.png" alt="logo" class="object-cover">
             </div>
-            <div class="relative mt-8">
+            <div class="relative mt-8 animate-line">
                 <div class="w-full h-2 overflow-hidden mt-24">
                     <img src="/images/linered.png" alt="line" class="object-cover">
                 </div>
-                <div class="w-8 h-20 overflow-hidden mt-32 absolute -top-14 -right-0" data-aos="fade-right"  data-aos-duration="1000" data-aos-anchor-placement="bottom-bottom" >
-                    <img src="/images/logobrkkecil.png" alt="line" class="object-cover">
+                <div class="w-8 h-20 overflow-hidden mt-32 absolute -top-14 -left-0">
+                    <img src="/images/logobrkkecil.png" alt="line" class="object-cover ">
                 </div>
             </div>
         </div>
