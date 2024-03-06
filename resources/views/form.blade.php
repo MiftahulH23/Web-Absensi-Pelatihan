@@ -14,7 +14,7 @@
     <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
     <div class="container">
         <!-- Nama Lengkap -->
-        <div class="flex flex-col gap-2 mt-1 ml-4">
+        <div class="flex flex-col gap-2 mt-3 ml-4">
             <p class="font-semibold ">Nama Lengkap</p>
             <input type="text" id="namalengkap" name="namalengkap" class="w-[350px] h-9 rounded-xl"> 
         </div>
@@ -36,7 +36,12 @@
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-2 mt-1 ml-4">
             <p class="font-semibold ">Dokumentasi</p>
-            <input type="text" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="w-[350px] h-9 rounded-xl bg-white bg-opacity-90"> 
+            <div class="relative">
+                <img src="images/input.png" alt="Logo" class="absolute h-6 right-10 top-1">
+                <input type="text" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="w-[350px] h-9 rounded-xl bg-white bg-opacity-90"> 
+            </div>
+            
+            <!--Logo Input --> 
         </div>
         <!-- Tanda Tangan -->
         <div class="flex flex-col gap-2 mt-1 ml-4">
