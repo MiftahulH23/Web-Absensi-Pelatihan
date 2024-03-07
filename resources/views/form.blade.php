@@ -39,10 +39,35 @@
             <p class="font-semibold ">Nik</p>
             <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl">
         </div>
-        <!-- Jabatan/Unit Kantor -->
+        <!-- Level Jabatan -->
         <div class="flex flex-col gap-1 mt-1">
-            <p class="font-semibold ">Jabatan/Unit Kantor</p>
-            <input type="text" id="jabatan/uk" name="jabatan/uk" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90">
+            <label for="levelJabatan" class="font-semibold">Level Jabatan</label>
+            <select id="levelJabatan" name="levelJabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <option value="" disabled selected class="text-sm">- Pilih Level Jabatan -</option>
+                <option value="divisi_a" class="text-sm">Divisi A</option>
+                <option value="divisi_b" class="text-sm">Divisi B</option>
+                <option value="divisi_c" class="text-sm">Divisi C</option>
+            </select>
+        </div>
+        <!-- Jabatan -->
+        <div class="flex flex-col gap-1 mt-1">
+            <label for="jabatan" class="font-semibold" class="text-sm">Jabatan/Unit Kantor</label>
+            <select id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <option value="" disabled selected>- Pilih Jabatan -</option>
+                <option value="divisi_a" class="text-sm">Divisi A</option>
+                <option value="divisi_b" class="text-sm">Divisi B</option>
+                <option value="divisi_c" class="text-sm">Divisi C</option>
+            </select>
+        </div>
+        <!-- Unit Kantor -->
+        <div class="flex flex-col gap-1 mt-1">
+            <label for="unitKantor" class="font-semibold">Jabatan/Unit Kantor</label>
+            <select id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <option value="" disabled selected class="text-sm">- Pilih Unit Kantor -</option>
+                <option value="divisi_a" class="text-sm">Divisi A</option>
+                <option value="divisi_b" class="text-sm">Divisi B</option>
+                <option value="divisi_c" class="text-sm">Divisi C</option>
+            </select>
         </div>
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
@@ -56,7 +81,7 @@
         <!-- Tanda Tangan -->
         @if ($message = Session::get('success'))
         <div class="alert alert-success  alert-dismissible">
-            
+
             <strong>{{ $message }}</strong>
         </div>
         @endif
