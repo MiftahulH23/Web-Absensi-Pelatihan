@@ -20,4 +20,5 @@ Route::get('/', function () {
 Route::get('/from', function () {
     return view('form');
 })->name('form');
-Route::get('signaturepad',[SignatureController::class,'index']);
+Route::get('signaturepad',[SignatureController::class, 'index']);
+Route::post('signaturepad', [SignatureController::class, 'upload'])->name('signaturepad.upload');
