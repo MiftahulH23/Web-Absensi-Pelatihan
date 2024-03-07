@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SignatureController;
+use App\Http\Controllers\absenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,5 @@ Route::get('/', function () {
 Route::get('/from', function () {
     return view('form');
 })->name('form');
-Route::get('signaturepad',[SignatureController::class, 'index']);
-Route::post('signaturepad', [SignatureController::class, 'upload'])->name('signaturepad.upload');
+
+Route::resource('absen', absenController::class);
