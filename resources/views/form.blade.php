@@ -51,7 +51,7 @@
         </div>
         <!-- Jabatan -->
         <div class="flex flex-col gap-1 mt-1">
-            <label for="jabatan" class="font-semibold" class="text-sm">Jabatan/Unit Kantor</label>
+            <label for="jabatan" class="font-semibold" class="text-sm">Jabatan</label>
             <select id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                 <option value="" disabled selected>- Pilih Jabatan -</option>
                 <option value="divisi_a" class="text-sm">Divisi A</option>
@@ -61,7 +61,7 @@
         </div>
         <!-- Unit Kantor -->
         <div class="flex flex-col gap-1 mt-1">
-            <label for="unitKantor" class="font-semibold">Jabatan/Unit Kantor</label>
+            <label for="unitKantor" class="font-semibold">Unit Kantor</label>
             <select id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                 <option value="" disabled selected class="text-sm">- Pilih Unit Kantor -</option>
                 <option value="divisi_a" class="text-sm">Divisi A</option>
