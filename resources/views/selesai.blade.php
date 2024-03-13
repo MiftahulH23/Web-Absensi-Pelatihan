@@ -13,8 +13,8 @@
     <title>Terima Kasih</title>
 </head>
 
-<body class="bg-[#efefef]">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
+    <div class="container mx-auto px-6 sm:px-6 md:px-6 lg:px-8">
         <div class="bg-white rounded-xl md:max-w-md mx-auto mt-16">
             <div class="bg-red-500 w-full h-2 rounded-t-xl"></div>
             <p class="text-center mt-8 font-semibold text-lg">Terima Kasih Telah Melakukan Absen pada Acara Pelatihan {Judul Pelatihan }</p>

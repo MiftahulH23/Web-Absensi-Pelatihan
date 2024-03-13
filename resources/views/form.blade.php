@@ -69,6 +69,7 @@
                 <option value="divisi_c" class="text-sm">Divisi C</option>
             </select>
         </div>
+        
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold">Dokumentasi</p>
@@ -76,18 +77,17 @@
                 <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" onchange="displayFileName(this)" />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <!-- Logo Input -->
-                    <!-- <img src="images/input.png" alt="" class="h-6"> -->
+                    <img src="/images/input.png" alt="" class="h-6">
                 </span>
                 <p id="fileName" class="text-sm"></p>
             </label>
         </div>
         <!-- Tanda Tangan -->
-        <!-- Tanda Tangan -->
         <div class="flex flex-col gap-1 mt-1 rounded-xl">
             <p class="font-semibold">Tanda Tangan</p>
             <div id="ttd" class="relative w-full rounded-xl md:w-full h-36 bg-white opacity-90">
                 <div class="absolute top-0 right-0">
-                    <img id="clear" src="images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
+                    <img id="clear" src="/images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
                 </div>
             </div>
             <input type="hidden" id="signature64" name="ttd"> <!-- Pastikan nama inputnya adalah 'ttd' -->
