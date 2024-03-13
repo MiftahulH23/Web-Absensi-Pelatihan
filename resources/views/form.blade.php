@@ -101,7 +101,7 @@
         </div>
     </div>
     <div class="w-96 overflow-hidden ml-16 fixed right-0 -bottom-16 -z-10">
-        <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full">
+        <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">
     </div>
     <!-- js Tanda Tangan -->
     <script type="text/javascript">

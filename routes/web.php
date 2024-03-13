@@ -23,3 +23,6 @@ Route::get('/from', function () {
 Route::get('/dokumentasi', function () {
     return view('dokumentasi');
 });
+Route::get('/selesai', function () {
+    return view('selesai');
+});
