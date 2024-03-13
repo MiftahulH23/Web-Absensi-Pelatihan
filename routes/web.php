@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\absenController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +23,4 @@ Route::get('/from', function () {
 Route::get('/dokumentasi', function () {
     return view('dokumentasi');
 });
+Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
