@@ -16,24 +16,28 @@
     <div class="grid grid-cols-3 overflow-hidden h-screen">
         <!-- Kiri -->
         <div class="col-span-2 bg-white">
-            <img src="/images/gedungbrk.png" alt="" class="w-full h-full object-cover">
+            <img src="/images/gedungbrk.png" alt="" class="w-full h-full object-cover opacity-50">
         </div>
         <!-- Kanan -->
-        <div class="my-auto h-screen mx-5">
-            <div class="w-36 overflow-hidden mx-auto">
-                <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
+        <div class="relative my-auto h-screen">
+            <div class="mx-5">
+                <div class="w-36 overflow-hidden mx-auto">
+                    <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
+                </div>
+                <p class="font-bold text-xl mt-8">Masuk</p>
+                <div class="flex flex-col mt-5 gap-5">
+                    <!-- nama -->
+                    <input type="text" placeholder="Masukkan Nama" id="namaAdmin" name="namaAdmin" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                    <!-- password -->
+                    <input type="text" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                </div>
+                <!-- button -->
+                <button class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
             </div>
-            <p class="font-bold text-xl mt-8">Masuk</p>
-            <!-- nama -->
-            <div class="flex flex-col mt-3">
-                <input type="text" placeholder="Masukkan Nama" id="namaAdmin" name="namaAdmin" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+            <!-- motif melayu -->
+            <div class="absolute bottom-20 right-0 mb-5">
+                <img src="/images/motifMelayu.png" alt="" class="w-[410px] h-auto">
             </div>
-            <!-- password -->
-            <div class="flex flex-col mt-3">
-                <input type="text" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
-            </div>
-            <!-- button -->
-            <button class="p-2 w-full md:w-full h-12 rounded-xl mt-5 text-white font-bold bg-[#03ad00] text-sm" >Masuk</button>
         </div>
     </div>
     <!-- Js Aos -->
