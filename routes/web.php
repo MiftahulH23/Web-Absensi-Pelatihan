@@ -23,10 +23,5 @@ Route::get('/from', function () {
 Route::get('/dokumentasi', function () {
     return view('dokumentasi');
 });
-<<<<<<< HEAD
 Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
-=======
-Route::get('/selesai', function () {
-    return view('selesai');
-});
->>>>>>> 6f01678027c88c6d1420a7a43af2c26e6b27987f
+
