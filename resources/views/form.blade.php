@@ -23,7 +23,7 @@
 
 <body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
     <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
-    <div class="container">
+    <form class="container"  method="POST" enctype="multipart/form-data">
         <!-- Nama Lengkap -->
         <div class="flex flex-col mt-3">
             <p class="font-semibold ">Nama Lengkap</p>
@@ -71,12 +71,15 @@
         </div>
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
-            <p class="font-semibold ">Dokumentasi</p>
-            <div class="relative w-full md:w-full h-9 rounded-xl bg-white opacity-90">
-                <input type="text" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="w-full h-full object-cover rounded-xl bg-transparent" />
-                <!-- Logo Input -->
-                <img src="images/input.png" alt="Logo" class="h-6 absolute top-0 right-0 z-10 m-1">
-            </div>
+            <p class="font-semibold">Dokumentasi</p>
+            <label for="dokumentasi" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                <input type="file" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="hidden" onchange="displayFileName(this)" />
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <!-- Logo Input -->
+                    <img src="images/input.png" alt="Logo" class="h-6">
+                </span>
+                <p id="fileName" class="text-sm"></p>
+            </label>
         </div>
         <!-- Tanda Tangan -->
         @if ($message = Session::get('success'))
@@ -99,9 +102,9 @@
         <div class="grid place-items-center">
             <button type="submit" class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
         </div>
-    </div>
+    </form>
     <div class="w-96 overflow-hidden ml-16 fixed right-0 -bottom-16 -z-10">
-        <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full">
+        <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">
     </div>
     <!-- js Tanda Tangan -->
     <script type="text/javascript">
@@ -119,6 +122,14 @@
     <!-- Js Aos -->
     <script>
         AOS.init();
+    </script>
+
+    <!-- js Dokumentasi -->
+    <script>
+        function displayFileName(input) {
+            const fileName = input.files[0].name;
+            document.getElementById('fileName').innerText = fileName;
+        }
     </script>
 </body>
 
