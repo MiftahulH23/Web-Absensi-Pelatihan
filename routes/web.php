@@ -23,5 +23,3 @@ Route::get('/from', function () {
 Route::get('/dokumentasi', function () {
     return view('dokumentasi');
 });
-
-Route::resource('absen', absenController::class);
