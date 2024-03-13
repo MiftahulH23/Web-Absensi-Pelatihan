@@ -72,12 +72,13 @@
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold ">Dokumentasi</p>
-            <div class="relative w-full md:w-full h-9 rounded-xl bg-white opacity-90">
-                <input type="text" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="w-full h-full object-cover rounded-xl bg-transparent" />
+            <label for="dokumentasi" class="relative w-full md:w-full h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                <input type="file" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="hidden" />
                 <!-- Logo Input -->
                 <img src="images/input.png" alt="Logo" class="h-6 absolute top-0 right-0 z-10 m-1">
-            </div>
+            </label>
         </div>
+
         <!-- Tanda Tangan -->
         @if ($message = Session::get('success'))
         <div class="alert alert-success  alert-dismissible">
