@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="icon" href="images/logokecil.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -23,11 +22,12 @@
 
 <body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
     <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
-    <form class="container"  method="POST" enctype="multipart/form-data">
+    <form class="container" action="{{ route('absens.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <!-- Nama Lengkap -->
         <div class="flex flex-col mt-3">
             <p class="font-semibold ">Nama Lengkap</p>
-            <input type="text" id="namalengkap" name="namalengkap" class="p-2 w-full md:w-full h-9 rounded-xl">
+            <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl">
         </div>
         <!--No Rekening -->
         <div class="flex flex-col gap-1 mt-1">
@@ -72,33 +72,28 @@
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold">Dokumentasi</p>
-            <label for="dokumentasi" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                <input type="file" accept="image/*" capture="camera" id="dokumentasi" name="dokumentasi" class="hidden" onchange="displayFileName(this)" />
+            <label for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" onchange="displayFileName(this)" />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <!-- Logo Input -->
-                    <img src="images/input.png" alt="Logo" class="h-6">
+                    <!-- <img src="images/input.png" alt="" class="h-6"> -->
                 </span>
                 <p id="fileName" class="text-sm"></p>
             </label>
         </div>
         <!-- Tanda Tangan -->
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success  alert-dismissible">
-
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-        <form>
-            @csrf
-            <div class="flex flex-col gap-1 mt-1 rounded-xl">
-                <p class="font-semibold">Tanda Tangan</p>
-                <div id="sig" class="relative w-full rounded-xl md:w-full h-36 bg-white opacity-90">
-                    <div class="absolute top-0 right-0">
-                        <img id="clear" src="images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
-                    </div>
+        <!-- Tanda Tangan -->
+        <div class="flex flex-col gap-1 mt-1 rounded-xl">
+            <p class="font-semibold">Tanda Tangan</p>
+            <div id="ttd" class="relative w-full rounded-xl md:w-full h-36 bg-white opacity-90">
+                <div class="absolute top-0 right-0">
+                    <img id="clear" src="images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
                 </div>
             </div>
-        </form>
+            <input type="hidden" id="signature64" name="ttd"> <!-- Pastikan nama inputnya adalah 'ttd' -->
+        </div>
+
+        <!-- button -->
         <div class="grid place-items-center">
             <button type="submit" class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
         </div>
@@ -108,7 +103,7 @@
     </div>
     <!-- js Tanda Tangan -->
     <script type="text/javascript">
-        var sig = $('#sig').signature({
+        var sig = $('#ttd').signature({
             syncField: '#signature64',
             syncFormat: 'PNG'
         });
@@ -116,6 +111,11 @@
             e.preventDefault();
             sig.signature('clear');
             $("#signature64").val('');
+        });
+
+        // Menyimpan tanda tangan ke input hidden saat form disubmit
+        $('form').submit(function() {
+            $("#signature64").val(sig.signature('toDataURL'));
         });
     </script>
 
@@ -131,6 +131,7 @@
             document.getElementById('fileName').innerText = fileName;
         }
     </script>
+
 </body>
 
 </html>

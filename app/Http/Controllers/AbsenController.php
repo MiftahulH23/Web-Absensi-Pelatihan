@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Absen;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -14,12 +15,14 @@ class AbsenController extends Controller
         $absens = Absen::latest()->paginate(5);
 
         //render view with posts
-        return view('form', compact('absens'));
+        return view('selesai', compact('absens'));
     }
+    
     public function create(): View
     {
         return view('form');
     }
+    
     public function store(Request $request): RedirectResponse
     {
         //validate form
@@ -30,8 +33,8 @@ class AbsenController extends Controller
             'levelJabatan' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'unitKantor' => 'required|string|max:255',
-            'foto'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'ttd' => 'required|string|max:255',
+            'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'ttd' => 'required|string', // ubah menjadi string
         ]);
 
         //upload image
@@ -39,18 +42,21 @@ class AbsenController extends Controller
         $image->storeAs('public/absens', $image->hashName());
 
         //create post
-        Absen::create([
-            'nama' => $request->input('nama'),
-            'norek' => $request->input('norek'),
-            'nik' => $request->input('nik'),
-            'levelJabatan' => $request->input('levelJabatan'),
-            'jabatan' => $request->input('jabatan'),
-            'unitKantor' => $request->input('unitKantor'),
-            'foto'     => $image->hashName(),
-            'ttd' => $request->input('ttd'),
+        $absen = Absen::create([
+            'nama' => $request->nama,
+            'norek' => $request->norek,
+            'nik' => $request->nik,
+            'levelJabatan' => $request->levelJabatan,
+            'jabatan' => $request->jabatan,
+            'unitKantor' => $request->unitKantor,
+            'foto' => $image->hashName(),
+            'ttd' => $request->ttd, // menyimpan tanda tangan yang diterima dari form
         ]);
-
-        //redirect to index
-        return redirect()->route('absens.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        
+        if ($absen) {
+            return redirect()->route('absens.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+        
+        return redirect()->route('absens.index')->with(['success' => 'Data gagal Disimpan!']);
     }
 }
