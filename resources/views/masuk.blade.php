@@ -25,14 +25,17 @@
                     <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
                 </div>
                 <p class="font-bold text-xl mt-8">Masuk</p>
-                <div class="flex flex-col mt-5 gap-5">
-                    <!-- nama -->
-                    <input type="text" placeholder="Masukkan Nama" id="namaAdmin" name="namaAdmin" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
-                    <!-- password -->
-                    <input type="text" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
-                </div>
-                <!-- button -->
-                <button class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
+                <form action="{{ route('actionlogin') }}" method="post">
+                @csrf
+                    <div class="flex flex-col mt-5 gap-5">
+                        <!-- nama -->
+                        <input type="text" placeholder="Masukkan Nama" id="namaAdmin" name="namaAdmin" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                        <!-- password -->
+                        <input type="text" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                    </div>
+                    <!-- button -->
+                    <button class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
+                </form>
             </div>
             <!-- motif melayu -->
             <div class="absolute bottom-20 right-0 mb-5">
