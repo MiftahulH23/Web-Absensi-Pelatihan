@@ -1,40 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function loginForm()
     {
-        if (Auth::check()) {
-            return redirect('home');
-        }else{
-            return view('masuk');
-        }
+        return view('masuk');
     }
 
-    public function actionlogin(Request $request)
+    public function login(Request $request)
     {
-        $data = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ];
+        // Validation
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (Auth::Attempt($data)) {
-            return redirect('home');
-        }else{
-            Session::flash('error', 'Email atau Password Salah');
-            return redirect('/');
+        // Check if admin exists
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            // Jika pengguna ditemukan, periksa apakah password cocok
+            if (password_verify($request->password, $user->password)) {
+                // Authentication successful
+                return redirect()->route('beranda');
+            }
         }
-    }
 
-    public function actionlogout()
-    {
-        Auth::logout();
-        return redirect('/');
+        // Authentication failed, redirect back with error message
+        return redirect()->back()->with('error', 'Invalid credentials');
     }
 }

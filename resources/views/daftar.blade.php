@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <title>Masuk</title>
+    <title>Daftar</title>
 </head>
 
 <body class="bg-[#efefef]">
@@ -24,26 +24,29 @@
                 <div class="w-36 overflow-hidden mx-auto">
                     <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
                 </div>
-                <p class="font-bold text-xl mt-8">Masuk</p>
+                <p class="font-bold text-xl mt-8">Daftar</p>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                        <li class="">{{ $error }}</li>
+                        <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
                 @endif
-                <form action="{{ route('actionlogin') }}" method="post">
-                @csrf
+
+                <form action="{{ route('actiondaftar') }}" method="post">
+                    @csrf
                     <div class="flex flex-col mt-5 gap-5">
                         <!-- nama -->
+                        <input type="text" placeholder="Masukkan Nama" id="name" name="name" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                        <!-- email -->
                         <input type="email" placeholder="Masukkan Email" id="email" name="email" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
                         <!-- password -->
-                        <input type="password" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                        <input type="password" placeholder="Masukkan Password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
                     </div>
                     <!-- button -->
-                    <button class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
+                    <button type="submit" class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Daftar</button>
                 </form>
             </div>
             <!-- motif melayu -->
@@ -52,10 +55,6 @@
             </div>
         </div>
     </div>
-    <!-- Js Aos -->
-    <script>
-        AOS.init();
-    </script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,15 @@ Route::get('/dokumentasi', function () {
 });
 Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
 
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('actionlogin');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
+
+Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar');
+Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
+
+
+
+Route::get('/home', function () {
+    return view('beranda');
+})->name('beranda');;
