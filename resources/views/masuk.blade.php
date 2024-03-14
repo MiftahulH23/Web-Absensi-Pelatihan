@@ -26,16 +26,33 @@
                 </div>
                 <p class="font-bold text-xl mt-8">Masuk</p>
                 @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li class="">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Menampilkan SweetAlert untuk setiap pesan kesalahan
+        @foreach ($errors->all() as $error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ $error }}'
+            });
+        @endforeach
+    </script>
+@endif
+
+@if (session('error'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Menampilkan SweetAlert jika ada pesan kesalahan dari sesi
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}'
+        });
+    </script>
+@endif
+
                 <form action="{{ route('actionlogin') }}" method="post">
-                @csrf
+                    @csrf
                     <div class="flex flex-col mt-5 gap-5">
                         <!-- nama -->
                         <input type="email" placeholder="Masukkan Email" id="email" name="email" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">

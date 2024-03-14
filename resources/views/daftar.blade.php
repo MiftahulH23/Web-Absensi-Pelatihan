@@ -26,14 +26,32 @@
                 </div>
                 <p class="font-bold text-xl mt-8">Daftar</p>
                 @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+    <script>
+        // Loop through each error message and display it as a SweetAlert notification
+        @foreach ($errors->all() as $error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ $error }}'
+            });
+        @endforeach
+    </script>
+@endif
+
+@if ($errors->any())
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        // Menampilkan SweetAlert untuk setiap pesan kesalahan
+        @foreach ($errors->all() as $error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ $error }}'
+            });
+        @endforeach
+    </script>
+@endif
+
 
                 <form action="{{ route('actiondaftar') }}" method="post">
                     @csrf

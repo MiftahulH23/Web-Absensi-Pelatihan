@@ -26,13 +26,16 @@ class LoginController extends Controller
 
         if ($user) {
             // Jika pengguna ditemukan, periksa apakah password cocok
-            if (password_verify($request->password, $user->password)) {
-                // Authentication successful
+            if (Hash::check($request->password, $user->password)) {
+                // Authenticated successfully
                 return redirect()->route('beranda');
+            } else {
+                // Password salah, redirect kembali dengan pesan kesalahan
+                return redirect()->back()->with('error', 'Password yang Anda masukkan salah');
             }
+        } else {
+            // Pengguna tidak ditemukan, redirect kembali dengan pesan kesalahan
+            return redirect()->back()->with('error', 'Email yang Anda masukkan tidak terdaftar');
         }
-
-        // Authentication failed, redirect back with error message
-        return redirect()->back()->with('error', 'Invalid credentials');
-    }
+}
 }
