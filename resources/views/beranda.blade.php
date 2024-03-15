@@ -22,7 +22,7 @@
     <!-- Main Content -->
     <div class="flex mt-5 gap-8 h-full pb-5">
         <!-- kiri -->
-        <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 md:h-[500px] lg:h-[680px] py-8 mt-3">
+        <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[600px] py-8 mt-3">
             <div class="flex justify-between ml-3">
                 <div class="flex gap-5">
                     <div class="w-6 h-6 overflow-hidden">
