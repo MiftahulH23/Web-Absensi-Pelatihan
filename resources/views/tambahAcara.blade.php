@@ -99,14 +99,14 @@
                 </div>
                 <div class="fixed bottom-24 left-[350px] flex gap-5">
                     <!-- ok -->
-                    <div class="flex gap-2 bg-[#c2ebc1] bg-opacity-50 items-center w-36 py-1 px-2 rounded-xl">
+                    <div class="flex gap-2 bg-[#c2ebc1] bg-opacity-50 items-center w-36 py-1 px-5 rounded-xl">
                         <div class="w-6 h-6 overflow-hidden flex-none">
                             <img src="/images/checklis.png" alt="cheklis" class="w-full h-full object-cover">
                         </div>
                         <button type="submit" class="text-[#03ad00] font-bold flex-auto text-start">OK</button>
                     </div>
                     <!-- cancel -->
-                    <div class="flex gap-2 bg-[#f3d9da] bg-opacity-50 items-center w-36 py-1 px-2 rounded-xl">
+                    <div class="flex gap-2 bg-[#f3d9da] bg-opacity-50 items-center w-36 py-1 px-5 rounded-xl">
                         <div class="w-4 h-4 overflow-hidden flex-none">
                             <img src="/images/cancel.png" alt="cheklis" class="w-full h-full object-cover">
                         </div>
