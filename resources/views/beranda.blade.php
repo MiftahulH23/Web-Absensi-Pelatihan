@@ -12,7 +12,7 @@
     <title>Beranda</title>
 </head>
 
-<body class="bg-[#efefef] mx-8 mt-5 overflow-hidden">
+<body class="bg-[#efefef] mx-8 mt-5 overflow-hidden" data-aos="zoom-in-down">
     <!-- Header -->
     <div class="w-full bg-white rounded-3xl h-fitt py-3 shadow-xl">
         <div class="overflow-hidden w-36 ml-5">
@@ -22,7 +22,7 @@
     <!-- Main Content -->
     <div class="flex mt-5 gap-8 h-full pb-5">
         <!-- kiri -->
-        <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[80vh] md:h-[90vh] py-8 mt-3">
+        <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[83vh] md:h-[90vh] py-8 mt-3">
             <div class="flex justify-between ml-3">
                 <div class="flex gap-5">
                     <div class="w-6 h-6 overflow-hidden">
@@ -51,12 +51,12 @@
                     <p class="text-gray-500 font-semibold text-sm">Riwayat</p>
                 </a>
                 <!-- Tambah Acara -->
-                <div class="flex gap-5 items-center ml-3">
+                <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/addEventIcon.png" alt="addEventIcon" class="w-full h-full object-cover">
                     </div>
                     <p class="text-gray-500 font-semibold text-sm">Tambah Acara</p>
-                </div>
+                </a>
             </div>
         </div>
         <!-- kanan -->
@@ -67,7 +67,9 @@
             </div>
         </div>
     </div>
-
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>

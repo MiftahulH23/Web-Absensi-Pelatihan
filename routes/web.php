@@ -27,6 +27,8 @@ Route::get('/dokumentasi', function () {
 
 Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
 
+Route::resource('/home', \App\Http\Controllers\HomeController::class);
+
 Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('actionlogin');
 
@@ -36,9 +38,9 @@ Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaf
 
 
 
-Route::get('/home', function () {
-    return view('beranda');
-})->name('beranda');
+Route::get('/tambahAcara', function () {
+    return view('tambahAcara');
+})->name('tambahAcara');
 
 Route::get('/riwayat', function () {
     return view('riwayatPelatihan');
