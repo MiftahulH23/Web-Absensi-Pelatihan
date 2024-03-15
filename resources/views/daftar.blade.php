@@ -25,33 +25,17 @@
                     <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
                 </div>
                 <p class="font-bold text-xl mt-8">Daftar</p>
-                @if ($errors->any())
-    <script>
-        // Loop through each error message and display it as a SweetAlert notification
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ $error }}'
-            });
-        @endforeach
-    </script>
-@endif
-
-@if ($errors->any())
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        // Menampilkan SweetAlert untuk setiap pesan kesalahan
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ $error }}'
-            });
-        @endforeach
-    </script>
-@endif
-
+                @if (session('error_message'))
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                    <script>
+                        // Menampilkan SweetAlert untuk pesan kesalahan
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: '{{ session('error_message') }}' // Gunakan 'html' untuk memastikan pesan kesalahan ditampilkan sebagai HTML
+                        });
+                    </script>
+                @endif
 
                 <form action="{{ route('actiondaftar') }}" method="post">
                     @csrf
@@ -73,6 +57,10 @@
             </div>
         </div>
     </div>
+    <!-- Js Aos -->
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>

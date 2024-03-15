@@ -12,6 +12,7 @@ class RegisterController extends Controller
     {
         return view('daftar'); // Pastikan Anda sudah memiliki view daftar.blade.php
     }
+
     public function register(Request $request)
     {
         // Validasi data
@@ -19,13 +20,25 @@ class RegisterController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
+        ], [
+            'name.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal harus 8 karakter.',
         ]);
 
         // Jika validasi gagal
         if ($validator->fails()) {
-            return redirect()->route('daftar')
-                ->withErrors($validator) // Mengirimkan pesan kesalahan ke tampilan
-                ->withInput(); // Mengirimkan kembali input yang sudah dimasukkan
+            // Ambil pesan kesalahan detail
+            $errorMessages = $validator->errors()->all();
+            
+            // Gabungkan pesan kesalahan menjadi satu pesan
+            $errorMessage = implode('', $errorMessages);
+
+            // Set pesan kesalahan dalam session
+            return redirect()->route('daftar')->with('error_message', $errorMessage);
         }
 
         // Jika validasi sukses, lanjutkan dengan membuat pengguna baru
