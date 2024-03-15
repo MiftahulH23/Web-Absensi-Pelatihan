@@ -25,6 +25,10 @@
                     <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
                 </div>
                 <p class="font-bold text-xl mt-8">Daftar</p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1ab8678d48a9c48dee458b395cbf66286065fe9e
                 @if (session('error_message'))
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
                     <script>
