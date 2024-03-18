@@ -64,7 +64,8 @@
         <!-- kanan -->
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Tambah Acara</p>
-            <form action="{{ route('acara.store') }}" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('acaras.store') }}" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5" method="POST" enctype="multipart/form-data">
+            @csrf
                 <!-- Konten kanan di sini -->
                 <div class="grid grid-cols-2 gap-8">
                     <!-- inputan kiri -->
@@ -94,7 +95,7 @@
                         <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
                         <!-- jam -->
                         <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
-                        <input type="text" name="jam_range" id="jam_range" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30">
+                        <input type="text" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30">
                     </div>
                 </div>
                 <div class="fixed bottom-24 left-[350px] flex gap-5">

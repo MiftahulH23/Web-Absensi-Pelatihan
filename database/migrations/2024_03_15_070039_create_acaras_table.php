@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('acaras', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('judul');
+            $table->string('tempat');
+            $table->date('tanggal');
+            $table->string('absen');
+            $table->text('jam');
         });
     }
 

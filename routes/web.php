@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AcaraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,6 @@ Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name
 Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
 
 
-
 Route::get('/tambahAcara', function () {
     return view('tambahAcara');
 })->name('tambahAcara');
@@ -45,3 +45,10 @@ Route::get('/tambahAcara', function () {
 Route::get('/riwayat', function () {
     return view('riwayatPelatihan');
 })->name('riwayat');
+
+Route::get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
+Route::get('/acaras/create', [AcaraController::class, 'create'])->name('acaras.create');
+Route::post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
+Route::get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
+Route::get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
+Route::put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');

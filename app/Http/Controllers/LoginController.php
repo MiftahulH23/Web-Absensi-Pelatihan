@@ -29,7 +29,7 @@ class LoginController extends Controller
             // Jika pengguna ditemukan, periksa apakah password cocok
             if (Hash::check($request->password, $user->password)) {
                 // Authenticated successfully
-                return redirect()->route('beranda');
+                return redirect()->route('home.index');
             } else {
                 // Password salah, redirect kembali dengan pesan kesalahan
                 return redirect()->back()->with('error', 'Password yang Anda masukkan salah');
