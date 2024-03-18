@@ -12,15 +12,19 @@ class AbsenController extends Controller
     public function index(): View
     {
         //get posts
-        $absens = Absen::latest()->paginate(5);
-
+        $absens = Absen::all();
         //render view with posts
-        return view('selesai', compact('absens'));
+        return view('detailAbsens', compact('absens'));
     }
     
     public function create(): View
     {
         return view('form');
+    }
+
+    public function selesai()
+    {
+        return view('selesai'); // Pastikan Anda sudah memiliki view daftar.blade.php
     }
     
     public function store(Request $request): RedirectResponse
@@ -54,9 +58,11 @@ class AbsenController extends Controller
         ]);
         
         if ($absen) {
-            return redirect()->route('absens.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('selesai')->with(['success' => 'Data Berhasil Disimpan!']);
         }
         
-        return redirect()->route('absens.index')->with(['success' => 'Data gagal Disimpan!']);
+        return redirect()->route('absen.create')->with(['success' => 'Data gagal Disimpan!']);
     }
+
+    
 }

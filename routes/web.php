@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
@@ -34,6 +35,7 @@ Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('actionlogin');
 
 
+Route::get('/selesai', [AbsenController::class, 'selesai'])->name('selesai');
 Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar');
 Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
 
@@ -45,6 +47,9 @@ Route::get('/tambahAcara', function () {
 Route::get('/riwayat', function () {
     return view('riwayatPelatihan');
 })->name('riwayat');
+Route::get('/detilabsen', function () {
+    return view('detailAbsens');
+})->name('detil');
 
 Route::get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
 Route::get('/acaras/create', [AcaraController::class, 'create'])->name('acaras.create');

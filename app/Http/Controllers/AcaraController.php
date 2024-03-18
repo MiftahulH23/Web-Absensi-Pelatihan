@@ -13,6 +13,7 @@ class AcaraController extends Controller
         $acaras = Acara::all();
         return view('riwayatPelatihan', compact('acaras'));
     }
+    
 
     // Method untuk menampilkan form untuk membuat acara baru
     public function create()
