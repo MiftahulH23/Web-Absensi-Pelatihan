@@ -69,7 +69,7 @@
                 <option value="divisi_c" class="text-sm">Divisi C</option>
             </select>
         </div>
-        
+
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold">Dokumentasi</p>
@@ -102,7 +102,7 @@
         <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">
     </div>
     <!-- js Tanda Tangan -->
-    <script type="text/javascript">
+    <script>
         var sig = $('#ttd').signature({
             syncField: '#signature64',
             syncFormat: 'PNG'

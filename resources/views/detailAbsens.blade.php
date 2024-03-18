@@ -52,8 +52,9 @@
                     <td class="flex justify-center py-2">
                         <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover">
                     </td>
-
-                    <td class="text-center text-sm py-2"></td>
+                    <td class="">
+                        <img src="{{ asset($absen->ttd) }}" alt="" class="w-20 h-20 object-cover">
+                    </td>
                     <td class="text-center text-sm py-2">Pagi</td>
                     <td class="text-center text-sm py-2">{{ $absen->created_at }}</td>
                     <td class="text-center text-sm py-2">telat</td>
