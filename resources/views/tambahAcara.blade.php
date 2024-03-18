@@ -64,7 +64,7 @@
         <!-- kanan -->
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Tambah Acara</p>
-            <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
+            <form action="{{ route('acara.store') }}" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5" method="POST" enctype="multipart/form-data">
                 <!-- Konten kanan di sini -->
                 <div class="grid grid-cols-2 gap-8">
                     <!-- inputan kiri -->
@@ -93,8 +93,8 @@
                         <p class="font-semibold text-gray-500">Tanggal</p>
                         <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
                         <!-- jam -->
-                        <p class="font-semibold text-gray-500">Jam</p>
-                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
+                        <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
+                        <input type="text" name="jam_range" id="jam_range" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30">
                     </div>
                 </div>
                 <div class="fixed bottom-24 left-[350px] flex gap-5">
@@ -113,9 +113,28 @@
                         <button type="reset" class="text-[#b72026] flex-auto text-start font-bold">Cancel</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+    <!-- Js Jam range -->
+    <script>
+        // Ambil elemen input
+        const jamRangeInput = document.getElementById('jam_range');
+
+        // Tambahkan event listener untuk memvalidasi format input
+        jamRangeInput.addEventListener('input', function() {
+            const value = this.value;
+            // Validasi format jam menggunakan ekspresi reguler
+            const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]\s*-\s*([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+            if (!regex.test(value)) {
+                // Jika format tidak sesuai, tambahkan pesan kesalahan
+                this.setCustomValidity('Format jam tidak valid. Harap masukkan dalam format HH:mm - HH:mm');
+            } else {
+                // Jika format sesuai, hapus pesan kesalahan
+                this.setCustomValidity('');
+            }
+        });
+    </script>
     <script>
         AOS.init();
     </script>
