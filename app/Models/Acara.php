@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Acara extends Model
 {
-    use HasFactory;
     protected $fillable = [
         'judul',
         'tempat',
@@ -15,4 +13,7 @@ class Acara extends Model
         'absen',
         'jam',
     ];
+
+    // Nonaktifkan timestamps
+    public $timestamps = false;
 }

@@ -29,7 +29,7 @@ class AcaraController extends Controller
             'tempat' => 'required|string',
             'tanggal' => 'required|date',
             'absen' => 'required|string',
-            'jam' => 'required|date_format:H:i',
+            'jam' => 'required|string',
         ]);
 
         // Simpan data acara baru
@@ -67,7 +67,7 @@ class AcaraController extends Controller
             'tempat' => 'required|string',
             'tanggal' => 'required|date',
             'absen' => 'required|string',
-            'jam' => 'required|date_format:H:i',
+            'jam' => 'required|string',
         ]);
 
         // Temukan acara yang ingin diubah
