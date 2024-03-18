@@ -63,24 +63,28 @@
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Riwayat Pelatihan</p>
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
-                <div class="w-full bg-[#CCCCCC] bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                @foreach($acaras as $acara)
+                <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
                     <div>
-                        <p class="text-black font-semibold text-sm">1.Pelatihan Sppur</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di MDM</p>
+                        <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
+                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">{{ $acara->tempat }}</p>
                     </div>
                     <div class="flex gap-4">
                         <div class="w-5 h-5 overflow-hidden">
                             <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
                         </div>
-                        <div class="w-5 h-5 overflow-hidden">
+                        <!-- edit -->
+                        <a  href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
-                        </div>
+                        </a>
                         <div class="w-5 h-5 overflow-hidden">
                             <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
+
         </div>
     </div>
     <script>

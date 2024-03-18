@@ -64,55 +64,46 @@
         <!-- kanan -->
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Tambah Acara</p>
-            <form action="{{ route('acaras.store') }}" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5" method="POST" enctype="multipart/form-data">
-            @csrf
-                <!-- Konten kanan di sini -->
+            <form action="{{ route('acaras.update', $acara->id) }}" method="POST" enctype="multipart/form-data" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
+                @csrf
+                @method('PUT') <!-- Menggunakan metode PUT -->
+                <!-- Konten Form -->
                 <div class="grid grid-cols-2 gap-8">
-                    <!-- inputan kiri -->
+                    <!-- Input kiri -->
                     <div class="flex flex-col gap-3">
-                        <!-- judul -->
+                        <!-- Judul -->
                         <p class="font-semibold text-gray-500">Judul</p>
-                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
-                        <!-- tempat -->
+                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" value="{{ $acara->judul }}">
+                        <!-- Tempat -->
                         <p class="font-semibold text-gray-500">Tempat</p>
-                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
-                        <!-- absen -->
+                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" value="{{ $acara->tempat }}">
+                        <!-- Absen -->
                         <p class="font-semibold text-gray-500">Absen</p>
                         <div class="relative">
                             <select name="absen" id="absen" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full">
-                                <option value="" disabled selected class="text-gray-500">Pilih waktu absen</option>
-                                <option value="pagi">Pagi</option>
-                                <option value="siang">Siang</option>
-                                <option value="sore">Sore</option>
+                                <option value="pagi" {{ $acara->absen === 'pagi' ? 'selected' : '' }}>Pagi</option>
+                                <option value="siang" {{ $acara->absen === 'siang' ? 'selected' : '' }}>Siang
+                                </option>
+                                <option value="sore" {{ $acara->absen === 'sore' ? 'selected' : '' }}>Sore</option>
                             </select>
                         </div>
-
                     </div>
-                    <!-- inputan kanan -->
+                    <!-- Input kanan -->
                     <div class="flex flex-col gap-3">
-                        <!-- tanggal -->
+                        <!-- Tanggal -->
                         <p class="font-semibold text-gray-500">Tanggal</p>
-                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
-                        <!-- jam -->
-                        <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
-                        <input type="text" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30">
+                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" value="{{ $acara->tanggal }}">
+                        <!-- Jam -->
+                        <p class="font-semibold text-gray-500">Jam</p>
+                        <input type="text" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" value="{{ $acara->jam }}">
                     </div>
                 </div>
-                <div class="fixed bottom-24 left-[350px] flex gap-5">
-                    <!-- ok -->
-                    <div class="flex gap-2 bg-[#c2ebc1] bg-opacity-50 items-center w-36 py-1 px-5 rounded-xl">
-                        <div class="w-6 h-6 overflow-hidden flex-none">
-                            <img src="/images/checklis.png" alt="cheklis" class="w-full h-full object-cover">
-                        </div>
-                        <button type="submit" class="text-[#03ad00] font-bold flex-auto text-start">OK</button>
-                    </div>
-                    <!-- cancel -->
-                    <div class="flex gap-2 bg-[#f3d9da] bg-opacity-50 items-center w-36 py-1 px-5 rounded-xl">
-                        <div class="w-4 h-4 overflow-hidden flex-none">
-                            <img src="/images/cancel.png" alt="cheklis" class="w-full h-full object-cover">
-                        </div>
-                        <button type="reset" class="text-[#b72026] flex-auto text-start font-bold">Cancel</button>
-                    </div>
+                <!-- Tombol Submit -->
+                <div class="flex gap-5 mt-5">
+                    <!-- OK -->
+                    <button type="submit" class="w-[100px] bg-[#c2ebc1] text-[#03ad00] font-bold py-2 rounded-lg">OK</button>
+                    <!-- Batal -->
+                    <button type="reset" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg">Batal</button>
                 </div>
             </form>
         </div>

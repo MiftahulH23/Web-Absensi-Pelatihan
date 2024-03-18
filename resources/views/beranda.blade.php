@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <!-- Riwayat -->
-                <a href="{{ route('riwayat') }}" class="flex gap-5 items-center ml-3">
+                <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
                     </div>

@@ -11,7 +11,7 @@ class AcaraController extends Controller
     public function index()
     {
         $acaras = Acara::all();
-        return view('beranda', compact('acaras'));
+        return view('riwayatPelatihan', compact('acaras'));
     }
 
     // Method untuk menampilkan form untuk membuat acara baru
@@ -48,14 +48,14 @@ class AcaraController extends Controller
     public function show($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('tambahAcara.show', compact('acara'));
+        return view('riwayatPelatihan', compact('acara'));
     }
 
     // Method untuk menampilkan form untuk mengedit acara
     public function edit($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('tambahAcara.edit', compact('acara'));
+        return view('editAcara', compact('acara'));
     }
 
     // Method untuk menyimpan perubahan pada data acara
