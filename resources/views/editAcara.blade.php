@@ -51,7 +51,7 @@
                     <p class="text-gray-500 font-semibold text-sm">Riwayat</p>
                 </a>
                 <!-- Tambah Acara -->
-                <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
+                <div class=" py-1">
                     <div class="flex gap-5 items-center ml-3">
                         <div class="w-6 h-6 overflow-hidden">
                             <img src="/images/addEventIcon.png" alt="addEventIcon" class="w-full h-full object-cover">
@@ -63,7 +63,7 @@
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
-            <p class="font-bold text-lg">Tambah Acara</p>
+            <p class="font-bold text-lg">Edit Acara</p>
             <form action="{{ route('acaras.update', $acara->id) }}" method="POST" enctype="multipart/form-data" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
                 @csrf
                 @method('PUT') <!-- Menggunakan metode PUT -->

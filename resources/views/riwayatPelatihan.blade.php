@@ -67,7 +67,7 @@
                 <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
                     <div>
                         <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">{{ $acara->tempat }}</p>
+                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
                     </div>
                     <div class="flex gap-4">
                         <div class="w-5 h-5 overflow-hidden">
