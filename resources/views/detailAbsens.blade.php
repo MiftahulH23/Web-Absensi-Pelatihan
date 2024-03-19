@@ -26,12 +26,12 @@
             <thead>
                 <tr class="border-b text-center">
                     <th class="w-8 font-semibold text-sm py-2">No</th>
-                    <th class="w-16 font-semibold text-sm py-2">Nama</th>
+                    <th class="w-24 font-semibold text-sm py-2">Nama</th>
                     <th class="w-10 font-semibold text-sm py-2">No Rekening</th>
-                    <th class="w-10 font-semibold text-sm py-2">Nik</th>
+                    <th class="w-6 font-semibold text-sm py-2">Nik</th>
                     <th class="w-10 font-semibold text-sm py-2">Level Jabatan</th>
-                    <th class="w-16 font-semibold text-sm py-2">Jabatan</th>
-                    <th class="w-16 font-semibold text-sm py-2">Unit Kantor</th>
+                    <th class="w-20 font-semibold text-sm py-2">Jabatan</th>
+                    <th class="w-20 font-semibold text-sm py-2">Unit Kantor</th>
                     <th class="w-12 font-semibold text-sm py-2">Dokumentasi</th>
                     <th class="w-20 font-semibold text-sm py-2">Tanda Tangan</th>
                     <th class="w-16 font-semibold text-sm py-2">Absen</th>
@@ -53,7 +53,7 @@
                         <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover inline-block">
                     </td>
                     <td class="text-sm py-2">
-                        <img src="{{ asset('storage/ttd/'. $absen->ttd) }}" alt="" class="w-20 h-20 object-cover inline-block">
+                        <img src="{{ asset('storage/ttd/'. $absen->ttd) }}" alt="" class="w-44 h-28 object-cover inline-block">
                     </td>
                     <td class="text-sm py-2">Pagi</td>
                     <td class="text-sm py-2">{{ $absen->created_at }}</td>
