@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AcaraController;
+use App\Http\Controllers\DataTableController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +60,5 @@ Route::post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
 Route::get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
 Route::get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
 Route::put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
+
+Route::get('/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
