@@ -47,7 +47,8 @@ class AbsenController extends Controller
         $ttd = $request->ttd;
         $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
         $ttd = base64_decode($ttd);
-        $ttdPath = ('public/ttd/') . uniqid() . '.png'; // Generate nama file unik
+        $ttdFileName = uniqid() . '.png'; // Generate nama file unik
+        $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
         file_put_contents(storage_path('app/' . $ttdPath), $ttd);
 
 
@@ -60,7 +61,7 @@ class AbsenController extends Controller
             'jabatan' => $request->jabatan,
             'unitKantor' => $request->unitKantor,
             'foto' => $image->hashName(),
-            'ttd' => $ttdPath, // Simpan path tanda tangan
+            'ttd' => $ttdFileName, // Simpan path tanda tangan
         ]);
 
         if ($absen) {

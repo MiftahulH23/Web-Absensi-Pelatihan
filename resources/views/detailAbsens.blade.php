@@ -24,7 +24,7 @@
     <div class=" bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll">
         <table class="w-full">
             <thead>
-                <tr class="border-b">
+                <tr class="border-b text-center">
                     <th class="w-8 font-semibold text-sm py-2">No</th>
                     <th class="w-16 font-semibold text-sm py-2">Nama</th>
                     <th class="w-10 font-semibold text-sm py-2">No Rekening</th>
@@ -41,23 +41,23 @@
             </thead>
             <tbody class="py-3">
                 @foreach($absens as $absen)
-                <tr class="border-b">
-                    <td class="text-center text-sm py-2">{{ $absen->id }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->nama }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->norek }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->nik }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->levelJabatan }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->jabatan }}</td>
-                    <td class="text-center text-sm py-2">{{ $absen->unitKantor }}</td>
-                    <td class="flex justify-center py-2">
-                        <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover">
+                <tr class="border-b text-center">
+                    <td class="text-sm py-2">{{ $absen->id }}</td>
+                    <td class="text-sm py-2">{{ $absen->nama }}</td>
+                    <td class="text-sm py-2">{{ $absen->norek }}</td>
+                    <td class="text-sm py-2">{{ $absen->nik }}</td>
+                    <td class="text-sm py-2">{{ $absen->levelJabatan }}</td>
+                    <td class="text-sm py-2">{{ $absen->jabatan }}</td>
+                    <td class="text-sm py-2">{{ $absen->unitKantor }}</td>
+                    <td class="text-sm py-2">
+                        <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover inline-block">
                     </td>
-                    <td class="">
-                        <img src="{{ asset($absen->ttd) }}" alt="" class="w-20 h-20 object-cover">
+                    <td class="text-sm py-2">
+                        <img src="{{ asset('storage/ttd/'. $absen->ttd) }}" alt="" class="w-20 h-20 object-cover inline-block">
                     </td>
-                    <td class="text-center text-sm py-2">Pagi</td>
-                    <td class="text-center text-sm py-2">{{ $absen->created_at }}</td>
-                    <td class="text-center text-sm py-2">telat</td>
+                    <td class="text-sm py-2">Pagi</td>
+                    <td class="text-sm py-2">{{ $absen->created_at }}</td>
+                    <td class="text-sm py-2">telat</td>
                 </tr>
                 @endforeach
             </tbody>
