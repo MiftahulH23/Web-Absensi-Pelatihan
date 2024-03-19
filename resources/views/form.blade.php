@@ -15,8 +15,10 @@
     <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
-
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <!-- CSS Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
     <title>Form Absensi</title>
 </head>
 
@@ -130,6 +132,13 @@
             const fileName = input.files[0].name;
             document.getElementById('fileName').innerText = fileName;
         }
+    </script>
+    <!-- JS Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
     </script>
 
 </body>
