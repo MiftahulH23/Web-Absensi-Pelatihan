@@ -18,7 +18,7 @@ class AcaraController extends Controller
     // Method untuk menampilkan form untuk membuat acara baru
     public function create()
     {
-        return view('tambahAcara.create');
+        return view('form');
     }
 
     // Method untuk menyimpan data acara baru

@@ -80,9 +80,9 @@
                         <a  href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
                         </a>
-                        <div class="w-5 h-5 overflow-hidden">
+                        <a href="{{ route('acaras.create', $acara->id) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                        </div>
+                        </a>
                     </div>
                 </div>
                 @endforeach
