@@ -53,7 +53,7 @@
                         <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover inline-block">
                     </td>
                     <td class="text-sm py-2">
-                        <img src="{{ asset('storage/ttd/'. $absen->ttd) }}" alt="" class="w-44 h-28 object-cover inline-block">
+                        <img src="{{ asset('storage/ttd/'. $absen->ttd) }}" alt="" class="w-44 h-28 object-contain inline-block">
                     </td>
                     <td class="text-sm py-2">Pagi</td>
                     <td class="text-sm py-2">{{ $absen->created_at }}</td>
