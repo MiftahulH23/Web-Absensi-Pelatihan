@@ -22,6 +22,15 @@
     <!-- Main content -->
     <p class="text-lg font-bold mt-5">Tabel Absens</p>
     <div class=" bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll">
+        <div class="flex justify-between">
+            <a href="{{ route('acaras.index') }}" class="w-12 h-6 overflow-hidden border-l ml-1">
+                <img src="/images/backIcon.png" alt="backIcon" class="w-full h-full object-contain">
+            </a>
+            <a class="w-16 h-7 overflow-hidden">
+                <img src="/images/downloadIcon.png" alt="downloadIcon" class="w-full h-full object-contain">
+            </a>
+
+        </div>
         <table class="w-full">
             <thead>
                 <tr class="border-b text-center">
