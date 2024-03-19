@@ -27,17 +27,17 @@
         <!-- Nama Lengkap -->
         <div class="flex flex-col mt-3">
             <p class="font-semibold ">Nama Lengkap</p>
-            <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl">
+            <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl" required>
         </div>
         <!--No Rekening -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold ">Nomor Rekening</p>
-            <input type="text" id="norek" name="norek" class="p-2 w-full md:w-full h-9 rounded-xl">
+            <input type="text" id="norek" name="norek" class="p-2 w-full md:w-full h-9 rounded-xl" required>
         </div>
         <!-- Nik -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold ">Nik</p>
-            <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl">
+            <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl" required>
         </div>
         <!-- Level Jabatan -->
         <div class="flex flex-col gap-1 mt-1">

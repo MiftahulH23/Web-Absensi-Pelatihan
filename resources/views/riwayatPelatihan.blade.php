@@ -32,6 +32,9 @@
                         Admin
                     </p>
                 </div>
+                <a class="w-6 h-6 overflow-hidden">
+                    <img src="/images/logoutIcon.png" alt="homeIcon" class="w-full h-full object-cover">
+                </a>
             </div>
             <div class="mt-8 flex flex-col gap-3">
                 <!-- beranda -->
