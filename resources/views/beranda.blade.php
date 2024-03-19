@@ -32,7 +32,7 @@
                         Admin
                     </p>
                 </div>
-                <a class="w-6 h-6 overflow-hidden">
+                <a href="{{ route('logout') }}" class="w-6 h-6 overflow-hidden">
                     <img src="/images/logoutIcon.png" alt="homeIcon" class="w-full h-full object-cover">
                 </a>
             </div>

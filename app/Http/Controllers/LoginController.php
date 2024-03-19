@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -38,5 +39,16 @@ class LoginController extends Controller
             // Pengguna tidak ditemukan, redirect kembali dengan pesan kesalahan
             return redirect()->back()->with('error', 'Email yang Anda masukkan tidak terdaftar');
         }
+    }
+
+    public function logout(Request $request)
+    {
+       
+
+        Auth::logout(); // Proses logout
+        $request->session()->invalidate(); // Invalidate session
+        $request->session()->regenerateToken(); // Regenerate token
+        
+        return redirect()->route('login'); // Redirect ke halaman login setelah logout
     }
 }
