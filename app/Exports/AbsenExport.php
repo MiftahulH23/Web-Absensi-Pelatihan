@@ -7,8 +7,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
-class AbsenExport implements FromCollection, WithHeadings, WithDrawings
+class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEvents
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -59,11 +61,33 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings
             $drawingTtd->setHeight(100); // Sesuaikan dengan tinggi yang diinginkan
             $drawingTtd->setCoordinates('I' . ($index + 2)); // Sesuaikan dengan kolom yang diinginkan
 
+            
             // Menambahkan objek gambar ke dalam array drawings
             $drawings[] = $drawingFoto;
             $drawings[] = $drawingTtd;
         }
 
         return $drawings;
+    }public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $sheet = $event->sheet;
+                $sheet->getParent()->getDefaultStyle()->getAlignment()->setWrapText(true); // Mengaktifkan wrap text untuk teks panjang
+                $sheet->getParent()->getDefaultStyle()->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT); // Mengatur teks menjadi rata kiri
+                $sheet->getParent()->getDefaultStyle()->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER); // Mengatur teks menjadi rata tengah
+    
+                $headerRange = 'A1:' . $sheet->getHighestDataColumn() . '1';
+                $sheet->getStyle($headerRange)->getFont()->setBold(true); // Mengatur teks tebal pada baris pertama
+                $sheet->getStyle($headerRange)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER); // Mengatur rata tengah pada baris pertama
+    
+                foreach (range('A', $sheet->getHighestDataColumn()) as $columnID) {
+                    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+                }
+            },
+        ];
     }
+    
+
+    
 }
