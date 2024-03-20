@@ -17,5 +17,6 @@ class Absen extends Model
         'unitKantor',
         'foto',
         'ttd',
+        'id_acara',
     ];
 }

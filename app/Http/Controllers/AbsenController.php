@@ -6,6 +6,7 @@ use App\Models\Absen;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Acara;
 
 class AbsenController extends Controller
 {
@@ -15,9 +16,10 @@ class AbsenController extends Controller
         return view('detailAbsens', compact('absens'));
     }
 
-    public function create(): View
+    public function create($id)
     {
-        return view('form');
+        $acara = Acara::findOrFail($id);
+        return view('form', compact('acara'));
     }
 
     public function selesai()
@@ -25,7 +27,7 @@ class AbsenController extends Controller
         return view('selesai');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, $id): RedirectResponse
     {
         // Validasi formulir
         $this->validate($request, [
@@ -51,7 +53,6 @@ class AbsenController extends Controller
         $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
         file_put_contents(storage_path('app/' . $ttdPath), $ttd);
 
-
         // Membuat data absen
         $absen = Absen::create([
             'nama' => $request->nama,
@@ -62,6 +63,7 @@ class AbsenController extends Controller
             'unitKantor' => $request->unitKantor,
             'foto' => $image->hashName(),
             'ttd' => $ttdFileName, // Simpan path tanda tangan
+            'id_acara' => $id, // Mengambil ID acara dari URL
         ]);
 
         if ($absen) {

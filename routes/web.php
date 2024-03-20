@@ -29,7 +29,7 @@ Route::get('/dokumentasi', function () {
 
 
 
-Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
+// Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
 
 Route::resource('/home', \App\Http\Controllers\HomeController::class);
 
@@ -54,11 +54,16 @@ Route::get('/detilabsen', function () {
     return view('detailAbsens');
 })->name('detil');
 
+Route::get('/absens', [AbsenController::class, 'index'])->name('absens.index');
+
 Route::get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
-Route::get('/acaras/create', [AcaraController::class, 'create'])->name('acaras.create');
+// Route::get('/acaras/create', [AcaraController::class, 'create'])->name('acaras.create');
 Route::post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
 Route::get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
 Route::get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
 Route::put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 
 Route::get('/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
+
+Route::get('/acaras/{id}/create', [AbsenController::class, 'create'])->name('acara.absen.create');
+Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');

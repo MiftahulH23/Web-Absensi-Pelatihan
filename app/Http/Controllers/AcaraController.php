@@ -16,9 +16,10 @@ class AcaraController extends Controller
     
 
     // Method untuk menampilkan form untuk membuat acara baru
-    public function create()
+    public function create($id)
     {
-        return view('form');
+        $acara = Acara::findOrFail($id);
+        return view('form', compact('acara'));
     }
 
     // Method untuk menyimpan data acara baru

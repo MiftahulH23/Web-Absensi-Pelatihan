@@ -24,7 +24,7 @@
 
 <body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
     <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
-    <form class="container" action="{{ route('absens.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Nama Lengkap -->
         <div class="flex flex-col mt-3">
@@ -94,7 +94,7 @@
             </div>
             <input type="hidden" id="signature64" name="ttd"> <!-- Pastikan nama inputnya adalah 'ttd' -->
         </div>
-
+        <input type="hidden" name="acara_id" id="acara_id" value="{{ $acara->id }}">
         <!-- button -->
         <div class="grid place-items-center">
             <button type="submit" class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
