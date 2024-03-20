@@ -54,6 +54,11 @@ class AcaraController extends Controller
         $absens = Absen::where('id_acara', $id)->get(); // Ambil semua data absen yang terkait dengan acara tertentu
         return view('detailAbsens', compact('acara', 'absens'));
     }
+    public function selesai($id)
+    {
+        $acara = Acara::findOrFail($id);
+        return view('selesai',compact('acara'));
+    }
 
     // Method untuk menampilkan form untuk mengedit acara
     public function edit($id)

@@ -38,7 +38,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('actionlogin');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/selesai', [AbsenController::class, 'selesai'])->name('selesai');
+Route::get('/selesai/{id}', [AcaraController::class, 'selesai'])->name('selesai');
 Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar');
 Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
 
