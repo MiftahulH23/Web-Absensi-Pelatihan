@@ -73,7 +73,7 @@
                         <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
                     </div>
                     <div class="flex gap-4">
-                        <a href="{{ route('absens.index') }}" class="w-5 h-5 overflow-hidden">
+                        <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
                         </a>
                         <!-- edit -->

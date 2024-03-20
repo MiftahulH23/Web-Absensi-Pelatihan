@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absen;
 use Illuminate\Http\Request;
 use App\Models\Acara;
 
@@ -13,7 +14,7 @@ class AcaraController extends Controller
         $acaras = Acara::all();
         return view('riwayatPelatihan', compact('acaras'));
     }
-    
+
 
     // Method untuk menampilkan form untuk membuat acara baru
     public function create($id)
@@ -50,7 +51,8 @@ class AcaraController extends Controller
     public function show($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('riwayatPelatihan', compact('acara'));
+        $absens = Absen::where('id_acara', $id)->get(); // Ambil semua data absen yang terkait dengan acara tertentu
+        return view('detailAbsens', compact('acara', 'absens'));
     }
 
     // Method untuk menampilkan form untuk mengedit acara
