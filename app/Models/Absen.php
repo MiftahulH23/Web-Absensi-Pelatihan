@@ -18,5 +18,6 @@ class Absen extends Model
         'foto',
         'ttd',
         'id_acara',
+        'absen'
     ];
 }

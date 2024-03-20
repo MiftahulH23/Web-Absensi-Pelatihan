@@ -44,7 +44,10 @@ class AbsenController extends Controller
         // Unggah gambar
         $image = $request->file('foto');
         $image->storeAs('public/absens', $image->hashName());
-
+        // Ambil waktu dari acara yang dipilih
+        $acara = Acara::findOrFail($id);
+        $waktuAcara = $acara->absen;
+        // status
         // Unggah tanda tangan
         $ttd = $request->ttd;
         $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
@@ -64,6 +67,7 @@ class AbsenController extends Controller
             'foto' => $image->hashName(),
             'ttd' => $ttdFileName, // Simpan path tanda tangan
             'id_acara' => $id, // Mengambil ID acara dari URL
+            'absen' => $waktuAcara, // Simpan waktu dari acara
         ]);
 
         if ($absen) {
