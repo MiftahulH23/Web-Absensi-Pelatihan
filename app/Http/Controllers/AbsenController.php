@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Acara;
 use Carbon\Carbon;
+
 class AbsenController extends Controller
 {
     public function index(): View
@@ -50,11 +51,11 @@ class AbsenController extends Controller
         // status
         $jamAcara = $acara->jam; // asumsikan $acara->jam berisi string jam dalam format HH:mm
         $absen = Absen::findOrFail($id);
-        $jamAbsen = Carbon::createFromFormat('Y-m-d H:i:s', $absen->created_at)->format('H:i');
+        $jamAbsen = date('H:i', strtotime($absen->created_at));
 
-        if (Carbon::parse($jamAbsen)->gt(Carbon::parse($jamAcara))) {
+        if (strtotime($jamAbsen) > strtotime($jamAcara)) {
             // Telat
-            $status = 'Telat';
+            $status = 'Late';
         } else {
             // Ontime
             $status = 'Ontime';

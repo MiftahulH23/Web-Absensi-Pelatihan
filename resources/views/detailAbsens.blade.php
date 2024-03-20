@@ -27,8 +27,8 @@
                 <img src="/images/backIcon.png" alt="backIcon" class="w-full h-full object-contain">
             </a>
             <a href="{{ route('download.excel') }}" class="w-16 h-7 overflow-hidden">
-    <img src="/images/downloadIcon.png" alt="downloadIcon" class="w-full h-full object-contain">
-</a>
+                <img src="/images/downloadIcon.png" alt="downloadIcon" class="w-full h-full object-contain">
+            </a>
 
 
         </div>
@@ -67,7 +67,13 @@
                     </td>
                     <td class="text-sm py-2">{{ $absen->absen }}</td>
                     <td class="text-sm py-2">{{ $absen->created_at }}</td>
-                    <td class="text-sm py-2">{{ $absen->status }}</td>
+                    <td class="text-sm py-2">
+                        @if($absen->status == 'Late')
+                        <span class="text-[#70241d] bg-[#f3d4d1] py-1 px-6 rounded-xl">Late</span>
+                        @else
+                        <span class="text-[#105352] bg-[#c9e8e8] py-1 px-3 rounded-xl">Ontime</span>
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

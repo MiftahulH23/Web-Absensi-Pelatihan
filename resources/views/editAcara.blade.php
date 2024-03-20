@@ -98,7 +98,7 @@
                         <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" value="{{ $acara->tanggal }}">
                         <!-- Jam -->
                         <p class="font-semibold text-gray-500">Jam</p>
-                        <input type="text" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" value="{{ $acara->jam }}">
+                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" value="{{ $acara->jam }}">
                     </div>
                 </div>
                 <!-- Tombol Submit -->
