@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Acara;
-
+use Carbon\Carbon;
 class AbsenController extends Controller
 {
     public function index(): View
@@ -48,6 +48,17 @@ class AbsenController extends Controller
         $acara = Acara::findOrFail($id);
         $waktuAcara = $acara->absen;
         // status
+        $jamAcara = $acara->jam; // asumsikan $acara->jam berisi string jam dalam format HH:mm
+        $absen = Absen::findOrFail($id);
+        $jamAbsen = Carbon::createFromFormat('Y-m-d H:i:s', $absen->created_at)->format('H:i');
+
+        if (Carbon::parse($jamAbsen)->gt(Carbon::parse($jamAcara))) {
+            // Telat
+            $status = 'Telat';
+        } else {
+            // Ontime
+            $status = 'Ontime';
+        }
         // Unggah tanda tangan
         $ttd = $request->ttd;
         $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
@@ -68,6 +79,7 @@ class AbsenController extends Controller
             'ttd' => $ttdFileName, // Simpan path tanda tangan
             'id_acara' => $id, // Mengambil ID acara dari URL
             'absen' => $waktuAcara, // Simpan waktu dari acara
+            'status' => $status, // Simpan waktu dari acara
         ]);
 
         if ($absen) {

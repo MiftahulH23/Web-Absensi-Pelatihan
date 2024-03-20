@@ -67,7 +67,7 @@
                     </td>
                     <td class="text-sm py-2">{{ $absen->absen }}</td>
                     <td class="text-sm py-2">{{ $absen->created_at }}</td>
-                    <td class="text-sm py-2">telat</td>
+                    <td class="text-sm py-2">{{ $absen->status }}</td>
                 </tr>
                 @endforeach
             </tbody>
