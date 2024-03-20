@@ -32,11 +32,11 @@
     <script>
         AOS.init();
     </script>
-    <script>
+    <!-- <script>
         var scanRoute = "{{ route('absens.create')}}";
         setTimeout(function() {
             window.location.href = scanRoute
         }, 3000);
-    </script>
+    </script> -->
 </body>
 </html>
