@@ -27,7 +27,22 @@ class AbsenController extends Controller
     {
         return view('selesai');
     }
+    public function simpanFoto(Request $request)
+    {
+        // Validasi request
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
+        // Mendapatkan data gambar dari request
+        $image = $request->file('image');
+
+        // Menyimpan gambar ke dalam folder public/dokumentasi
+        $path = $image->store('public/dokumentasi');
+
+        // Mengembalikan path gambar yang disimpan
+        return $path;
+    }
     public function store(Request $request, $id): RedirectResponse
     {
         // Validasi formulir
@@ -82,6 +97,7 @@ class AbsenController extends Controller
             'absen' => $waktuAcara, // Simpan waktu dari acara
             'status' => $status, // Simpan waktu dari acara
         ]);
+        
 
         if ($absen) {
             return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);

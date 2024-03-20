@@ -21,4 +21,8 @@ class Absen extends Model
         'absen',
         'status'
     ];
+    protected $hidden = [
+        'id_acara',
+        'updated_at',
+    ];
 }

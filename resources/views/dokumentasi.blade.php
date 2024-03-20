@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -31,11 +31,8 @@
         <div class="mx-5 mb-2 mt-4">
             <div class="h-full w-full md:h-full md:w-full  bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
-                <div class="w-56 h-64 md:w-full bg-gray-500 grid place-items-center mt-2 rounded-xl">
-                    <p>Camera</p>
-                </div>
-                <button class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ulangi Foto</button>
-                <button class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Ambil Sekarang</button>
+                <video id="video" width="300" height="200" autoplay></video>
+                <button onclick="captureSnapshot()" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Ambil Sekarang</button>
             </div>
         </div>
     </div>
@@ -43,5 +40,50 @@
     <div class="w-full h-[85px] mt-3">
         <img src="images/motifMelayu.png" alt="" class="w-full h-full object-cover">
     </div>
+
+    <script>
+        // Mengakses media perangkat pengguna (kamera)
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var video = document.getElementById('video');
+                // Memainkan video stream pada elemen video
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.log("Tidak dapat mengakses kamera: " + err);
+            });
+
+// Mengambil snapshot dari video dan mengirimnya ke server
+function captureSnapshot() {
+    var video = document.getElementById('video');
+    var canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    var context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // Simpan snapshot sebagai data URL
+    var imageDataURL = canvas.toDataURL('image/png');
+    
+    // Kirim data URL ke server menggunakan AJAX
+    $.ajax({
+        type: 'POST',
+        url: '{{ route("simpan.foto") }}', // Menggunakan route "simpan.foto"
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Sertakan token CSRF
+        },
+        data: { image: imageDataURL },
+        success: function(response) {
+            console.log('Foto berhasil disimpan:', response);
+            // Tambahkan logika lainnya setelah foto berhasil disimpan
+        },
+        error: function(xhr, status, error) {
+            console.error('Terjadi kesalahan saat menyimpan foto:', error);
+            // Tambahkan logika penanganan kesalahan
+        }
+    });
+}
+
+
+    </script>
 </body>
 </html>
