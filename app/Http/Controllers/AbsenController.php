@@ -67,7 +67,7 @@ class AbsenController extends Controller
         ]);
 
         if ($absen) {
-            return redirect()->route('selesai')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
         }
 
         return redirect()->route('absen.create')->with(['success' => 'Data gagal Disimpan!']);
