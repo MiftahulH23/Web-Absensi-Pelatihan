@@ -114,7 +114,8 @@
                         <div class="w-4 h-4 overflow-hidden flex-none">
                             <img src="/images/cancel.png" alt="cheklis" class="w-full h-full object-cover">
                         </div>
-                        <button type="reset" class="text-[#b72026] flex-auto text-start font-bold">Cancel</button>
+                        <a href="{{ route('home.index') }}" class=" text-[#b72026] font-bold text-center small-font">Batal</a>
+                       
                     </div>
                 </div>
             </form>

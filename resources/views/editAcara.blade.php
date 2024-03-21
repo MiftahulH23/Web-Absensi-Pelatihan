@@ -105,8 +105,14 @@
                 <div class="flex gap-5 mt-5">
                     <!-- OK -->
                     <button type="submit" class="w-[100px] bg-[#c2ebc1] text-[#03ad00] font-bold py-2 rounded-lg">OK</button>
-                    <!-- Batal -->
-                    <button type="reset" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg">Batal</button>
+                    <!-- Tombol Batal -->
+                        <style>
+                        .small-font {
+                             font-size: 16px;
+                            }
+                         </style>
+                    <a href="{{ route('acaras.index') }}" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg block text-center small-font">Batal</a>
+
                 </div>
             </form>
         </div>
