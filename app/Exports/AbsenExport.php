@@ -17,8 +17,24 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
      */
     public function collection()
     {
-        return Absen::all();
+        return Absen::all()->map(function ($absen) {
+            return [
+                'No' => $absen->id,
+                'Nama' => $absen->nama,
+                'No Rekening' => $absen->norek,
+                'Nik' => $absen->nik,
+                'Level Jabatan' => $absen->levelJabatan,
+                'Jabatan' => $absen->jabatan,
+                'Unit Kantor' => $absen->unitKantor,
+                'Dokumentasi' => $absen->dokumentasi,
+                'Tanda Tangan' => $absen->tanda_tangan,
+                'Absen' => $absen->absen,
+                'Waktu' => $absen->created_at->format('Y-m-d H:i:s'), // Ubah format waktu menjadi 'Y-m-d H:i:s'
+                'Status' => $absen->status,
+            ];
+        });
     }
+
 
     /**
      * @return array
@@ -70,9 +86,14 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
         return $drawings;
     }public function registerEvents(): array
     {
+        
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet;
+                $absenCount = Absen::count();
+            for ($i = 0; $i < $absenCount; $i++) {
+                $sheet->getRowDimension($i + 2)->setRowHeight(100); // Sesuaikan dengan tinggi gambar
+            }
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setWrapText(true); // Mengaktifkan wrap text untuk teks panjang
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT); // Mengatur teks menjadi rata kiri
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER); // Mengatur teks menjadi rata tengah
