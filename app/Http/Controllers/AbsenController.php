@@ -60,21 +60,23 @@ class AbsenController extends Controller
         // Unggah gambar
         $image = $request->file('foto');
         $image->storeAs('public/absens', $image->hashName());
+
         // Ambil waktu dari acara yang dipilih
         $acara = Acara::findOrFail($id);
-        $waktuAcara = $acara->absen;
-        // status
-        $jamAcara = $acara->jam; // asumsikan $acara->jam berisi string jam dalam format HH:mm
-        $absen = Absen::findOrFail($id);
-        $jamAbsen = date('H:i', strtotime($absen->created_at));
+        $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
 
-        if (strtotime($jamAbsen) > strtotime($jamAcara)) {
+        // Ambil waktu absen
+        $absen = Carbon::now();
+
+        // Tentukan status
+        if ($absen->greaterThan($jamAcara)) {
             // Telat
             $status = 'Late';
         } else {
             // Ontime
             $status = 'Ontime';
         }
+
         // Unggah tanda tangan
         $ttd = $request->ttd;
         $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
@@ -84,7 +86,7 @@ class AbsenController extends Controller
         file_put_contents(storage_path('app/' . $ttdPath), $ttd);
 
         // Membuat data absen
-        $absen = Absen::create([
+        $absenData = [
             'nama' => $request->nama,
             'norek' => $request->norek,
             'nik' => $request->nik,
@@ -94,10 +96,11 @@ class AbsenController extends Controller
             'foto' => $image->hashName(),
             'ttd' => $ttdFileName, // Simpan path tanda tangan
             'id_acara' => $id, // Mengambil ID acara dari URL
-            'absen' => $waktuAcara, // Simpan waktu dari acara
-            'status' => $status, // Simpan waktu dari acara
-        ]);
-        
+            'absen' => $absen, // Simpan waktu absen
+            'status' => $status, // Simpan status absen
+        ];
+
+        $absen = Absen::create($absenData);
 
         if ($absen) {
             return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
