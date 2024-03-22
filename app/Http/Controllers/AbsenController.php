@@ -65,6 +65,9 @@ class AbsenController extends Controller
         $acara = Acara::findOrFail($id);
         $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
 
+        // Ambil waktu dari acara yang dipilih
+        $acara = Acara::findOrFail($id);
+        $waktuAcara = $acara->absen;
         // Ambil waktu absen
         $absen = Carbon::now();
 
@@ -96,7 +99,7 @@ class AbsenController extends Controller
             'foto' => $image->hashName(),
             'ttd' => $ttdFileName, // Simpan path tanda tangan
             'id_acara' => $id, // Mengambil ID acara dari URL
-            'absen' => $absen, // Simpan waktu absen
+            'absen' => $waktuAcara, // Simpan waktu absen
             'status' => $status, // Simpan status absen
         ];
 
