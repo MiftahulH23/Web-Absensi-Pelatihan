@@ -28,9 +28,10 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
         $absens = Absen::where('id_acara', $eventId)->get();
 
         $data = [];
+        $counter = 1;
         foreach ($absens as $absen) {
             $data[] = [
-                'No' => $absen->id,
+                'No' => $counter++,
                 'Nama' => $absen->nama,
                 'No Rekening' => $absen->norek,
                 'Nik' => $absen->nik,
