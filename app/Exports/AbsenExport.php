@@ -91,9 +91,10 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet;
                 $absenCount = Absen::count();
-            for ($i = 0; $i < $absenCount; $i++) {
+
+                for ($i = 0; $i < $absenCount; $i++) {
                 $sheet->getRowDimension($i + 2)->setRowHeight(100); // Sesuaikan dengan tinggi gambar
-            }
+                }
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setWrapText(true); // Mengaktifkan wrap text untuk teks panjang
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT); // Mengatur teks menjadi rata kiri
                 $sheet->getParent()->getDefaultStyle()->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER); // Mengatur teks menjadi rata tengah
