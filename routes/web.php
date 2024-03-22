@@ -63,7 +63,7 @@ Route::get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show'
 Route::get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
 Route::put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 
-Route::get('/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
+Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
 
 Route::get('/acaras/{id}/create', [AbsenController::class, 'create'])->name('acara.absen.create');
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
