@@ -75,14 +75,14 @@
         <!-- Dokumentasi -->
         <div class="flex flex-col gap-1 mt-1">
             <p class="font-semibold">Dokumentasi</p>
-            <label for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" onchange="displayFileName(this)" />
+            <a href="{{ url('/dokumentasi') }}"  for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+               
                 <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <!-- Logo Input -->
                     <img src="/images/input.png" alt="" class="h-6">
                 </span>
                 <p id="fileName" class="text-sm"></p>
-            </label>
+</a>
         </div>
         <!-- Tanda Tangan -->
         <div class="flex flex-col gap-1 mt-1 rounded-xl">
