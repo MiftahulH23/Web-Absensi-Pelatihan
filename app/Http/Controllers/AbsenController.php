@@ -63,11 +63,11 @@ class AbsenController extends Controller
 
         // Ambil waktu dari acara yang dipilih
         $acara = Acara::findOrFail($id);
-        $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
+        $waktuAcara = $acara->absen;
 
         // Ambil waktu dari acara yang dipilih
-        $acara = Acara::findOrFail($id);
-        $waktuAcara = $acara->absen;
+        $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
+
         // Ambil waktu absen
         $absen = Carbon::now();
 
