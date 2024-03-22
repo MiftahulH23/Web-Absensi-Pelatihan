@@ -52,7 +52,7 @@
             <tbody class="py-3">
                 @foreach($absens as $absen)
                 <tr class="border-b text-center">
-                    <td class="text-sm py-2">{{ $absen->id }}</td>
+                    <td class="text-sm py-2">{{ $loop->iteration }}</td>
                     <td class="text-sm py-2">{{ $absen->nama }}</td>
                     <td class="text-sm py-2">{{ $absen->norek }}</td>
                     <td class="text-sm py-2">{{ $absen->nik }}</td>
