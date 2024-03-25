@@ -65,5 +65,6 @@ Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'download
 
 Route::get('/acaras/{id}/create', [AbsenController::class, 'create'])->name('acara.absen.create');
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
+Route::get('/acaras/{id}/take-foto', [AbsenController::class, 'takeFoto'])->name('acara.absen.takeFoto');
 Route::post('/simpan-foto', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
 

@@ -27,43 +27,56 @@
         <p class="font-bold text-xl text-center mt-4">Selamat Datang</p>
         <!-- logo brks academy -->
         <div class="w-40 overflow-hidden mt-2">
-            <img src="images/logobrkacademy.png" alt="logobrkacademy" class="w-full h-full object-cover">
+            <img src="/images/logobrkacademy.png" alt="logobrkacademy" class="w-full h-full object-cover">
         </div>
         <!-- take foto -->
         <div class="mx-5 mb-2 mt-4">
-            <div class="h-full w-full md:h-full md:w-full  bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
+            <div class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
-                <div class="w-56 h-64 overflow-hidden relative">
+                <div id="fotoContainer" class="w-56 h-64 overflow-hidden relative">
                     <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
                     <div class="absolute top-0 right-0">
-                    <img id="clear" src="/images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
+                        <img id="clear" src="/images/clear.png" alt="Hapus Foto" class="w-12 h-12 z-0">
+                    </div>
                 </div>
-                </div>
-                <button class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
-                <button onclick="captureSnapshot()" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
+                <form id="fotoForm" method="POST" action="{{ route('simpan.foto') }}">
+                    @csrf
+                    <input type="hidden" id="foto" name="image">
+                    <button type="button" id="ambilFotoBtn" class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
+                </form>
+                <button type="submit" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
             </div>
         </div>
     </div>
     <!-- motifmelayu -->
-    <div class="w-full h-[85px] mt-3 fixed bottom-0">
-        <img src="images/motifMelayu.png" alt="" class="w-full h-full object-cover">
-    </div>
+    <!-- <div class="w-full h-[85px] mt-20 fixed bottom-0">
+        <img src="/images/motifMelayu.png" alt="" class="w-full h-full object-cover">
+    </div> -->
     <!-- js -->
     <script>
-        // Mengakses media perangkat pengguna (kamera)
-        navigator.mediaDevices.getUserMedia({
-                video: true
-            })
-            .then(function(stream) {
-                var video = document.getElementById('video');
-                // Memainkan video stream pada elemen video
-                video.srcObject = stream;
-            })
-            .catch(function(err) {
-                console.log("Tidak dapat mengakses kamera: " + err);
+        document.addEventListener("DOMContentLoaded", function() {
+            var ambilFotoBtn = document.getElementById('ambilFotoBtn');
+            var clearFotoBtn = document.getElementById('clear');
+            ambilFotoBtn.addEventListener('click', function() {
+                captureSnapshot();
             });
 
-        // Mengambil snapshot dari video dan mengirimnya ke server
+            clearFotoBtn.addEventListener('click', function() {
+                clearFoto();
+            });
+
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    var video = document.getElementById('video');
+                    video.srcObject = stream;
+                })
+                .catch(function(err) {
+                    console.log("Tidak dapat mengakses kamera: " + err);
+                });
+        });
+
         function captureSnapshot() {
             var video = document.getElementById('video');
             var canvas = document.createElement('canvas');
@@ -71,30 +84,52 @@
             canvas.height = video.videoHeight;
             var context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            // Simpan snapshot sebagai data URL
             var imageDataURL = canvas.toDataURL('image/png');
 
-            // Kirim data URL ke server menggunakan AJAX
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("simpan.foto") }}', // Menggunakan route "simpan.foto"
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Sertakan token CSRF
-                },
-                data: {
-                    image: imageDataURL
-                },
-                success: function(response) {
-                    console.log('Foto berhasil disimpan:', response);
-                    // Tambahkan logika lainnya setelah foto berhasil disimpan
-                },
-                error: function(xhr, status, error) {
-                    console.error('Terjadi kesalahan saat menyimpan foto:', error);
-                    // Tambahkan logika penanganan kesalahan
-                }
+            // Menampilkan foto di dalam elemen video
+            video.style.display = 'none';
+            var foto = document.createElement('img');
+            foto.src = imageDataURL;
+            foto.alt = 'Foto yang diambil';
+            foto.className = 'rounded-xl w-full h-full object-cover';
+            video.parentNode.replaceChild(foto, video);
+
+            document.getElementById('foto').value = imageDataURL;
+        }
+
+        function clearFoto() {
+            var video = document.getElementById('video');
+            var fotoContainer = document.getElementById('fotoContainer');
+
+            // Menghapus foto yang sedang ditampilkan
+            var foto = fotoContainer.querySelector('img');
+            if (foto) {
+                fotoContainer.removeChild(foto);
+            }
+
+            // Menampilkan kembali video
+            video.style.display = 'block';
+
+            // Menghentikan track kamera sebelumnya
+            var stream = video.srcObject;
+            var tracks = stream.getTracks();
+            tracks.forEach(function(track) {
+                track.stop();
             });
+
+            // Membuka kembali kamera untuk mengambil foto baru
+            navigator.mediaDevices.getUserMedia({
+                    video: true
+                })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err) {
+                    console.log("Tidak dapat mengakses kamera: " + err);
+                });
         }
     </script>
+
 </body>
 
 </html>

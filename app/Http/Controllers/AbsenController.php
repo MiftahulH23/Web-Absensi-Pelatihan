@@ -27,6 +27,10 @@ class AbsenController extends Controller
     {
         return view('selesai');
     }
+    public function takeFoto()
+    {
+        return view('dokumentasi');
+    }
     public function simpanFoto(Request $request)
     {
         // Validasi request
