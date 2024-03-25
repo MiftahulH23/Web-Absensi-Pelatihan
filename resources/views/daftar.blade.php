@@ -19,7 +19,7 @@
             <img src="/images/gedungbrk.png" alt="" class="w-full h-full object-cover opacity-50">
         </div>
         <!-- Kanan -->
-        <div class="relative my-auto h-screen">
+        <div class="relative my-auto lg:h-[80vh] md:h-[90vh]">
             <div class="mx-5">
                 <div class="w-36 overflow-hidden mx-auto">
                     <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
@@ -52,8 +52,8 @@
                 </form>
             </div>
             <!-- motif melayu -->
-            <div class="absolute bottom-20 right-0 mb-5">
-                <img src="/images/motifMelayu.png" alt="" class="w-[410px] h-auto">
+            <div class="absolute bottom-0">
+                <img src="/images/motifMelayu.png" alt="" class="w-full h-auto">
             </div>
         </div>
     </div>
