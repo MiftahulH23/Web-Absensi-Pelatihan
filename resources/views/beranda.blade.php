@@ -68,6 +68,7 @@
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
                 <!-- Konten kanan di sini -->
                 <p class="font-bold text-lg">Acara yang Sedang Berlangsung</p>
+                @if(count($acaraSedangBerlangsung) > 0)
                 <ul>
                     @foreach($acaraSedangBerlangsung as $acara)
                     <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
@@ -91,6 +92,11 @@
                     </div>
                     @endforeach
                 </ul>
+                @else
+                <div class="flex justify-start">
+                    <p class="bg-[#c2ebc1] text-center px-2 py-1 rounded-xl text-[#03ad00]">Sedang tidak ada acara berlangsung</p>
+                </div>
+                @endif
                 <p class="font-bold text-lg mt-10">Riwayat Pelatihan Terakhir</p>
                 <ul>
                     @foreach($riwayatPelatihan as $acara)
