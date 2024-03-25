@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
     <title>Dokumentasi</title>
 </head>
+
 <body class="bg-[rgb(239,239,239)] h-fit">
     <div class="container flex flex-col justify-center items-center">
         <!-- selamat datang -->
@@ -31,19 +33,27 @@
         <div class="mx-5 mb-2 mt-4">
             <div class="h-full w-full md:h-full md:w-full  bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
-                <video id="video" width="300" height="200" autoplay></video>
-                <button onclick="captureSnapshot()" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Ambil Sekarang</button>
+                <div class="w-56 h-64 overflow-hidden relative">
+                    <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
+                    <div class="absolute top-0 right-0">
+                    <img id="clear" src="/images/clear.png" alt="Hapus Tanda Tangan" class="w-12 h-12 z-0">
+                </div>
+                </div>
+                <button class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
+                <button onclick="captureSnapshot()" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
             </div>
         </div>
     </div>
     <!-- motifmelayu -->
-    <div class="w-full h-[85px] mt-3">
+    <div class="w-full h-[85px] mt-3 fixed bottom-0">
         <img src="images/motifMelayu.png" alt="" class="w-full h-full object-cover">
     </div>
-
+    <!-- js -->
     <script>
         // Mengakses media perangkat pengguna (kamera)
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({
+                video: true
+            })
             .then(function(stream) {
                 var video = document.getElementById('video');
                 // Memainkan video stream pada elemen video
@@ -53,37 +63,38 @@
                 console.log("Tidak dapat mengakses kamera: " + err);
             });
 
-// Mengambil snapshot dari video dan mengirimnya ke server
-function captureSnapshot() {
-    var video = document.getElementById('video');
-    var canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    var context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    // Simpan snapshot sebagai data URL
-    var imageDataURL = canvas.toDataURL('image/png');
-    
-    // Kirim data URL ke server menggunakan AJAX
-    $.ajax({
-        type: 'POST',
-        url: '{{ route("simpan.foto") }}', // Menggunakan route "simpan.foto"
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Sertakan token CSRF
-        },
-        data: { image: imageDataURL },
-        success: function(response) {
-            console.log('Foto berhasil disimpan:', response);
-            // Tambahkan logika lainnya setelah foto berhasil disimpan
-        },
-        error: function(xhr, status, error) {
-            console.error('Terjadi kesalahan saat menyimpan foto:', error);
-            // Tambahkan logika penanganan kesalahan
+        // Mengambil snapshot dari video dan mengirimnya ke server
+        function captureSnapshot() {
+            var video = document.getElementById('video');
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Simpan snapshot sebagai data URL
+            var imageDataURL = canvas.toDataURL('image/png');
+
+            // Kirim data URL ke server menggunakan AJAX
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("simpan.foto") }}', // Menggunakan route "simpan.foto"
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Sertakan token CSRF
+                },
+                data: {
+                    image: imageDataURL
+                },
+                success: function(response) {
+                    console.log('Foto berhasil disimpan:', response);
+                    // Tambahkan logika lainnya setelah foto berhasil disimpan
+                },
+                error: function(xhr, status, error) {
+                    console.error('Terjadi kesalahan saat menyimpan foto:', error);
+                    // Tambahkan logika penanganan kesalahan
+                }
+            });
         }
-    });
-}
-
-
     </script>
 </body>
+
 </html>
