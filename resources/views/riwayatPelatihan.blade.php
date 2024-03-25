@@ -50,7 +50,7 @@
                         <div class="w-6 h-6 overflow-hidden">
                             <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
                         </div>
-                        <p class="text-gray-500 font-semibold text-sm" style="font-size: 0.875rem;">Riwayat</p>
+                        <p class="text-gray-500 font-semibold text-sm" style="font-size: 0.875rem;">Daftar Acara</p>
                     </div>
                 </div>
                 <!-- Tambah Acara -->
@@ -64,7 +64,7 @@
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
-            <p class="font-bold text-lg">Riwayat Pelatihan</p>
+            <p class="font-bold text-lg">Daftar Acara</p>
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll ">
                 @foreach($acaras as $acara)
                 <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">

@@ -51,7 +51,7 @@
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-500 font-semibold text-sm">Riwayat</p>
+                    <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
                 </a>
                 <!-- Tambah Acara -->
                 <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">

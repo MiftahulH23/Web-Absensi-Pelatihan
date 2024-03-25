@@ -21,10 +21,57 @@
 
     <title>Form Absensi</title>
 </head>
-
 <body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
-    <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
-    <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
+    <div>
+        <div class="container grid place-items-center mt-16">
+            <div class="w-64 h-28 overflow-hidden flex justify-center items-center">
+                <img src="/images/newlogo.png" alt="logo" class="object-cover w-full h-full">
+            </div>
+            <div class="relative mt-20 animate-line">
+                <div class="w-full h-2 overflow-hidden ml-2">
+                    <img src="/images/linered.png" alt="line" class="object-cover">
+                </div>
+                <div class="w-20 h-20 overflow-hidden mt-32 absolute -top-[178px] -left-7">
+                    <img src="/images/logokecil.png" alt="line" class="object-cover ">
+                </div>
+            </div>
+        </div>
+        <div class="w-80 overflow-hidden ml-16 mt-14 fixed right-0 bottom-0">
+            <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">
+        </div>
+    </div>
+
+    <!-- Inisialisasi AOS di bagian head -->
+    <script>
+        // Matikan AOS
+        AOS.init({ disable: true });
+    </script>
+
+    <!-- JS untuk menunjukkan form absensi -->
+    <script>
+    // Ketika dokumen selesai dimuat
+    $(document).ready(function() {
+        // Menyembunyikan elemen form absensi saat dokumen pertama kali dimuat
+        $('.form-absensi').hide();
+        // Menampilkan form absensi setelah beberapa waktu
+        setTimeout(showForm, 3000);
+    });
+
+    function showForm() {
+        // Menyembunyikan elemen form absensi
+        $('.form-absensi').fadeIn();
+        // Setelah menampilkan form absensi, maka baru menyembunyikan body
+        $('body[data-aos]').hide();
+        $('.container.grid.place-items-center').hide();
+        $('.w-80.overflow-hidden.ml-16.mt-14.fixed.right-0.bottom-0').hide();
+    }
+</script>
+
+    <!-- Form Absensi -->
+    <div class="container mt-2 mb-10 form-absensi">
+        <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
+        <!-- Form Absensi -->
+        <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Nama Lengkap -->
         <div class="flex flex-col mt-3">
@@ -106,7 +153,7 @@
     <!-- js Tanda Tangan -->
     <script>
         var sig = $('#ttd').signature({
-            syncField: '#signature64',
+            syncField: '#ttd',
             syncFormat: 'PNG'
         });
         $('#clear').click(function(e) {

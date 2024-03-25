@@ -51,7 +51,7 @@
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-500 font-semibold text-sm">Riwayat</p>
+                    <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
                 </a>
                 <!-- Tambah Acara -->
                 <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
