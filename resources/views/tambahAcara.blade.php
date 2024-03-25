@@ -75,14 +75,14 @@
                     <div class="flex flex-col gap-3">
                         <!-- judul -->
                         <p class="font-semibold text-gray-500">Judul</p>
-                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
+                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
                         <!-- tempat -->
                         <p class="font-semibold text-gray-500">Tempat</p>
-                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
+                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
                         <!-- absen -->
                         <p class="font-semibold text-gray-500">Absen</p>
                         <div class="relative">
-                            <select name="absen" id="absen" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full">
+                            <select name="absen" id="absen" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full"required>
                                 <option value="" disabled selected class="text-gray-500">Pilih waktu absen</option>
                                 <option value="pagi">Pagi</option>
                                 <option value="siang">Siang</option>
@@ -95,10 +95,10 @@
                     <div class="flex flex-col gap-3">
                         <!-- tanggal -->
                         <p class="font-semibold text-gray-500">Tanggal</p>
-                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]">
+                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
                         <!-- jam -->
                         <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
-                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30">
+                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30"required>
                     </div>
                 </div>
                 <div class="fixed bottom-24 left-[350px] flex gap-5">
