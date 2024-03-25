@@ -57,11 +57,14 @@
     </div> -->
     <!-- js -->
     <script>
+        var intervalID;
         document.addEventListener("DOMContentLoaded", function() {
             var ambilFotoBtn = document.getElementById('ambilFotoBtn');
             var clearFotoBtn = document.getElementById('clear');
+
             ambilFotoBtn.addEventListener('click', function() {
                 captureSnapshot();
+                clearInterval(intervalID);
             });
 
             clearFotoBtn.addEventListener('click', function() {
@@ -69,15 +72,21 @@
             });
 
             navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    var video = document.getElementById('video');
-                    video.srcObject = stream;
-                })
-                .catch(function(err) {
-                    console.log("Tidak dapat mengakses kamera: " + err);
-                });
+                video: true
+            }).then(function(stream) {
+                var video = document.getElementById('video');
+                video.srcObject = stream;
+            }).catch(function(err) {
+                console.log("Tidak dapat mengakses kamera: " + err);
+            });
+
+            // Inisialisasi updateTime() untuk menampilkan waktu pada awalnya
+            updateTime();
+
+            // Jika ambilFotoBtn diklik, hentikan pembaruan waktu
+            ambilFotoBtn.addEventListener('click', function() {
+                clearInterval(intervalID);
+            });
         });
 
         function captureSnapshot() {
@@ -122,30 +131,28 @@
 
             // Membuka kembali kamera untuk mengambil foto baru
             navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(function(stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function(err) {
-                    console.log("Tidak dapat mengakses kamera: " + err);
-                });
+                video: true
+            }).then(function(stream) {
+                video.srcObject = stream;
+            }).catch(function(err) {
+                console.log("Tidak dapat mengakses kamera: " + err);
+            });
         }
-        // waktu
+
+        // fungsi untuk menampilkan waktu secara real-time
         function updateTime() {
             var now = new Date();
             var date = now.toLocaleDateString('en-US', {
                 year: 'numeric',
-                month: 'numeric',
-                day: 'numeric'
+                month: '2-digit',
+                day: '2-digit'
             });
             var time = now.toLocaleTimeString();
-            document.getElementById('date').innerText = date;
-            document.getElementById('time').innerText = time;
+            document.getElementById('dateTime').innerText = date + ' ' + time;
         }
 
-        updateTime(); // initial call
-        setInterval(updateTime, 1000); // update every second
+        // pemanggilan fungsi updateTime() setiap detik
+        intervalID = setInterval(updateTime, 1000);
     </script>
 
 </body>
