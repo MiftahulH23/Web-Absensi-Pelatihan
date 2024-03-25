@@ -64,12 +64,30 @@
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
-            <p class="font-bold text-lg">Beranda</p>
-            <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
-                <!-- Konten kanan di sini -->
-            </div>
-        </div>
+    <p class="font-bold text-lg">Beranda</p>
+    <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
+        <!-- Riwayat Pelatihan Terakhir -->
+        <div class="font-bold text-lg">Riwayat Pelatihan Terakhir</div>
+        <ul>
+            @foreach($riwayatPelatihan as $acara)
+            <li>
+                <a href="{{ route('acaras.show', ['id' => $acara->id]) }}">{{ $acara->judul }}</a>
+            </li>
+            @endforeach
+        </ul>
     </div>
+</div>
+<div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
+    <p class="font-bold text-lg">Acara yang Sedang Berlangsung</p>
+    <ul>
+        @foreach($acaraSedangBerlangsung as $acara)
+        <li>
+            <a href="{{ route('acaras.show', ['id' => $acara->id]) }}">{{ $acara->judul }}</a>
+        </li>
+        @endforeach
+    </ul>
+</div>
+
     <script>
         AOS.init();
     </script>
