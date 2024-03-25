@@ -31,10 +31,10 @@ Route::get('/dokumentasi', function () {
 
 // Route::resource('/absens', \App\Http\Controllers\AbsenController::class);
 
-Route::resource('/home', \App\Http\Controllers\HomeController::class);
+Route::resource('/home', HomeController::class)->middleware('auth');
 
-Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('actionlogin');
+Route::get('/', [LoginController::class, 'loginForm'])->name('login');
+Route::post('/', [LoginController::class, 'login'])->name('actionlogin');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -43,25 +43,23 @@ Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name
 Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
 
 
-Route::get('/tambahAcara', function () {
+Route::middleware('auth')->get('/tambahAcara', function () {
     return view('tambahAcara');
 })->name('tambahAcara');
 
-Route::get('/riwayat', function () {
-    return view('riwayatPelatihan');
-})->name('riwayat');
+
 Route::get('/detilabsen', function () {
     return view('detailAbsens');
 })->name('detil');
 
 Route::get('/absens', [AbsenController::class, 'index'])->name('absens.index');
 
-Route::get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
+Route::middleware('auth')->get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
 // Route::get('/acaras/create', [AcaraController::class, 'create'])->name('acaras.create');
-Route::post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
-Route::get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
-Route::get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
-Route::put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
+Route::middleware('auth')->post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
+Route::middleware('auth')->get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
+Route::middleware('auth')->get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
+Route::middleware('auth')->put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 
 Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
 

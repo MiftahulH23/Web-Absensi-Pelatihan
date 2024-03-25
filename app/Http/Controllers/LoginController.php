@@ -17,28 +17,20 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Validation
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+         // Validation
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Check if admin exists
-        $user = User::where('email', $request->email)->first();
-
-        if ($user) {
-            // Jika pengguna ditemukan, periksa apakah password cocok
-            if (Hash::check($request->password, $user->password)) {
-                // Authenticated successfully
-                return redirect()->route('home.index');
-            } else {
-                // Password salah, redirect kembali dengan pesan kesalahan
-                return redirect()->back()->with('error', 'Password yang Anda masukkan salah');
-            }
-        } else {
-            // Pengguna tidak ditemukan, redirect kembali dengan pesan kesalahan
-            return redirect()->back()->with('error', 'Email yang Anda masukkan tidak terdaftar');
-        }
+    // Attempt to authenticate user
+    if (Auth::attempt($request->only('email', 'password'))) {
+        // Authentication successful
+        return redirect()->route('home.index');
+    } else {
+        // Authentication failed, redirect back with error message
+        return redirect()->back()->with('error', 'Email atau password tidak valid.');
+    }
     }
 
     public function logout(Request $request)
@@ -46,7 +38,7 @@ class LoginController extends Controller
         Auth::logout(); // Proses logout
         $request->session()->invalidate(); // Invalidate session
         $request->session()->regenerateToken(); // Regenerate token
-        
+
         return redirect()->route('login'); // Redirect ke halaman login setelah logout
     }
 }
