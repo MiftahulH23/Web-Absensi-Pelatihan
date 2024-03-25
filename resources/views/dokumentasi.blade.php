@@ -38,6 +38,9 @@
                     <div class="absolute top-0 right-0">
                         <img id="clear" src="/images/clear.png" alt="Hapus Foto" class="w-12 h-12 z-0">
                     </div>
+                    <div id="dateTime" class="absolute bottom-0 left-0 text-white p-2">
+                        <span id="time"></span> <span id="date"></span>
+                    </div>
                 </div>
                 <form id="fotoForm" method="POST" action="{{ route('simpan.foto') }}">
                     @csrf
@@ -128,6 +131,21 @@
                     console.log("Tidak dapat mengakses kamera: " + err);
                 });
         }
+        // waktu
+        function updateTime() {
+            var now = new Date();
+            var date = now.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            });
+            var time = now.toLocaleTimeString();
+            document.getElementById('date').innerText = date;
+            document.getElementById('time').innerText = time;
+        }
+
+        updateTime(); // initial call
+        setInterval(updateTime, 1000); // update every second
     </script>
 
 </body>
