@@ -24,14 +24,16 @@
         <!-- kiri -->
         <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[80vh] md:h-[90vh] py-8 mt-3">
             <div class="flex justify-between ml-3">
+                @auth
                 <div class="flex gap-5">
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/akunIcon.png" alt="akunIcon" class="w-full h-full object-cover">
                     </div>
                     <p class="text-gray-500 font-semibold">
-                        Admin
+                        {{ Auth::user()->name }}
                     </p>
                 </div>
+                @endauth
                 <a href="{{ route('logout') }}" class="w-6 h-6 overflow-hidden">
                     <img src="/images/logoutIcon.png" alt="homeIcon" class="w-full h-full object-cover">
                 </a>
@@ -106,11 +108,11 @@
                     <!-- OK -->
                     <button type="submit" class="w-[100px] bg-[#c2ebc1] text-[#03ad00] font-bold py-2 rounded-lg">OK</button>
                     <!-- Tombol Batal -->
-                        <style>
+                    <style>
                         .small-font {
-                             font-size: 16px;
-                            }
-                         </style>
+                            font-size: 16px;
+                        }
+                    </style>
                     <a href="{{ route('acaras.index') }}" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg block text-center small-font">Batal</a>
 
                 </div>

@@ -24,14 +24,16 @@
         <!-- kiri -->
         <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[80vh] md:h-[90vh] py-8 mt-3">
             <div class="flex justify-between ml-3">
+                @auth
                 <div class="flex gap-5">
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/akunIcon.png" alt="akunIcon" class="w-full h-full object-cover">
                     </div>
                     <p class="text-gray-500 font-semibold">
-                        Admin
+                        {{ Auth::user()->name }}
                     </p>
                 </div>
+                @endauth
                 <a href="{{ route('logout') }}" class="w-6 h-6 overflow-hidden">
                     <img src="/images/logoutIcon.png" alt="homeIcon" class="w-full h-full object-cover">
                 </a>

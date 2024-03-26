@@ -24,14 +24,16 @@
         <!-- kiri -->
         <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[80vh] md:h-[90vh] py-8 mt-3">
             <div class="flex justify-between ml-3">
+                @auth
                 <div class="flex gap-5">
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/akunIcon.png" alt="akunIcon" class="w-full h-full object-cover">
                     </div>
                     <p class="text-gray-500 font-semibold">
-                        Admin
+                        {{ Auth::user()->name }}
                     </p>
                 </div>
+                @endauth
                 <a href="{{ route('logout') }}" class="w-6 h-6 overflow-hidden">
                     <img src="/images/logoutIcon.png" alt="homeIcon" class="w-full h-full object-cover">
                 </a>
@@ -68,21 +70,21 @@
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Tambah Acara</p>
             <form action="{{ route('acaras.store') }}" class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5" method="POST" enctype="multipart/form-data">
-            @csrf
+                @csrf
                 <!-- Konten kanan di sini -->
                 <div class="grid grid-cols-2 gap-8">
                     <!-- inputan kiri -->
                     <div class="flex flex-col gap-3">
                         <!-- judul -->
                         <p class="font-semibold text-gray-500">Judul</p>
-                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
+                        <input type="text" name="judul" id="judul" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" required>
                         <!-- tempat -->
                         <p class="font-semibold text-gray-500">Tempat</p>
-                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
+                        <input type="text" name="tempat" id="tempat" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" required>
                         <!-- absen -->
                         <p class="font-semibold text-gray-500">Absen</p>
                         <div class="relative">
-                            <select name="absen" id="absen" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full"required>
+                            <select name="absen" id="absen" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" required>
                                 <option value="" disabled selected class="text-gray-500">Pilih waktu absen</option>
                                 <option value="pagi">Pagi</option>
                                 <option value="siang">Siang</option>
@@ -95,10 +97,10 @@
                     <div class="flex flex-col gap-3">
                         <!-- tanggal -->
                         <p class="font-semibold text-gray-500">Tanggal</p>
-                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]"required>
+                        <input type="date" name="tanggal" id="tanggal" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1]" required>
                         <!-- jam -->
                         <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
-                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30"required>
+                        <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" required>
                     </div>
                 </div>
                 <div class="fixed bottom-24 left-[350px] flex gap-5">
@@ -115,7 +117,7 @@
                             <img src="/images/cancel.png" alt="cheklis" class="w-full h-full object-cover">
                         </div>
                         <a href="{{ route('home.index') }}" class=" text-[#b72026] font-bold text-center small-font">Batal</a>
-                       
+
                     </div>
                 </div>
             </form>
