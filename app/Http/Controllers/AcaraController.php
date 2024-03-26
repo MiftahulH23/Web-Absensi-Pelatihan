@@ -93,4 +93,9 @@ class AcaraController extends Controller
 
         return redirect()->route('acaras.index')->with('success', 'Acara berhasil diperbarui');
     }
+
+    public function tambahAcara()
+    {
+        return view('tambahAcara');
+    }
 }
