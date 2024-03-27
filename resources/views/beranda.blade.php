@@ -96,7 +96,7 @@
                 </ul>
                 @else
                 <div class="flex justify-start">
-                    <p class="bg-[#c2ebc1] text-center px-2 py-1 rounded-xl text-[#03ad00]">Sedang tidak ada acara berlangsung</p>
+                    <p class="bg-[#b72026] text-center px-2 py-1 rounded-xl text-[#fff]">Sedang tidak ada acara berlangsung</p>
                 </div>
                 @endif
                 <p class="font-bold text-lg mt-10">Riwayat Pelatihan Terakhir</p>
