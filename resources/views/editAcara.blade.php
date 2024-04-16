@@ -101,6 +101,16 @@
                         <!-- Jam -->
                         <p class="font-semibold text-gray-500">Jam</p>
                         <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" value="{{ $acara->jam }}">
+                        <!-- Kategori -->
+                        <p class="font-semibold text-gray-500">Kategori</p>
+                        <div class="relative">
+                            <select name="kategori" id="kategori" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" required>
+                                <option value="" disabled selected class="text-gray-500">Pilih Kategori</option>
+                                <option value="Peserta">Peserta</option>
+                                <option value="Panitia">Panitia</option>
+                                <option value="Narasumber">Narasumber</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <!-- Tombol Submit -->

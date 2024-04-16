@@ -33,6 +33,7 @@ class AcaraController extends Controller
             'tanggal' => 'required|date',
             'absen' => 'required|string',
             'jam' => 'required|string',
+            'kategori' => 'required|string',
         ]);
 
         // Simpan data acara baru
@@ -42,6 +43,7 @@ class AcaraController extends Controller
             'tanggal' => $request->input('tanggal'),
             'absen' => $request->input('absen'),
             'jam' => $request->input('jam'),
+            'kategori' => $request->input('kategori'),
         ]);
 
         return redirect()->route('acaras.index')->with('success', 'Acara berhasil ditambahkan');
@@ -77,6 +79,7 @@ class AcaraController extends Controller
             'tanggal' => 'required|date',
             'absen' => 'required|string',
             'jam' => 'required|string',
+            'kategori' => 'required|string',
         ]);
 
         // Temukan acara yang ingin diubah
@@ -89,6 +92,7 @@ class AcaraController extends Controller
             'tanggal' => $request->input('tanggal'),
             'absen' => $request->input('absen'),
             'jam' => $request->input('jam'),
+            'kategori' => $request->input('kategori'),
         ]);
 
         return redirect()->route('acaras.index')->with('success', 'Acara berhasil diperbarui');
