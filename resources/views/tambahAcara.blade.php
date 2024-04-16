@@ -101,8 +101,18 @@
                         <!-- jam -->
                         <label for="jam_range" class="font-semibold text-gray-500">Jam</label>
                         <input type="time" name="jam" id="jam" class="border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" placeholder="Contoh: 08:00 - 08:30" required>
+                        <!-- Kategori -->
+                         <p class="font-semibold text-gray-500">Kategori</p>
+                         <div class="relative">
+                            <select name="kategori" id="kategori" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" required>
+                                <option value="" disabled selected class="text-gray-500">Pilih Kategori</option>
+                                <option value="pagi">Peserta</option>
+                                <option value="siang">Panitia</option>
+                                <option value="sore">Narasumber</option>
+                            </select>
                     </div>
                 </div>
+    
                 <div class="fixed bottom-24 left-[350px] flex gap-5">
                     <!-- ok -->
                     <div class="flex gap-2 bg-[#c2ebc1] bg-opacity-50 items-center w-36 py-1 px-5 rounded-xl">
