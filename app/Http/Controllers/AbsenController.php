@@ -22,6 +22,16 @@ class AbsenController extends Controller
         $acara = Acara::findOrFail($id);
         return view('form', compact('acara'));
     }
+    public function narasumber($id)
+    {
+        $acara = Acara::findOrFail($id);
+        return view('formNarasumber', compact('acara'));
+    }
+    public function panitia($id)
+    {
+        $acara = Acara::findOrFail($id);
+        return view('formPanitai', compact('acara'));
+    }
 
     public function selesai()
     {

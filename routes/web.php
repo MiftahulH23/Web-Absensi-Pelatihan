@@ -23,6 +23,9 @@ use App\Http\Controllers\DataTableController;
 Route::get('/dokumentasi', function () {
     return view('dokumentasi');
 });
+Route::get('/absens-narasumber', function () {
+    return view('formNarasumber');
+});
 
 
 // Home Controller
@@ -51,8 +54,10 @@ Route::get('/selesai/{id}', [AcaraController::class, 'selesai'])->name('selesai'
 Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
 
 // absens Controller
-Route::get('/acaras/{id}/create', [AbsenController::class, 'create'])->name('acara.absen.create');
+Route::get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->name('acara.absen.create');
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
 Route::get('/acaras/{id}/take-foto', [AbsenController::class, 'takeFoto'])->name('acara.absen.takeFoto');
 Route::post('/simpan-foto', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
+Route::get('/acaras/{id}/absens-narasumber', [AbsenController::class, 'narasumber'])->name('acara.absen.narasumber');
+Route::get('/acaras/{id}/absens-panitia', [AbsenController::class, 'panitia'])->name('acara.absen.panitia');
 

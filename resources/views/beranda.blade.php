@@ -77,7 +77,7 @@
                         <div>
                             <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori :  {{ $acara->kategori }}</p>
+                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                         </div>
                         <div class="flex gap-4">
                             <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
@@ -88,9 +88,19 @@
                                 <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
                             </a>
                             <!-- share -->
+                            @if($acara->kategori == 'Peserta')
                             <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                                 <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
                             </a>
+                            @elseif($acara->kategori == 'Narasumber')
+                            <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Panitai')
+                            <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @endif
                         </div>
                     </div>
                     @endforeach
@@ -107,7 +117,7 @@
                         <div>
                             <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori :  {{ $acara->kategori }}</p>
+                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                         </div>
                         <div class="flex gap-4">
                             <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
@@ -118,9 +128,19 @@
                                 <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
                             </a>
                             <!-- share -->
+                            @if($acara->kategori == 'Peserta')
                             <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                                 <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
                             </a>
+                            @elseif($acara->kategori == 'Narasumber')
+                            <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Panitai')
+                            <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @endif
                         </div>
                     </div>
                     @endforeach

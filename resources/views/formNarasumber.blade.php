@@ -81,58 +81,44 @@
                 <p class="font-semibold ">Nama Lengkap</p>
                 <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
-            <!--No Rekening -->
-            <div class="flex flex-col gap-1 mt-1">
-                <p class="font-semibold ">Nomor Rekening</p>
-                <input type="text" id="norek" name="norek" class="p-2 w-full md:w-full h-9 rounded-xl" required>
-            </div>
             <!-- Nik -->
             <div class="flex flex-col gap-1 mt-1">
                 <p class="font-semibold ">Nik</p>
                 <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
-            <!-- Level Jabatan -->
-            <div class="flex flex-col gap-1 mt-1">
-                <label for="levelJabatan" class="font-semibold">Level Jabatan</label>
-                <select id="levelJabatan" name="levelJabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
-                    <option value="" disabled selected class="text-sm">- Pilih Level Jabatan -</option>
-                    <option value="divisi_a" class="text-sm">Divisi A</option>
-                    <option value="divisi_b" class="text-sm">Divisi B</option>
-                    <option value="divisi_c" class="text-sm">Divisi C</option>
-                </select>
-            </div>
             <!-- Jabatan -->
             <div class="flex flex-col gap-1 mt-1">
                 <label for="jabatan" class="font-semibold" class="text-sm">Jabatan</label>
-                <select id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
-                    <option value="" disabled selected>- Pilih Jabatan -</option>
-                    <option value="divisi_a" class="text-sm">Divisi A</option>
-                    <option value="divisi_b" class="text-sm">Divisi B</option>
-                    <option value="divisi_c" class="text-sm">Divisi C</option>
-                </select>
+                <input type="text" id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
             <!-- Unit Kantor -->
             <div class="flex flex-col gap-1 mt-1">
                 <label for="unitKantor" class="font-semibold">Unit Kantor</label>
-                <select id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
-                    <option value="" disabled selected class="text-sm">- Pilih Unit Kantor -</option>
-                    <option value="divisi_a" class="text-sm">Divisi A</option>
-                    <option value="divisi_b" class="text-sm">Divisi B</option>
-                    <option value="divisi_c" class="text-sm">Divisi C</option>
-                </select>
+                <input type="text" id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
-        <!-- Dokumentasi -->
-        <div class="flex flex-col gap-1 mt-1">
-            <p class="font-semibold">Dokumentasi</p>
-            <div class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                <label for="foto" class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                    <img src="/images/input.png" alt="" class="h-6">
-                </label>
-                <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="absolute inset-0 opacity-0 z-10 w-full h-full cursor-pointer" onchange="displayFileName(this)" />
-                <p id="fileName" class="text-sm"></p>
+            <!-- Jam Mengajar -->
+            <p class="font-semibold">Jam Mengajar</p>
+            <div class="flex gap-4 items-center justify-center">
+                <input type="time" name="jamMulai" id="jamMulai" class="p-2 w-full md:w-full h-9 rounded-xl">
+                <label class="font-semibold mt-2">-</label>
+                <input type="time" name="jamSelesai" id="jamSelesai" class="p-2 w-full md:w-full h-9 rounded-xl">
             </div>
-        </div>
-
+            <!-- Materi -->
+            <div class="flex flex-col gap-1 mt-1">
+                <label for="materi" class="font-semibold">Materi</label>
+                <input type="text" id="materi" name="materi" class="p-2 w-full md:w-full h-9 rounded-xl" required>
+            </div>
+            <!-- Dokumentasi -->
+            <div class="flex flex-col gap-1 mt-1">
+                <p class="font-semibold">Dokumentasi</p>
+                <div class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                    <label for="foto" class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <img src="/images/input.png" alt="" class="h-6">
+                    </label>
+                    <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="absolute inset-0 opacity-0 z-10 w-full h-full cursor-pointer" onchange="displayFileName(this)" />
+                    <p id="fileName" class="text-sm"></p>
+                </div>
+            </div>
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
                 <p class="font-semibold">Tanda Tangan</p>
