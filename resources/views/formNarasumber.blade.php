@@ -74,7 +74,7 @@
     <div class="container mt-2 mb-10 form-absensi">
         <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
         <!-- Form Absensi -->
-        <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
+        <form class="container" action="{{ route('acara.absen.storeNarasumber', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- Nama Lengkap -->
             <div class="flex flex-col mt-3">
@@ -97,11 +97,14 @@
                 <input type="text" id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
             <!-- Jam Mengajar -->
-            <p class="font-semibold">Jam Mengajar</p>
-            <div class="flex gap-4 items-center justify-center">
-                <input type="time" name="jamMulai" id="jamMulai" class="p-2 w-full md:w-full h-9 rounded-xl">
-                <label class="font-semibold mt-2">-</label>
-                <input type="time" name="jamSelesai" id="jamSelesai" class="p-2 w-full md:w-full h-9 rounded-xl">
+            <div class="flex flex-col gap-1 mt-1">
+                <label for="jamMulai" class="font-semibold">Jam Mengajar</label>
+                <div class="flex gap-2">
+                    <input type="time" name="jamMulai" id="jamMulai" class="p-2 w-full md:w-full h-9 rounded-xl" required>
+                    <span>-</span>
+                    <input type="time" name="jamSelesai" id="jamSelesai" class="p-2 w-full md:w-full h-9 rounded-xl" required>
+                </div>
+                <input type="hidden" id="jamMengajar" name="jamMengajar">
             </div>
             <!-- Materi -->
             <div class="flex flex-col gap-1 mt-1">
@@ -138,6 +141,20 @@
         <div class="w-96 overflow-hidden ml-16 fixed right-0 -bottom-16 -z-10">
             <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">
         </div>
+        <!-- JS untuk menggabungkan nilai jam -->
+<script>
+    // Ketika formulir disubmit
+    $('form').submit(function() {
+        // Ambil nilai dari input jam mulai dan jam selesai
+        var jamMulai = $('#jamMulai').val();
+        var jamSelesai = $('#jamSelesai').val();
+        // Gabungkan nilai jam mulai dan jam selesai menjadi satu string
+        var jamMengajar = jamMulai + ' - ' + jamSelesai;
+        // Simpan nilai gabungan dalam input tersembunyi
+        $('#jamMengajar').val(jamMengajar);
+    });
+</script>
+
         <!-- js Tanda Tangan -->
         <script>
             var sig = $('#ttd').signature({

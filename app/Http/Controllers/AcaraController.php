@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\Narasumber;
 use Illuminate\Http\Request;
 use App\Models\Acara;
 
@@ -55,6 +56,12 @@ class AcaraController extends Controller
         $acara = Acara::findOrFail($id);
         $absens = Absen::where('id_acara', $id)->get(); // Ambil semua data absen yang terkait dengan acara tertentu
         return view('detailAbsens', compact('acara', 'absens'));
+    }
+    public function showNarasumber($id)
+    {
+        $acara = Acara::findOrFail($id);
+        $narasumber = Narasumber::where('id_acara', $id)->get(); // Ambil semua data absen yang terkait dengan acara tertentu
+        return view('detailAbsensNarasumber', compact('acara', 'narasumber'));
     }
     public function selesai($id)
     {

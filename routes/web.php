@@ -46,6 +46,7 @@ Route::middleware('auth')->get('/tambahAcara', [AcaraController::class, 'tambahA
 Route::middleware('auth')->get('/acaras', [AcaraController::class, 'index'])->name('acaras.index');
 Route::middleware('auth')->post('/acaras', [AcaraController::class, 'store'])->name('acaras.store');
 Route::middleware('auth')->get('/acaras/{id}', [AcaraController::class, 'show'])->name('acaras.show');
+Route::middleware('auth')->get('/acaras/{id}/data-narasumber', [AcaraController::class, 'showNarasumber'])->name('acaras.show.narasumber');
 Route::middleware('auth')->get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
 Route::middleware('auth')->put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 Route::get('/selesai/{id}', [AcaraController::class, 'selesai'])->name('selesai');
@@ -56,6 +57,7 @@ Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'download
 // absens Controller
 Route::get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->name('acara.absen.create');
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
+Route::post('/acaras/{id}/store-narasumber', [AbsenController::class, 'storeNarasumber'])->name('acara.absen.storeNarasumber');
 Route::get('/acaras/{id}/take-foto', [AbsenController::class, 'takeFoto'])->name('acara.absen.takeFoto');
 Route::post('/simpan-foto', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
 Route::get('/acaras/{id}/absens-narasumber', [AbsenController::class, 'narasumber'])->name('acara.absen.narasumber');

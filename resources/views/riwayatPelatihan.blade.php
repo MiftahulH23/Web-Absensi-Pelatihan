@@ -76,9 +76,20 @@
                         <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                     </div>
                     <div class="flex gap-4">
+                        <!-- detil -->
+                        @if($acara->kategori == 'Peserta')
                         <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
                         </a>
+                        @elseif($acara->kategori == 'Narasumber')
+                        <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                        </a>
+                        @elseif($acara->kategori == 'Panitia')
+                        <!-- <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                        </a> -->
+                        @endif
                         <!-- edit -->
                         <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
