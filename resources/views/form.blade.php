@@ -121,19 +121,18 @@
                     <option value="divisi_c" class="text-sm">Divisi C</option>
                 </select>
             </div>
-
-            <!-- Dokumentasi -->
-            <div class="flex flex-col gap-1 mt-1">
-                <p class="font-semibold">Dokumentasi</p>
-                <a href="{{ route('acara.absen.takeFoto', ['id' => $acara->id]) }}" for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                    <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" onchange="displayFileName(this)" />
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                        <!-- Logo Input -->
-                        <img src="/images/input.png" alt="" class="h-6">
-                    </span>
-                    <p id="fileName" class="text-sm"></p>
-                </a>
+        <!-- Dokumentasi -->
+        <div class="flex flex-col gap-1 mt-1">
+            <p class="font-semibold">Dokumentasi</p>
+            <div class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                <label for="foto" class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <img src="/images/input.png" alt="" class="h-6">
+                </label>
+                <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="absolute inset-0 opacity-0 z-10 w-full h-full cursor-pointer" onchange="displayFileName(this)" />
+                <p id="fileName" class="text-sm"></p>
             </div>
+        </div>
+
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
                 <p class="font-semibold">Tanda Tangan</p>
