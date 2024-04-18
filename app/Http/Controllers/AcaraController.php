@@ -66,7 +66,7 @@ class AcaraController extends Controller
     public function selesai($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('selesai',compact('acara'));
+        return view('selesai', compact('acara'));
     }
 
     // Method untuk menampilkan form untuk mengedit acara
@@ -112,9 +112,12 @@ class AcaraController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
+        $keyword = $request->input('keyword');
 
-        $trainings = Acara::where('judul', 'like', '%' . $query . '%')->get();
+        $trainings = Acara::where('judul', 'like', '%' . $keyword . '%')
+            ->orWhere('kategori', 'like', '%' . $keyword . '%')
+            ->orWhere('tempat', 'like', '%' . $keyword . '%')
+            ->get();
 
         return response()->json($trainings);
     }

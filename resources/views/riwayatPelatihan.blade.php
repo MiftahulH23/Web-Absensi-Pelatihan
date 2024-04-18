@@ -47,14 +47,14 @@
                     <p class="text-gray-500 font-semibold text-sm" style="font-size: 0.875rem;">Beranda</p>
                 </a>
                 <!-- Riwayat -->
-                <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
+                <a href="{{ route('acaras.index') }}" class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
                     <div class="flex gap-5 items-center ml-3">
                         <div class="w-6 h-6 overflow-hidden">
                             <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
                         </div>
                         <p class="text-gray-500 font-semibold text-sm" style="font-size: 0.875rem;">Daftar Acara</p>
                     </div>
-                </div>
+                </a>
                 <!-- Tambah Acara -->
                 <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
@@ -76,99 +76,158 @@
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                             </svg>
                         </div>
-                        <input id="searchInput" type="text" placeholder="Cari judul pelatihan" class="focus:outline-none">
+                        <input id="searchInput" type="text" placeholder="Cari acara pelatihan" class="focus:outline-none">
                     </div>
-                    <button class="bg-[#c2ebc1] px-4 py-1 rounded-lg text-[#03ad00]">Cari</button>
+                    <button id="searchButton" class="bg-[#c2ebc1] px-4 py-1 rounded-lg text-[#03ad00]" data-url="{{ route('trainings.search') }}">Cari</button>
                 </div>
-                @foreach($acaras as $acara)
-                <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
-                    <div>
-                        <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
+
+                <div id="acaraContainer">
+                    <!-- Render semua data acara saat halaman dimuat -->
+                    @foreach($acaras as $acara)
+                    <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                        <div>
+                            <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
+                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
+                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <!-- detil -->
+                            @if($acara->kategori == 'Peserta')
+                            <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Narasumber')
+                            <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Panitia')
+                            <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5  overflow-hidden">
+                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                            </a>
+                            @endif
+                            <!-- edit -->
+                            <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
+                            </a>
+                            <!-- share -->
+                            @if($acara->kategori == 'Peserta')
+                            <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Narasumber')
+                            <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @elseif($acara->kategori == 'Panitia')
+                            <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                            </a>
+                            @endif
+                        </div>
                     </div>
-                    <div class="flex gap-4">
-                        <!-- detil -->
-                        @if($acara->kategori == 'Peserta')
-                        <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Narasumber')
-                        <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Panitia')
-                        <!-- <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a> -->
-                        @endif
-                        <!-- edit -->
-                        <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
-                        </a>
-                        <!-- share -->
-                        @if($acara->kategori == 'Peserta')
-                        <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Narasumber')
-                        <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Panitai')
-                        <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                        </a>
-                        @endif
-                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
 
         </div>
     </div>
     <!-- Js Searching -->
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-
-        searchInput.addEventListener('keypress', function(event) {
-            // Check jika tombol yang ditekan adalah tombol "Enter"
+        // Event listener untuk menekan tombol "Enter" pada input pencarian
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                // Lakukan pencarian
                 search();
             }
         });
 
-        searchInput.addEventListener('input', function() {
-            // Jika input berubah, bersihkan hasil pencarian sebelumnya
-            searchResults.innerHTML = '';
-
-            // Lakukan pencarian
-            search();
-        });
+        // Event listener untuk tombol cari
+        document.getElementById('searchButton').addEventListener('click', search);
 
         function search() {
-            const query = searchInput.value.trim();
+            var keyword = document.getElementById('searchInput').value.trim();
+            var url = document.getElementById('searchButton').getAttribute('data-url');
 
-            if (query.length > 0) {
-                fetch(`/search-training?query=${query}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Tampilkan hasil pencarian baru
-                        data.forEach(training => {
-                            const trainingElement = document.createElement('div');
-                            trainingElement.textContent = training.judul;
-                            searchResults.appendChild(trainingElement);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching search results:', error));
-            } else {
-                // Kosongkan hasil pencarian jika input kosong
-                searchResults.innerHTML = '';
+            if (keyword !== '') {
+                url += '?keyword=' + keyword;
             }
+
+            // Tampilkan animasi loading
+            var acaraContainer = document.getElementById('acaraContainer');
+            acaraContainer.innerHTML = '<div id="loadingContainer" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-200 bg-opacity-50 z-50"><div class="bg-white p-4 rounded-lg"><img src="/images/loading.gif" alt="loading" class="w-16 h-16 mx-auto"></div></div>';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var trainings = JSON.parse(xhr.responseText);
+                    displaySearchResults(trainings); // Panggil fungsi untuk menampilkan hasil pencarian
+                } else {
+                    console.error('Error: ' + xhr.statusText);
+                }
+            };
+            xhr.send();
+        }
+
+        function displaySearchResults(trainings) {
+            var acaraContainer = document.getElementById('acaraContainer');
+            acaraContainer.innerHTML = ''; // Kosongkan kontainer acara
+
+            // Jika tidak ada hasil pencarian, tampilkan pesan "Data tidak ditemukan"
+            if (trainings.length === 0) {
+                var notFoundMessage = `
+                <div class="text-center text-gray-500 font-semibold mt-3">Data tidak ditemukan</div>
+            `;
+                acaraContainer.innerHTML = notFoundMessage;
+                return;
+            }
+
+            trainings.forEach(function(training) {
+                var detailLink = '';
+                var editLink = '';
+                var shareLink = '';
+
+                if (training.kategori === 'Peserta') {
+                    detailLink = '{{ route("acaras.show", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    editLink = '{{ route("acaras.edit", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    shareLink = '{{ route("acara.absen.create", ["id" => ":id"]) }}'.replace(':id', training.id);
+                } else if (training.kategori === 'Narasumber') {
+                    detailLink = '{{ route("acaras.show.narasumber", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    editLink = '{{ route("acaras.edit", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    shareLink = '{{ route("acara.absen.narasumber", ["id" => ":id"]) }}'.replace(':id', training.id);
+                } else if (training.kategori === 'Panitia') {
+                    detailLink = '{{ route("acaras.show", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    editLink = '{{ route("acaras.edit", ["id" => ":id"]) }}'.replace(':id', training.id);
+                    shareLink = '{{ route("acara.absen.panitia", ["id" => ":id"]) }}'.replace(':id', training.id);
+                }
+
+                var cardHTML = `
+                <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                    <div>
+                        <p class="text-black font-semibold text-sm">${training.judul}</p>
+                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di ${training.tempat}</p>
+                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : ${training.kategori}</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <!-- detil -->
+                        <a href="${detailLink}" class="w-5 h-5 overflow-hidden">
+                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                        </a>
+                        <!-- edit -->
+                        <a href="${editLink}" class="w-5 h-5 overflow-hidden">
+                            <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
+                        </a>
+                        <!-- share -->
+                        <a href="${shareLink}" class="w-5 h-5 overflow-hidden">
+                            <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                        </a>
+                    </div>
+                </div>
+            `;
+                acaraContainer.innerHTML += cardHTML; // Tambahkan card ke kontainer acara
+            });
         }
     </script>
+
     <script>
         AOS.init();
     </script>
