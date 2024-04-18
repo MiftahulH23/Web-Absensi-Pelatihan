@@ -50,6 +50,7 @@ Route::middleware('auth')->get('/acaras/{id}/data-narasumber', [AcaraController:
 Route::middleware('auth')->get('/acaras/{id}/edit', [AcaraController::class, 'edit'])->name('acaras.edit');
 Route::middleware('auth')->put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 Route::get('/selesai/{id}', [AcaraController::class, 'selesai'])->name('selesai');
+Route::get('/search-training', [AcaraController::class, 'search']);
 
 // dataTable Controller
 Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');

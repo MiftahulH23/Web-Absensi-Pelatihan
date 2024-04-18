@@ -106,9 +106,9 @@
                         <div class="relative">
                             <select name="kategori" id="kategori" class="appearance-none border-2 rounded-lg py-2 px-3 focus:outline-none focus:border-[#c2ebc1] w-full" required>
                                 <option value="" disabled selected class="text-gray-500">Pilih Kategori</option>
-                                <option value="Peserta">Peserta</option>
-                                <option value="Panitia">Panitia</option>
-                                <option value="Narasumber">Narasumber</option>
+                                <option value="Peserta" {{ $acara->kategori === 'Peserta' ? 'selected' : '' }}>Peserta</option>
+                                <option value="Panitia" {{ $acara->kategori === 'Panitia' ? 'selected' : '' }}>Panitia</option>
+                                <option value="Narasumber" {{ $acara->kategori === 'Narasumber' ? 'selected' : '' }}>Narasumber</option>
                             </select>
                         </div>
                     </div>
@@ -123,12 +123,35 @@
                             font-size: 16px;
                         }
                     </style>
-                    <a href="{{ route('acaras.index') }}" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg block text-center small-font">Batal</a>
-
+                    <a id="backButton" href="#" class="w-[100px] bg-[#f3d9da] text-[#b72026] font-bold py-2 rounded-lg block text-center small-font" data-from-home="true">Batal</a>
                 </div>
             </form>
         </div>
     </div>
+    <!-- js navigasi back -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var backButton = document.getElementById('backButton');
+
+            // Fungsi untuk menangani navigasi kembali
+            function navigateBack() {
+                var referer = document.referrer;
+
+                // Jika referer URL tidak kosong dan bukan dari halaman home, arahkan kembali ke referer URL
+                if (referer !== "" && !referer.includes("home")) {
+                    window.location.href = referer;
+                } else {
+                    window.location.href = "{{ route('home.index') }}";
+                }
+            }
+
+            // Tambahkan event listener untuk tombol kembali
+            backButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                navigateBack();
+            });
+        });
+    </script>
     <!-- Js Jam range -->
     <script>
         // Ambil elemen input

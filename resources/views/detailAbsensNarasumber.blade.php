@@ -23,7 +23,7 @@
     <p class="text-lg font-bold mt-5">Tabel Absens</p>
     <div class=" bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll">
         <div class="flex justify-between">
-            <a href="{{ route('acaras.index') }}" class="w-12 h-6 overflow-hidden border-l ml-1">
+            <a id="backButton" href="#" class="w-12 h-6 overflow-hidden border-l ml-1" data-from-home="true">
                 <img src="/images/backIcon.png" alt="backIcon" class="w-full h-full object-contain">
             </a>
             <a href="{{ route('download.excel', ['id' => $acara->id]) }}" class="w-16 h-7 overflow-hidden">
@@ -69,6 +69,31 @@
     <script>
         AOS.init();
     </script>
+    <!-- js navigasi back -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var backButton = document.getElementById('backButton');
+
+            // Fungsi untuk menangani navigasi kembali
+            function navigateBack() {
+                var referer = document.referrer;
+
+                // Jika referer URL tidak kosong dan bukan dari halaman home, arahkan kembali ke referer URL
+                if (referer !== "" && !referer.includes("home")) {
+                    window.location.href = referer;
+                } else {
+                    window.location.href = "{{ route('home.index') }}";
+                }
+            }
+
+            // Tambahkan event listener untuk tombol kembali
+            backButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                navigateBack();
+            });
+        });
+    </script>
+
 </body>
 
 </html>

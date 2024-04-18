@@ -109,4 +109,13 @@ class AcaraController extends Controller
     {
         return view('tambahAcara');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $trainings = Acara::where('judul', 'like', '%' . $query . '%')->get();
+
+        return response()->json($trainings);
+    }
 }
