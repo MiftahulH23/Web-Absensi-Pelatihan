@@ -54,6 +54,7 @@ Route::get('/search-training', [AcaraController::class, 'search'])->name('traini
 
 // dataTable Controller
 Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
+Route::get('/acaras/{id}/download-excel-narasumber', [DataTableController::class, 'downloadExcelNarasumber'])->name('download.excel.narasumber');
 
 // absens Controller
 Route::get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->name('acara.absen.create');

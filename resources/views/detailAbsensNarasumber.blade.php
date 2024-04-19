@@ -26,7 +26,7 @@
             <a id="backButton" href="#" class="w-12 h-6 overflow-hidden border-l ml-1" data-from-home="true">
                 <img src="/images/backIcon.png" alt="backIcon" class="w-full h-full object-contain">
             </a>
-            <a href="{{ route('download.excel', ['id' => $acara->id]) }}" class="w-16 h-7 overflow-hidden">
+            <a href="{{ route('download.excel.narasumber', ['id' => $acara->id]) }}" class="w-16 h-7 overflow-hidden">
                 <img src="/images/downloadIcon.png" alt="downloadIcon" class="w-full h-full object-contain">
             </a>
         </div>
