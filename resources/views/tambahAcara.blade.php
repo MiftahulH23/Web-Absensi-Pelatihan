@@ -57,7 +57,6 @@
                         <p class="text-gray-500 font-semibold text-sm">Tambah Acara</p>
                     </div>
                 </div>
-            </div>
                 <!-- Riwayat -->
                 <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
@@ -65,6 +64,7 @@
                     </div>
                     <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
                 </a>
+            </div>
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
