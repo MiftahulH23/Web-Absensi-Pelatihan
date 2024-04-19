@@ -48,6 +48,13 @@
                         <p class="text-gray-500 font-semibold text-sm">Beranda</p>
                     </div>
                 </div>
+                    <!-- Tambah Acara -->
+                    <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
+                    <div class="w-6 h-6 overflow-hidden">
+                        <img src="/images/addEventIcon.png" alt="addEventIcon" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 font-semibold text-sm">Tambah Acara</p>
+                </a>
                 <!-- Riwayat -->
                 <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
@@ -55,14 +62,7 @@
                     </div>
                     <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
                 </a>
-                <!-- Tambah Acara -->
-                <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
-                    <div class="w-6 h-6 overflow-hidden">
-                        <img src="/images/addEventIcon.png" alt="addEventIcon" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-gray-500 font-semibold text-sm">Tambah Acara</p>
-                </a>
-            </div>
+                </div>
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">

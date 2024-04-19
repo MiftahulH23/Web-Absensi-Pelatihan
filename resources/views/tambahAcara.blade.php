@@ -48,15 +48,8 @@
                         <p class="text-gray-500 font-semibold text-sm">Beranda</p>
                     </div>
                 </a>
-                <!-- Riwayat -->
-                <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
-                    <div class="w-6 h-6 overflow-hidden">
-                        <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
-                    </div>
-                    <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
-                </a>
-                <!-- Tambah Acara -->
-                <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
+                  <!-- Tambah Acara -->
+                  <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
                     <div class="flex gap-5 items-center ml-3">
                         <div class="w-6 h-6 overflow-hidden">
                             <img src="/images/addEventIcon.png" alt="addEventIcon" class="w-full h-full object-cover">
@@ -65,6 +58,13 @@
                     </div>
                 </div>
             </div>
+                <!-- Riwayat -->
+                <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
+                    <div class="w-6 h-6 overflow-hidden">
+                        <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
+                </a>
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
