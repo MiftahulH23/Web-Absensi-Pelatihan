@@ -69,11 +69,14 @@
             <p class="font-bold text-lg">Beranda</p>
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5">
                 <!-- Konten kanan di sini -->
-                <p class="font-bold text-lg">Acara yang Sedang Berlangsung</p>
+                <div class="w-full rounded-3xl overflow-hidden shadow-lg h-72">
+                    <img src="/images/bannerWeb.png" alt="banner" class="w-full h-full object-fill">
+                </div>
+                <p class="font-bold text-lg mt-3">Acara yang Sedang Berlangsung</p>
                 @if(count($acaraSedangBerlangsung) > 0)
-                <ul>
+                <ul class="">
                     @foreach($acaraSedangBerlangsung as $acara)
-                    <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                    <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-md flex justify-between items-center">
                         <div>
                             <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
@@ -90,9 +93,9 @@
                             <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
                         </a>
                         @elseif($acara->kategori == 'Panitia')
-                        <!-- <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                        <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                             <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a> -->
+                        </a>
                         @endif
                             <!-- edit -->
                             <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
@@ -107,7 +110,7 @@
                             <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                                 <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
                             </a>
-                            @elseif($acara->kategori == 'Panitai')
+                            @elseif($acara->kategori == 'Panitia')
                             <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
                                 <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
                             </a>

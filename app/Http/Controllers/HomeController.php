@@ -19,6 +19,7 @@ class HomeController extends Controller
        // Ambil acara yang sedang berlangsung
          $acaraSedangBerlangsung = Acara::where('tanggal', '=', Carbon::today()->toDateString())
          ->whereTime('jam', '<=', Carbon::now()->toTimeString())
+         ->take(3)
          ->get();
 
         return view('beranda', compact('riwayatPelatihan', 'acaraSedangBerlangsung'));
