@@ -121,54 +121,6 @@
                     <p class="bg-[#b72026] text-center px-2 py-1 rounded-xl text-[#fff]">Sedang tidak ada acara berlangsung</p>
                 </div>
                 @endif
-                <p class="font-bold text-lg mt-10">Riwayat Pelatihan Terakhir</p>
-                <ul>
-                    @foreach($riwayatPelatihan as $acara)
-                    <div class="w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
-                        <div>
-                            <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
-                        </div>
-                        <div class="flex gap-4">
-                        <!-- detil -->
-                        @if($acara->kategori == 'Peserta')
-                        <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Narasumber')
-                        <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a>
-                        @elseif($acara->kategori == 'Panitia')
-                        <!-- <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a> -->
-                        @endif
-                            <!-- edit -->
-                            <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
-                            </a>
-                            <!-- share -->
-                            @if($acara->kategori == 'Peserta')
-                            <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Narasumber')
-                            <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Panitai')
-                            <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @endif
-                        </div>
-                    </div>
-                    @endforeach
-                </ul>
-
-
             </div>
         </div>
     </div>
