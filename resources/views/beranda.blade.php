@@ -69,15 +69,13 @@
                 </a>
             </div>
             <!-- Kalender -->
-            <div class="mt-32 flex-col items-center justify-center bottom-16">
-                <div class="flex items-center justify-between">
-                    <div class="flex space-x-6 items-center justify-center w-full">
-                        <button onclick="previousMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&lt;</button>
-                        <div id="month-year" class="font-bold"></div>
-                        <button onclick="nextMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&gt;</button>
-                    </div>
+            <div class="mt-32 flex flex-col items-center justify-center">
+                <div class="flex items-center justify-between w-full">
+                    <button onclick="previousMonth()" class="text-gray-700 font-bold py-2 px-4 rounded">&lt;</button>
+                    <div id="month-year" class="font-bold"></div>
+                    <button onclick="nextMonth()" class="text-gray-700 font-bold py-2 px-4 rounded">&gt;</button>
                 </div>
-                <div id="calendar" class="mx-auto max-w-lg mt-1"></div>
+                <div id="calendar" class="max-w-full overflow-x-auto mt-4 text-[11px]"></div> <!-- Menambahkan kelas text-sm untuk ukuran font kecil -->
             </div>
             <!-- data-without=" [2/13/2016,2/14/2016,2/17/2016]" -->
         </div>
