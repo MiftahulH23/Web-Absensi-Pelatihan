@@ -27,7 +27,7 @@
     <!-- Main Content -->
     <div class="flex mt-5 gap-8 h-full pb-5">
         <!-- kiri -->
-        <div class="flex-none w-[24%] bg-white rounded-3xl shadow-xl px-4 lg:h-[82vh] md:h-[90vh] py-8 mt-3">
+        <div class="flex-none w-[18%] bg-white rounded-3xl shadow-xl px-4 lg:h-[82vh] md:h-[90vh] py-8 mt-3">
             <div class="flex justify-between ml-3">
                 @auth
                 <div class="flex gap-5">

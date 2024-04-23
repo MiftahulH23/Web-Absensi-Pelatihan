@@ -63,6 +63,17 @@
                     </div>
                 </a>
             </div>
+            <!-- Kalender -->
+            <div class="mt-32 flex-col items-center justify-center bottom-16">
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-6 items-center justify-center w-full">
+                        <button onclick="previousMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&lt;</button>
+                        <div id="month-year" class="font-bold"></div>
+                        <button onclick="nextMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&gt;</button>
+                    </div>
+                </div>
+                <div id="calendar" class="mx-auto max-w-lg mt-1"></div>
+            </div>
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">
@@ -227,7 +238,97 @@
             });
         }
     </script>
+    <!-- Inisialisasi datepicker -->
+    <script src="datepicker.js"></script>
+    <script>
+        // Get the current date
+        let today = new Date();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
 
+        // Function to render calendar
+        function renderCalendar(month, year) {
+            let calendar = document.getElementById("calendar");
+            let monthYearText = document.getElementById("month-year");
+
+            // Array of month names
+            let monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            // Get the first day of the month
+            let firstDay = new Date(year, month).getDay();
+
+            // Number of days in the month
+            let daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+            // Clear previous calendar
+            calendar.innerHTML = "";
+
+            // Create table header with month and year
+            let table = document.createElement("table");
+            table.classList.add("table", "table-bordered", "w-full");
+            let caption = table.createCaption();
+            monthYearText.textContent = monthNames[month] + " " + year;
+
+            // Create table header with days of the week
+            let header = table.createTHead();
+            let row = header.insertRow();
+            let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            for (let day of daysOfWeek) {
+                let cell = row.insertCell();
+                cell.textContent = day;
+            }
+
+            // Create table body with dates
+            let body = table.createTBody();
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                row = body.insertRow();
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        let cell = row.insertCell();
+                        cell.textContent = "";
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        let cell = row.insertCell();
+                        cell.textContent = date;
+                        cell.classList.add("p-2", "text-center");
+                        if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                            cell.classList.add("bg-gray-200", "rounded-full");
+                        }
+                        date++;
+                    }
+                }
+            }
+
+            calendar.appendChild(table);
+        }
+
+        // Render calendar for the current month
+        renderCalendar(currentMonth, currentYear);
+
+        // Function to show previous month
+        function previousMonth() {
+            currentMonth--;
+            if (currentMonth === -1) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar(currentMonth, currentYear);
+        }
+
+        // Function to show next month
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth === 12) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar(currentMonth, currentYear);
+        }
+    </script>
     <script>
         AOS.init();
     </script>
