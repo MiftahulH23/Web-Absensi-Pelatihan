@@ -66,15 +66,13 @@
                 </a>
             </div>
             <!-- Kalender -->
-            <div class="mt-32 flex-col items-center justify-center bottom-16">
-                <div class="flex items-center justify-between">
-                    <div class="flex space-x-6 items-center justify-center w-full">
-                        <button onclick="previousMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&lt;</button>
-                        <div id="month-year" class="font-bold"></div>
-                        <button onclick="nextMonth()" class=" text-gray-700 font-bold py-2 px-4 rounded">&gt;</button>
-                    </div>
+            <div class="mt-32 flex flex-col items-center justify-center">
+                <div class="flex items-center justify-between w-full">
+                    <button onclick="previousMonth()" class="text-gray-500 text-sm font-bold py-2 px-4 rounded">&lt;</button>
+                    <div id="month-year" class="font-bold text-gray-500 text-sm"></div>
+                    <button onclick="nextMonth()" class="text-gray-500 text-sm font-bold py-2 px-4 rounded">&gt;</button>
                 </div>
-                <div id="calendar" class="mx-auto max-w-lg mt-1"></div>
+                <div id="calendar" class="max-w-full overflow-x-auto mt-4 text-[11px]"></div> <!-- Menambahkan kelas text-sm untuk ukuran font kecil -->
             </div>
         </div>
         <!-- kanan -->
@@ -165,7 +163,6 @@
         });
     </script>
     <!-- Inisialisasi datepicker -->
-    <script src="datepicker.js"></script>
     <script>
         // Get the current date
         let today = new Date();
@@ -203,6 +200,7 @@
             let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             for (let day of daysOfWeek) {
                 let cell = row.insertCell();
+                cell.classList.add("text-center", "text-gray-500", "font-semibold");
                 cell.textContent = day;
             }
 
@@ -220,7 +218,7 @@
                     } else {
                         let cell = row.insertCell();
                         cell.textContent = date;
-                        cell.classList.add("p-2", "text-center");
+                        cell.classList.add("p-2", "text-center", "text-gray-500", "font-semibold");
                         if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                             cell.classList.add("bg-gray-200", "rounded-full");
                         }
