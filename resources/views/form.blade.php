@@ -9,12 +9,10 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <!-- Signature pad -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
-        rel="stylesheet">
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
@@ -76,54 +74,27 @@
     <div class="container mt-2 mb-10 form-absensi">
         <p class="font-semibold text-xl text-center mt-2">Form Absensi</p>
         <!-- Form Absensi -->
-        <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST"
-            enctype="multipart/form-data">
+        <form class="container" action="{{ route('acara.absen.store', ['id' => $acara->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <!-- Dokumentasi -->
-            <div class="flex flex-col gap-1 mt-1">
-                <p class="font-semibold">Dokumentasi</p>
-                <a href="{{ route('acara.absen.takeFoto', ['id' => $acara->id]) }}" for="foto"
-                    class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                    @if (isset($filename))
-                        <input id="fotoContainer" type="text" accept="image/*" capture="camera" id="foto"
-                            name="foto" class="hidden" value="{{$filename}}" />
-                    @endif
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                        <!-- Logo Input -->
-                        <img src="/images/input.png" alt="" class="h-6">
-                    </span>
-                    <p id="fileName" class="text-sm">
-                        @if (isset($filename))
-                            {{ $filename }}
-                        @else
-                            Ambil Foto
-                        @endif
-                    </p>
-                </a>
-            </div>
             <!-- Nama Lengkap -->
             <div class="flex flex-col mt-3">
                 <p class="font-semibold ">Nama Lengkap</p>
-                <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl"
-                    required>
+                <input type="text" id="nama" name="nama" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
             <!--No Rekening -->
             <div class="flex flex-col gap-1 mt-1">
                 <p class="font-semibold ">Nomor Rekening</p>
-                <input type="text" id="norek" name="norek" class="p-2 w-full md:w-full h-9 rounded-xl"
-                    required>
+                <input type="text" id="norek" name="norek" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
             <!-- Nik -->
             <div class="flex flex-col gap-1 mt-1">
                 <p class="font-semibold ">Nik</p>
-                <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl"
-                    required>
+                <input type="text" id="nik" name="nik" class="p-2 w-full md:w-full h-9 rounded-xl" required>
             </div>
             <!-- Level Jabatan -->
             <div class="flex flex-col gap-1 mt-1">
                 <label for="levelJabatan" class="font-semibold">Level Jabatan</label>
-                <select id="levelJabatan" name="levelJabatan"
-                    class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <select id="levelJabatan" name="levelJabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                     <option value="" disabled selected class="text-sm">- Pilih Level Jabatan -</option>
                     <option value="divisi_a" class="text-sm">Divisi A</option>
                     <option value="divisi_b" class="text-sm">Divisi B</option>
@@ -133,8 +104,7 @@
             <!-- Jabatan -->
             <div class="flex flex-col gap-1 mt-1">
                 <label for="jabatan" class="font-semibold" class="text-sm">Jabatan</label>
-                <select id="jabatan" name="jabatan"
-                    class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <select id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                     <option value="" disabled selected>- Pilih Jabatan -</option>
                     <option value="divisi_a" class="text-sm">Divisi A</option>
                     <option value="divisi_b" class="text-sm">Divisi B</option>
@@ -144,16 +114,33 @@
             <!-- Unit Kantor -->
             <div class="flex flex-col gap-1 mt-1">
                 <label for="unitKantor" class="font-semibold">Unit Kantor</label>
-                <select id="unitKantor" name="unitKantor"
-                    class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                <select id="unitKantor" name="unitKantor" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                     <option value="" disabled selected class="text-sm">- Pilih Unit Kantor -</option>
                     <option value="divisi_a" class="text-sm">Divisi A</option>
                     <option value="divisi_b" class="text-sm">Divisi B</option>
                     <option value="divisi_c" class="text-sm">Divisi C</option>
                 </select>
             </div>
-
-
+            <!-- Dokumentasi -->
+            <div class="flex flex-col gap-1 mt-1">
+                <p class="font-semibold">Dokumentasi</p>
+                <a href="{{ route('acara.absen.takeFoto', ['id' => $acara->id]) }}" for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                    @if (isset($filename))
+                    <input id="fotoContainer" type="text" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" value="{{$filename}}" />
+                    @endif
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <!-- Logo Input -->
+                        <img src="/images/input.png" alt="" class="h-6">
+                    </span>
+                    <p id="fileName" class="text-sm">
+                        @if (isset($filename))
+                        {{ $filename }}
+                        @else
+                        Ambil Foto
+                        @endif
+                    </p>
+                </a>
+            </div>
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
                 <p class="font-semibold">Tanda Tangan</p>
@@ -167,8 +154,7 @@
             <input type="hidden" name="acara_id" id="acara_id" value="{{ $acara->id }}">
             <!-- button -->
             <div class="grid place-items-center">
-                <button type="submit"
-                    class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
+                <button type="submit" class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
             </div>
         </form>
         <div class="w-96 overflow-hidden ml-16 fixed right-0 -bottom-16 -z-10">

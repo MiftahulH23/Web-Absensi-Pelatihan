@@ -35,7 +35,13 @@ class AbsenController extends Controller
     public function narasumber($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('formNarasumber', compact('acara'));
+        if (Session::has('filename')) {
+            // dd(Session::get('filename'));
+            $filename = Session::get('filename');
+            return view('formNarasumber', compact('acara', 'filename'));
+        } else {
+            return view('formNarasumber', compact('acara'));
+        }
     }
     public function panitia($id)
     {
@@ -50,6 +56,10 @@ class AbsenController extends Controller
     public function takeFoto($id)
     {
         return view('dokumentasi')->with('id', $id);
+    }
+    public function takeFotoNarasumber($id)
+    {
+        return view('dokumentasiNarasumber')->with('id', $id);
     }
     public function simpanFoto(Request $request, $id)
     {
@@ -68,6 +78,24 @@ class AbsenController extends Controller
         Storage::put('public/absens/' . $filename, $imageBinary);
         Session::put('filename', $filename);
         return redirect()->route('acara.absen.create', ['id' => $id])->with('filename', $filename,);
+    }
+    public function simpanFotoNarasumber(Request $request, $id)
+    {
+        // dd($request->all());
+        // Validasi request
+        $imageData = $request->input('image');
+        // Decode the base64 string to get the binary image data
+        $imageData = str_replace('data:image/png;base64,', '', $imageData);
+        $imageData = str_replace(' ', '+', $imageData);
+        $imageBinary = base64_decode($imageData);
+
+        // Generate a unique filename for the image
+        $filename = 'image_' . time() . '.png';
+
+        // Save the image data to the storage directory
+        Storage::put('public/absens/' . $filename, $imageBinary);
+        Session::put('filename', $filename);
+        return redirect()->route('acara.absen.narasumber', ['id' => $id])->with('filename', $filename,);
     }
     public function store(Request $request, $id): RedirectResponse
     {
@@ -151,15 +179,9 @@ public function storeNarasumber (Request $request, $id): RedirectResponse
         // 'jamMulai' => 'required|string|max:255',
         // 'jamSelesai' => 'required|string|max:255',
         'materi' => 'required|string|max:255',
-        'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        'foto' => 'required',
         'ttd' => 'required|string', // ubah menjadi string
     ]);
-
-    // Unggah gambar
-    if ($request->hasFile('foto')) {
-        $image = $request->file('foto');
-        $image->storeAs('public/absens', $image->hashName());
-    }
 
     // Ambil waktu absen
     $absen = Carbon::now();
@@ -185,7 +207,7 @@ public function storeNarasumber (Request $request, $id): RedirectResponse
         'unitKantor' => $validatedData['unitKantor'],
         'jamMengajar' => $validatedData['jamMengajar'], // Menggunakan jam mengajar yang sudah digabung
         'materi' => $validatedData['materi'],
-        'foto' => $request->hasFile('foto') ? $image->hashName() : null,
+        'foto' => $request->foto,
         'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
         'id_acara' => $id, // Mengambil ID acara dari URL
     ];

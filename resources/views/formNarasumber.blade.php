@@ -114,13 +114,22 @@
             <!-- Dokumentasi -->
             <div class="flex flex-col gap-1 mt-1">
                 <p class="font-semibold">Dokumentasi</p>
-                <div class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
-                    <label for="foto" class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <a href="{{ route('acara.absen.takeFotoNarasumber', ['id' => $acara->id]) }}" for="foto" class="relative w-full md:w-full p-2 h-9 rounded-xl bg-white opacity-90 cursor-pointer">
+                    @if (isset($filename))
+                    <input id="fotoContainer" type="text" accept="image/*" capture="camera" id="foto" name="foto" class="hidden" value="{{$filename}}" />
+                    @endif
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <!-- Logo Input -->
                         <img src="/images/input.png" alt="" class="h-6">
-                    </label>
-                    <input type="file" accept="image/*" capture="camera" id="foto" name="foto" class="absolute inset-0 opacity-0 z-10 w-full h-full cursor-pointer" onchange="displayFileName(this)" />
-                    <p id="fileName" class="text-sm"></p>
-                </div>
+                    </span>
+                    <p id="fileName" class="text-sm">
+                        @if (isset($filename))
+                        {{ $filename }}
+                        @else
+                        Ambil Foto
+                        @endif
+                    </p>
+                </a>
             </div>
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
