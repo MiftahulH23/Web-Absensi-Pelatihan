@@ -61,7 +61,7 @@ Route::get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->n
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
 Route::post('/acaras/{id}/store-narasumber', [AbsenController::class, 'storeNarasumber'])->name('acara.absen.storeNarasumber');
 Route::get('/acaras/{id}/take-foto', [AbsenController::class, 'takeFoto'])->name('acara.absen.takeFoto');
-Route::post('/simpan-foto', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
+Route::post('/simpan-foto/{id}', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
 Route::get('/acaras/{id}/absens-narasumber', [AbsenController::class, 'narasumber'])->name('acara.absen.narasumber');
 Route::get('/acaras/{id}/absens-panitia', [AbsenController::class, 'panitia'])->name('acara.absen.panitia');
 

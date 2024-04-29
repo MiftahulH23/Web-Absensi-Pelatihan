@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Acara;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class AbsenController extends Controller
 {
@@ -21,7 +23,14 @@ class AbsenController extends Controller
     public function create($id)
     {
         $acara = Acara::findOrFail($id);
-        return view('form', compact('acara'));
+
+        if (Session::has('filename')) {
+            // dd(Session::get('filename'));
+            $filename = Session::get('filename');
+            return view('form', compact('acara', 'filename'));
+        } else {
+            return view('form', compact('acara'));
+        }
     }
     public function narasumber($id)
     {
@@ -38,96 +47,98 @@ class AbsenController extends Controller
     {
         return view('selesai');
     }
-    public function takeFoto()
+    public function takeFoto($id)
     {
-        return view('dokumentasi');
+        return view('dokumentasi')->with('id', $id);
     }
-    public function simpanFoto(Request $request)
+    public function simpanFoto(Request $request, $id)
     {
+        // dd($request->all());
         // Validasi request
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $imageData = $request->input('image');
+        // Decode the base64 string to get the binary image data
+        $imageData = str_replace('data:image/png;base64,', '', $imageData);
+        $imageData = str_replace(' ', '+', $imageData);
+        $imageBinary = base64_decode($imageData);
 
-        // Mendapatkan data gambar dari request
-        $image = $request->file('image');
+        // Generate a unique filename for the image
+        $filename = 'image_' . time() . '.png';
 
-        // Menyimpan gambar ke dalam folder public/dokumentasi
-        $path = $image->store('public/dokumentasi');
-
-        // Mengembalikan path gambar yang disimpan
-        return $path;
+        // Save the image data to the storage directory
+        Storage::put('public/absens/' . $filename, $imageBinary);
+        Session::put('filename', $filename);
+        return redirect()->route('acara.absen.create', ['id' => $id])->with('filename', $filename,);
     }
     public function store(Request $request, $id): RedirectResponse
-{
-    // Validasi formulir
-    $validatedData = $request->validate([
-        'nama' => 'required|string|max:255',
-        'norek' => 'required|string|max:255',
-        'nik' => 'required|string|max:255',
-        'levelJabatan' => 'required|string|max:255',
-        'jabatan' => 'required|string|max:255',
-        'unitKantor' => 'required|string|max:255',
-        'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-        'ttd' => 'required|string', // ubah menjadi string
-    ]);
+    {
+        // Validasi formulir
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'norek' => 'required|string|max:255',
+            'nik' => 'required|string|max:255',
+            'levelJabatan' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'unitKantor' => 'required|string|max:255',
+            'foto' => 'required',
+            'ttd' => 'required|string', // ubah menjadi string
+        ]);
 
-    // Unggah gambar
-    if ($request->hasFile('foto')) {
-        $image = $request->file('foto');
-        $image->storeAs('public/absens', $image->hashName());
+        // Unggah gambar
+
+
+        // Ambil waktu dari acara yang dipilih
+        $acara = Acara::findOrFail($id);
+        $waktuAcara = $acara->absen;
+        $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
+
+        // Ambil waktu absen
+        $absen = Carbon::now();
+
+        // Tentukan status
+        if ($absen->greaterThan($jamAcara)) {
+            // Telat
+            $status = 'Late';
+        } else {
+            // Ontime
+            $status = 'Ontime';
+        }
+
+        // Unggah tanda tangan
+        if ($request->has('ttd')) {
+            $ttd = $request->ttd;
+            $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
+            $ttd = base64_decode($ttd);
+            $ttdFileName = uniqid() . '.png'; // Generate nama file unik
+            $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
+            file_put_contents(storage_path('app/' . $ttdPath), $ttd);
+        }
+
+        // Membuat data absen
+        $absenData = [
+            'nama' => $validatedData['nama'],
+            'norek' => $validatedData['norek'],
+            'nik' => $validatedData['nik'],
+            'levelJabatan' => $validatedData['levelJabatan'],
+            'jabatan' => $validatedData['jabatan'],
+            'unitKantor' => $validatedData['unitKantor'],
+            'foto' => $request->foto,
+            'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
+            'id_acara' => $id, // Mengambil ID acara dari URL
+            'absen' => $waktuAcara, // Simpan waktu absen
+            'status' => $status, // Simpan status absen
+        ];
+
+        $absen = Absen::create($absenData);
+        
+
+
+        if ($absen) {
+            return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+
+        return redirect()->route('absen.create')->with(['error' => 'Data gagal Disimpan!']);
     }
 
-    // Ambil waktu dari acara yang dipilih
-    $acara = Acara::findOrFail($id);
-    $waktuAcara = $acara->absen;
-    $jamAcara = Carbon::createFromFormat('H:i', $acara->jam);
-
-    // Ambil waktu absen
-    $absen = Carbon::now();
-
-    // Tentukan status
-    if ($absen->greaterThan($jamAcara)) {
-        // Telat
-        $status = 'Late';
-    } else {
-        // Ontime
-        $status = 'Ontime';
-    }
-
-    // Unggah tanda tangan
-    if ($request->has('ttd')) {
-        $ttd = $request->ttd;
-        $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
-        $ttd = base64_decode($ttd);
-        $ttdFileName = uniqid() . '.png'; // Generate nama file unik
-        $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
-        file_put_contents(storage_path('app/' . $ttdPath), $ttd);
-    }
-
-    // Membuat data absen
-    $absenData = [
-        'nama' => $validatedData['nama'],
-        'norek' => $validatedData['norek'],
-        'nik' => $validatedData['nik'],
-        'levelJabatan' => $validatedData['levelJabatan'],
-        'jabatan' => $validatedData['jabatan'],
-        'unitKantor' => $validatedData['unitKantor'],
-        'foto' => $request->hasFile('foto') ? $image->hashName() : null,
-        'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
-        'id_acara' => $id, // Mengambil ID acara dari URL
-        'absen' => $waktuAcara, // Simpan waktu absen
-        'status' => $status, // Simpan status absen
-    ];
-
-    $absen = Absen::create($absenData);
-
-    if ($absen) {
-        return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
-    }
-
-    return redirect()->route('absen.create')->with(['error' => 'Data gagal Disimpan!']);
-}
 public function storeNarasumber (Request $request, $id): RedirectResponse
 {
     // Validasi formulir

@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <!-- Signature pad -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 
@@ -31,7 +33,8 @@
         </div>
         <!-- take foto -->
         <div class="mx-5 mb-2 mt-4">
-            <div class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
+            <div
+                class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
                 <div id="fotoContainer" class="w-56 h-64 overflow-hidden relative">
                     <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
@@ -42,12 +45,14 @@
                         <span id="time"></span> <span id="date"></span>
                     </div>
                 </div>
-                <form id="fotoForm" method="POST" action="{{ route('simpan.foto') }}">
+                <form id="fotoForm" method="POST" action="{{ route('simpan.foto',['id'=>$id]) }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="foto" name="image">
-                    <button type="button" id="ambilFotoBtn" class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
+                    <button type="button" id="ambilFotoBtn"
+                        class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
                 </form>
-                <button type="submit" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
+                <button type="submit" id="kirimBtn"
+                    class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
             </div>
         </div>
     </div>
@@ -61,6 +66,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             var ambilFotoBtn = document.getElementById('ambilFotoBtn');
             var clearFotoBtn = document.getElementById('clear');
+            var kirimBtn = document.getElementById('kirimBtn');
 
             ambilFotoBtn.addEventListener('click', function() {
                 captureSnapshot();
@@ -69,6 +75,9 @@
 
             clearFotoBtn.addEventListener('click', function() {
                 clearFoto();
+            });
+            kirimBtn.addEventListener('click', function() {
+                kirimFoto();
             });
 
             navigator.mediaDevices.getUserMedia({
@@ -98,15 +107,27 @@
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             var imageDataURL = canvas.toDataURL('image/png');
 
-            // Menampilkan foto di dalam elemen video
-            video.style.display = 'none';
+            // Menampilkan foto di dalam elemen fotoContainer
+            var fotoContainer = document.getElementById('fotoContainer');
+            fotoContainer.innerHTML = ''; // Menghapus konten sebelumnya
             var foto = document.createElement('img');
             foto.src = imageDataURL;
             foto.alt = 'Foto yang diambil';
             foto.className = 'rounded-xl w-full h-full object-cover';
-            video.parentNode.replaceChild(foto, video);
+            fotoContainer.appendChild(foto);
 
+            // Menyimpan URL gambar di dalam input tersembunyi
             document.getElementById('foto').value = imageDataURL;
+        }
+
+        function kirimFoto() {
+            var fotoContainer = document.getElementById('fotoContainer');
+            var foto = fotoContainer.querySelector('img');
+            var imageDataURL = foto.src;
+            document.getElementById('foto').value = imageDataURL;
+            document.getElementById('fotoForm').submit();
+            console.log(imageDataURL)
+
         }
 
         function clearFoto() {
@@ -154,7 +175,12 @@
         // pemanggilan fungsi updateTime() setiap detik
         intervalID = setInterval(updateTime, 1000);
     </script>
-
+    <script>
+        // Ketika tombol "Kirim" ditekan
+        document.getElementById('kirimBtn').addEventListener('click', function() {
+            kirimFoto();
+        });
+    </script>
 </body>
 
 </html>
