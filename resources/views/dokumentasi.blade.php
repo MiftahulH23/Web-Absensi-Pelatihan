@@ -10,12 +10,10 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <!-- Signature pad -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
-        rel="stylesheet">
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 
@@ -33,26 +31,24 @@
         </div>
         <!-- take foto -->
         <div class="mx-5 mb-2 mt-4">
-            <div
-                class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
+            <div class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
                 <div id="fotoContainer" class="w-56 h-64 overflow-hidden relative">
                     <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
-                    <div class="absolute top-0 right-0">
+                    <div class="absolute top-0 right-0" id="clearContainer">
                         <img id="clear" src="/images/clear.png" alt="Hapus Foto" class="w-12 h-12 z-0">
                     </div>
                     <div id="dateTime" class="absolute bottom-0 left-0 text-white p-2">
                         <span id="time"></span> <span id="date"></span>
                     </div>
                 </div>
+
                 <form id="fotoForm" method="POST" action="{{ route('simpan.foto',['id'=>$id]) }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="foto" name="image">
-                    <button type="button" id="ambilFotoBtn"
-                        class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
+                    <button type="button" id="ambilFotoBtn" class="w-52 h-fitt py-2 text-center bg-[#f5df66] mt-3 rounded-full">Ambil Foto</button>
                 </form>
-                <button type="submit" id="kirimBtn"
-                    class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
+                <button type="submit" id="kirimBtn" class="w-52 text-white h-fitt py-2 text-center bg-[#03ad00] mt-3 rounded-full">Kirim</button>
             </div>
         </div>
     </div>
@@ -105,6 +101,22 @@
             canvas.height = video.videoHeight;
             var context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Menambahkan waktu ke dalam gambar
+            var now = new Date();
+            var time = now.toLocaleTimeString();
+            var date = now.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+
+            // Menentukan ukuran dan posisi teks
+            context.font = "bold 32px Arial";
+            context.fillStyle = "white";
+            context.textAlign = "left"; // Mengatur posisi teks menjadi di sebelah kiri
+            context.fillText(date + ' ' + time, 140, 450); // Mengatur posisi teks pada (10, 30)
+
             var imageDataURL = canvas.toDataURL('image/png');
 
             // Menampilkan foto di dalam elemen fotoContainer
@@ -120,19 +132,15 @@
             document.getElementById('foto').value = imageDataURL;
         }
 
-        function kirimFoto() {
-            var fotoContainer = document.getElementById('fotoContainer');
-            var foto = fotoContainer.querySelector('img');
-            var imageDataURL = foto.src;
-            document.getElementById('foto').value = imageDataURL;
-            document.getElementById('fotoForm').submit();
-            console.log(imageDataURL)
 
-        }
 
         function clearFoto() {
             var video = document.getElementById('video');
             var fotoContainer = document.getElementById('fotoContainer');
+            var clearContainer = document.getElementById('clearContainer');
+
+            // Menyembunyikan logo "Clear Foto"
+            clearContainer.style.display = 'none';
 
             // Menghapus foto yang sedang ditampilkan
             var foto = fotoContainer.querySelector('img');
@@ -158,6 +166,22 @@
             }).catch(function(err) {
                 console.log("Tidak dapat mengakses kamera: " + err);
             });
+
+            // Menampilkan kembali logo "Clear Foto" setelah beberapa waktu
+            setTimeout(function() {
+                clearContainer.style.display = 'block';
+            }, 2000); // Ubah 2000 sesuai dengan waktu yang Anda inginkan sebelum logo muncul kembali
+        }
+
+
+        function kirimFoto() {
+            var fotoContainer = document.getElementById('fotoContainer');
+            var foto = fotoContainer.querySelector('img');
+            var imageDataURL = foto.src;
+            document.getElementById('foto').value = imageDataURL;
+            document.getElementById('fotoForm').submit();
+            console.log(imageDataURL)
+
         }
 
         // fungsi untuk menampilkan waktu secara real-time
