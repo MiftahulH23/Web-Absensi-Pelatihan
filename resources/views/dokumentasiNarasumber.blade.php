@@ -55,7 +55,7 @@
         </div>
     </div>
     <!-- motifmelayu -->
-    <div class="w-full h-[85px] mt-20 fixed bottom-0">
+    <div class="w-full h-[85px] mt-4">
         <img src="/images/motifMelayu.png" alt="" class="w-full h-full object-cover">
     </div> 
     <!-- js -->
