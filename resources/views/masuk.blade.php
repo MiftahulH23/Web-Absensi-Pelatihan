@@ -62,8 +62,8 @@
                 </form>
             </div>
             <!-- motif melayu -->
-            <div class="absolute bottom-0">
-                <img src="/images/motifMelayu.png" alt="" class="w-[100%] h-auto">
+            <div class="absolute bottom-0 w-[100%] h-36">
+                <img src="/images/motifMelayu.png" alt="" class="w-full h-full">
             </div>
         </div>
     </div>

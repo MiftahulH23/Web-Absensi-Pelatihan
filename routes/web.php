@@ -38,7 +38,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // Register Controller
-Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar');
+Route::middleware('auth')->get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar');
 Route::post('/daftar', [RegisterController::class, 'register'])->name('actiondaftar');
 
 // acara Controller

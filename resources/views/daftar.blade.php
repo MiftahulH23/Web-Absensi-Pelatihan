@@ -39,7 +39,7 @@
 
                 <form action="{{ route('actiondaftar') }}" method="post">
                     @csrf
-                    <div class="flex flex-col mt-5 gap-5">
+                    <div class="flex flex-col mt-5 gap-3">
                         <!-- nama -->
                         <input type="text" placeholder="Masukkan Nama" id="name" name="name" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
                         <!-- email -->
@@ -48,12 +48,12 @@
                         <input type="password" placeholder="Masukkan Password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
                     </div>
                     <!-- button -->
-                    <button type="submit" class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Daftar</button>
+                    <button type="submit" class="p-2 w-full md:w-full h-12 rounded-xl mt-10 text-white font-bold bg-[#03ad00] text-sm">Daftar</button>
                 </form>
             </div>
             <!-- motif melayu -->
-            <div class="absolute bottom-0">
-                <img src="/images/motifMelayu.png" alt="" class="w-full h-auto">
+            <div class="absolute bottom-0 w-[100%] h-48">
+                <img src="/images/motifMelayu.png" alt="" class="w-full h-full">
             </div>
         </div>
     </div>
