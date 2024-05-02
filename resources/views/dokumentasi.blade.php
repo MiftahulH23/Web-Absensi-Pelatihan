@@ -33,16 +33,18 @@
         <div class="mx-5 mb-2 mt-4">
             <div class="h-full w-full md:h-full md:w-full bg-white flex flex-col justify-center items-center p-4 rounded-2xl shadow-xl">
                 <p class="font-semibold text-lg">Konfirmasi Foto</p>
-                <div id="fotoContainer" class="w-56 h-64 overflow-hidden relative">
-                    <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
-                    <div class="absolute top-0 right-0" id="clearContainer">
-                        <img id="clear" src="/images/clear.png" alt="Hapus Foto" class="w-12 h-12 z-0">
+                <div class="relative w-56 h-64">
+                    <div id="fotoContainer" class="w-full h-full overflow-hidden">
+                        <video id="video" autoplay class="rounded-xl w-full h-full object-cover"></video>
+                        <div id="dateTime" class="absolute bottom-0 left-0 text-white p-2">
+                            <span id="time"></span> <span id="date"></span>
+                        </div>
                     </div>
-                    <div id="dateTime" class="absolute bottom-0 left-0 text-white p-2">
-                        <span id="time"></span> <span id="date"></span>
+                    <!-- ulangi -->
+                    <div class="absolute top-0 right-0" id="ulangiFoto">
+                        <img id="clear" src="/images/clear.png" alt="Ulangi Foto" class="w-12 h-12 z-0">
                     </div>
                 </div>
-
                 <form id="fotoForm" method="POST" action="{{ route('simpan.foto',['id'=>$id]) }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" id="foto" name="image">
@@ -132,45 +134,36 @@
             document.getElementById('foto').value = imageDataURL;
         }
 
-
-
         function clearFoto() {
-            var video = document.getElementById('video');
+            // Hapus konten fotoContainer
             var fotoContainer = document.getElementById('fotoContainer');
-            var clearContainer = document.getElementById('clearContainer');
+            fotoContainer.innerHTML = '';
 
-            // Menyembunyikan logo "Clear Foto"
-            clearContainer.style.display = 'none';
+            // Tampilkan kembali video
+            var video = document.createElement('video');
+            video.id = 'video';
+            video.autoplay = true;
+            video.className = 'rounded-xl w-full h-full object-cover';
+            fotoContainer.appendChild(video);
 
-            // Menghapus foto yang sedang ditampilkan
-            var foto = fotoContainer.querySelector('img');
-            if (foto) {
-                fotoContainer.removeChild(foto);
-            }
+            // Tampilkan waktu lagi
+            var dateTime = document.createElement('div');
+            dateTime.id = 'dateTime';
+            dateTime.className = 'absolute bottom-0 left-0 text-white p-2';
+            fotoContainer.appendChild(dateTime);
 
-            // Menampilkan kembali video
-            video.style.display = 'block';
+            // Mulai kembali pembaruan waktu
+            intervalID = setInterval(updateTime, 1000);
 
-            // Menghentikan track kamera sebelumnya
-            var stream = video.srcObject;
-            var tracks = stream.getTracks();
-            tracks.forEach(function(track) {
-                track.stop();
-            });
-
-            // Membuka kembali kamera untuk mengambil foto baru
+            // Atur kamera kembali
             navigator.mediaDevices.getUserMedia({
                 video: true
             }).then(function(stream) {
+                var video = document.getElementById('video');
                 video.srcObject = stream;
             }).catch(function(err) {
                 console.log("Tidak dapat mengakses kamera: " + err);
             });
-
-            // Menampilkan kembali logo "Clear Foto" setelah beberapa waktu
-            setTimeout(function() {
-                clearContainer.style.display = 'block';
-            }, 2000); // Ubah 2000 sesuai dengan waktu yang Anda inginkan sebelum logo muncul kembali
         }
 
 
