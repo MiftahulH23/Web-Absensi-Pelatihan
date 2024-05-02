@@ -170,7 +170,7 @@
             // Menampilkan kembali logo "Clear Foto" setelah beberapa waktu
             setTimeout(function() {
                 clearContainer.style.display = 'block';
-            }, 2000); // Ubah 2000 sesuai dengan waktu yang Anda inginkan sebelum logo muncul kembali
+            }, 2000); 
         }
 
 
