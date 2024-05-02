@@ -58,7 +58,7 @@
                 <!-- Riwayat -->
                 <a href="{{ route('acaras.index') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">
-                        <img src="/images/historyIcon.png" alt="riwayatIcon" class="w-full h-full object-cover">
+                        <img src="/images/daftarAcara.png" alt="riwayatIcon" class="w-full h-full object-cover">
                     </div>
                     <p class="text-gray-500 font-semibold text-sm">Daftar Acara</p>
                 </a>
