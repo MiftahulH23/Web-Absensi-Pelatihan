@@ -77,7 +77,6 @@
                 </div>
                 <div id="calendar" class="max-w-full overflow-x-auto mt-4 text-[11px]"></div> <!-- Menambahkan kelas text-sm untuk ukuran font kecil -->
             </div>
-            <!-- data-without=" [2/13/2016,2/14/2016,2/17/2016]" -->
         </div>
         <!-- kanan -->
         <div class="flex flex-col w-full">

@@ -13,16 +13,16 @@
 </head>
 
 <body class="bg-[#efefef]">
-    <div class="grid grid-cols-3 overflow-hidden h-screen">
+    <div class="flex overflow-hidden h-screen">
         <!-- Kiri -->
-        <div class="col-span-2 bg-white">
-            <img src="/images/gedungbrk.png" alt="" class="w-full h-full object-cover opacity-50">
+        <div class="flex-auto bg-white">
+            <img src="/images/gedungbrk.png" alt="" class="w-full h-full opacity-50">
         </div>
         <!-- Kanan -->
-        <div class="relative my-auto lg:h-[80vh] md:h-[90vh]">
+        <div class="relative lg:h-[100vh] md:h-[90vh] flex-none w-[35%] my-auto">
             <div class="mx-5">
-                <div class="w-36 overflow-hidden mx-auto">
-                    <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-cover">
+                <div class="w-36 overflow-hidden mx-auto md:mt-28 lg:mt-32">
+                    <img src="images/logobrkacademy.png" alt="logoBrkAcademy" class="w-full object-contain">
                 </div>
                 <p class="font-bold text-xl mt-8">Daftar</p>
                 @if (session('error_message'))
@@ -52,7 +52,7 @@
                 </form>
             </div>
             <!-- motif melayu -->
-            <div class="absolute bottom-0 w-[100%] h-48">
+            <div class="absolute bottom-0 h-36 w-[100%]">
                 <img src="/images/motifMelayu.png" alt="" class="w-full h-full">
             </div>
         </div>

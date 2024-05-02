@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        return view('daftar'); // Pastikan Anda sudah memiliki view daftar.blade.php
+        return view('daftar'); 
     }
 
     public function register(Request $request)

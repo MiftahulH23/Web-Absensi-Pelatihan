@@ -108,10 +108,8 @@ class AbsenController extends Controller
             'jabatan' => 'required|string|max:255',
             'unitKantor' => 'required|string|max:255',
             'foto' => 'required',
-            'ttd' => 'required|string', // ubah menjadi string
+            'ttd' => 'required|string', 
         ]);
-
-        // Unggah gambar
 
 
         // Ambil waktu dari acara yang dipilih
@@ -159,7 +157,6 @@ class AbsenController extends Controller
         $absen = Absen::create($absenData);
         
 
-
         if ($absen) {
             return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
         }
@@ -176,18 +173,13 @@ public function storeNarasumber (Request $request, $id): RedirectResponse
         'jabatan' => 'required|string|max:255',
         'unitKantor' => 'required|string|max:255',
         'jamMengajar' => 'required|string|max:255',
-        // 'jamMulai' => 'required|string|max:255',
-        // 'jamSelesai' => 'required|string|max:255',
         'materi' => 'required|string|max:255',
         'foto' => 'required',
-        'ttd' => 'required|string', // ubah menjadi string
+        'ttd' => 'required|string', 
     ]);
 
     // Ambil waktu absen
     $absen = Carbon::now();
-
-    // Gabungkan jam mulai dan jam selesai menjadi satu string
-    // $jamMengajar = $validatedData['jamMulai'] . ' - ' . $validatedData['jamSelesai'];
 
     // Unggah tanda tangan
     if ($request->has('ttd')) {
