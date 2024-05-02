@@ -41,8 +41,8 @@
                         </div>
                     </div>
                     <!-- ulangi -->
-                    <div class="absolute top-0 right-0" id="ulangiFoto">
-                        <img id="clear" src="/images/clear.png" alt="Ulangi Foto" class="w-12 h-12 z-0">
+                    <div class="absolute top-3 right-3" id="ulangiFoto">
+                        <img id="clear" src="/images/Vector.png" alt="Ulangi Foto" class="w-4 h-4 z-0">
                     </div>
                 </div>
                 <form id="fotoForm" method="POST" action="{{ route('simpan.foto',['id'=>$id]) }}" enctype="multipart/form-data">
