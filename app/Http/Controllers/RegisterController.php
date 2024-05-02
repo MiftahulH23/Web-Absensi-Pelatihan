@@ -31,7 +31,7 @@ class RegisterController extends Controller
         'email.unique' => 'Email sudah digunakan.',
         'password.required' => 'Password harus diisi.',
         'password.min' => 'Password minimal harus 8 karakter.',
-        'password.regex' => 'Gunakan kombinasi huruf, angka, dan karakter khusus',
+        'password.regex' => 'Gunakan kombinasi huruf Kapital ,angka dan karakter khusus',
     ]);
 
     // Jika validasi gagal
