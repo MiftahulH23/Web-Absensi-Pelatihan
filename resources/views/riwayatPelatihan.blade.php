@@ -10,21 +10,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <title>Daftar Acara</title>
-    <style>
-        /* CHECKBOX TOGGLE SWITCH */
-        /* @apply rules for documentation, these do not work as inline style */
-        .toggle-checkbox:checked {
-            @apply: right-0 border-green-400;
-            right: 0;
-            border-color: #68D391;
-        }
-
-        .toggle-checkbox:checked+.toggle-label {
-            @apply: bg-green-400;
-            background-color: #68D391;
-        }
-    </style>
-
 </head>
 
 <body class="bg-[#efefef] mx-8 mt-5 overflow-hidden" data-aos="zoom-in-down">
@@ -114,11 +99,12 @@
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                         </div>
-                        <div class="flex gap-4">
+                        <div class="flex justify-center items-center gap-4">
                             <!-- toogle button -->
-                            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
-                                <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
-                                <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            <div>
+                                <button class="toggleButton relative w-12 h-6 rounded-full bg-gray-300 focus:outline-none">
+                                    <div class="toggleCircle absolute left-1 top-1 w-4 h-4 rounded-full bg-white transition-transform transform"></div>
+                                </button>
                             </div>
                             <!-- detil -->
                             @if($acara->kategori == 'Peserta')
@@ -162,7 +148,22 @@
     </div>
     <!-- js toggle button -->
     <script>
-        
+        // Ambil semua toggle button dan toggle circle
+        const toggleButtons = document.querySelectorAll(".toggleButton");
+        const toggleCircles = document.querySelectorAll(".toggleCircle");
+
+        // Iterasi melalui setiap toggle button
+        toggleButtons.forEach((toggleButton, index) => {
+            const toggleCircle = toggleCircles[index];
+
+            // Tambahkan event listener untuk setiap toggle button
+            toggleButton.addEventListener("click", function() {
+                toggleCircle.classList.toggle("translate-x-full");
+                toggleCircle.classList.toggle("translate-x-6"); // Untuk menggeser ke kanan
+                toggleButton.classList.toggle("bg-gray-300");
+                toggleButton.classList.toggle("bg-green-500");
+            });
+        });
     </script>
     <!-- Js Searching -->
     <script>
