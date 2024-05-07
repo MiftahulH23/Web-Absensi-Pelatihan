@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <title>Daftar Acara</title>
+    <style>
+        /* CHECKBOX TOGGLE SWITCH */
+        /* @apply rules for documentation, these do not work as inline style */
+        .toggle-checkbox:checked {
+            @apply: right-0 border-green-400;
+            right: 0;
+            border-color: #68D391;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            @apply: bg-green-400;
+            background-color: #68D391;
+        }
+    </style>
+
 </head>
 
 <body class="bg-[#efefef] mx-8 mt-5 overflow-hidden" data-aos="zoom-in-down">
@@ -100,6 +115,11 @@
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                         </div>
                         <div class="flex gap-4">
+                            <!-- toogle button -->
+                            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                                <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
+                                <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
                             <!-- detil -->
                             @if($acara->kategori == 'Peserta')
                             <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
@@ -140,6 +160,10 @@
 
         </div>
     </div>
+    <!-- js toggle button -->
+    <script>
+        
+    </script>
     <!-- Js Searching -->
     <script>
         // Event listener untuk menekan tombol "Enter" pada input pencarian
@@ -274,7 +298,7 @@
             let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             for (let day of daysOfWeek) {
                 let cell = row.insertCell();
-                cell.classList.add("text-center", "text-gray-500" , "font-semibold");
+                cell.classList.add("text-center", "text-gray-500", "font-semibold");
                 cell.textContent = day;
             }
 
