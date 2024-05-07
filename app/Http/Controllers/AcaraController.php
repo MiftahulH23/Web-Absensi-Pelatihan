@@ -121,4 +121,13 @@ class AcaraController extends Controller
 
         return response()->json($trainings);
     }
+
+    public function updateStatus($id)
+    {
+        $acara = Acara::findOrFail($id);
+        $acara->status = $acara->status == 'on' ? 'off' : 'on'; // Toggle status
+        $acara->save();
+
+        return response()->json(['message' => 'Status acara berhasil diperbarui']);
+    }
 }

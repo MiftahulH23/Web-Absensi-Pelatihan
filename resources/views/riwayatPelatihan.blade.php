@@ -4,11 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
     <link rel="icon" href="/images/logokecil.png" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <style>
+        .toggleButton.bg-gray-300 {
+            background-color: #D1D5DB;
+            /* Warna latar belakang untuk status "off" */
+        }
+
+        .toggleButton:focus {
+            outline: none;
+        }
+
+        .toggleCircle.translate-x-full {
+            transform: translateX(75%);
+        }
+    </style>
     <title>Daftar Acara</title>
 </head>
 
@@ -101,9 +116,9 @@
                         </div>
                         <div class="flex justify-center items-center gap-4">
                             <!-- toogle button -->
-                            <div>
-                                <button class="toggleButton relative w-12 h-6 rounded-full bg-gray-300 focus:outline-none">
-                                    <div class="toggleCircle absolute left-1 top-1 w-4 h-4 rounded-full bg-white transition-transform transform"></div>
+                            <div class="flex items-center justify-center h-full">
+                                <button class="toggleButton relative w-12 h-6 rounded-full focus:outline-none {{ $acara->status == 'on' ? 'bg-green-500' : 'bg-gray-300' }}" data-id="{{ $acara->id }}">
+                                    <div class="ml-1 toggleCircle absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-transform {{ $acara->status == 'on' ? 'translate-x-5' : 'translate-x-1' }}"></div>
                                 </button>
                             </div>
                             <!-- detil -->
@@ -148,20 +163,37 @@
     </div>
     <!-- js toggle button -->
     <script>
-        // Ambil semua toggle button dan toggle circle
-        const toggleButtons = document.querySelectorAll(".toggleButton");
-        const toggleCircles = document.querySelectorAll(".toggleCircle");
+        document.querySelectorAll('.toggleButton').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const toggleCircle = this.querySelector('.toggleCircle');
+                const isActive = toggleCircle.classList.contains('translate-x-1');
 
-        // Iterasi melalui setiap toggle button
-        toggleButtons.forEach((toggleButton, index) => {
-            const toggleCircle = toggleCircles[index];
-
-            // Tambahkan event listener untuk setiap toggle button
-            toggleButton.addEventListener("click", function() {
-                toggleCircle.classList.toggle("translate-x-full");
-                toggleCircle.classList.toggle("translate-x-6"); // Untuk menggeser ke kanan
-                toggleButton.classList.toggle("bg-gray-300");
-                toggleButton.classList.toggle("bg-green-500");
+                fetch(`/update-status/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            isActive: !isActive
+                        }) // Mengirimkan status baru (dibolak-balik)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Terjadi kesalahan saat memperbarui status acara');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.message); // Menampilkan pesan sukses
+                        toggleCircle.classList.toggle('translate-x-5'); // Mengubah status toggle button
+                        this.classList.toggle('bg-gray-300'); // Mengubah warna latar belakang untuk status "off"
+                        this.classList.toggle('bg-green-500'); // Mengubah warna latar belakang untuk status "on"
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             });
         });
     </script>

@@ -48,6 +48,12 @@ class AbsenController extends Controller
         $acara = Acara::findOrFail($id);
         return view('formPanitai', compact('acara'));
     }
+    public function noAkses()
+    {
+        // Misal, Anda ingin mengambil semua acara atau informasi lainnya
+        $acara = Acara::all();
+        return view('noAkses', compact('acara'));
+    }
 
     public function selesai()
     {
@@ -108,7 +114,7 @@ class AbsenController extends Controller
             'jabatan' => 'required|string|max:255',
             'unitKantor' => 'required|string|max:255',
             'foto' => 'required',
-            'ttd' => 'required|string', 
+            'ttd' => 'required|string',
         ]);
 
 
@@ -155,7 +161,7 @@ class AbsenController extends Controller
         ];
 
         $absen = Absen::create($absenData);
-        
+
 
         if ($absen) {
             return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
@@ -164,52 +170,52 @@ class AbsenController extends Controller
         return redirect()->route('absen.create')->with(['error' => 'Data gagal Disimpan!']);
     }
 
-public function storeNarasumber (Request $request, $id): RedirectResponse
-{
-    // Validasi formulir
-    $validatedData = $request->validate([
-        'nama' => 'required|string|max:255',
-        'nik' => 'required|string|max:255',
-        'jabatan' => 'required|string|max:255',
-        'unitKantor' => 'required|string|max:255',
-        'jamMengajar' => 'required|string|max:255',
-        'materi' => 'required|string|max:255',
-        'foto' => 'required',
-        'ttd' => 'required|string', 
-    ]);
+    public function storeNarasumber(Request $request, $id): RedirectResponse
+    {
+        // Validasi formulir
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'nik' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'unitKantor' => 'required|string|max:255',
+            'jamMengajar' => 'required|string|max:255',
+            'materi' => 'required|string|max:255',
+            'foto' => 'required',
+            'ttd' => 'required|string',
+        ]);
 
-    // Ambil waktu absen
-    $absen = Carbon::now();
+        // Ambil waktu absen
+        $absen = Carbon::now();
 
-    // Unggah tanda tangan
-    if ($request->has('ttd')) {
-        $ttd = $request->ttd;
-        $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
-        $ttd = base64_decode($ttd);
-        $ttdFileName = uniqid() . '.png'; // Generate nama file unik
-        $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
-        file_put_contents(storage_path('app/' . $ttdPath), $ttd);
+        // Unggah tanda tangan
+        if ($request->has('ttd')) {
+            $ttd = $request->ttd;
+            $ttd = substr($ttd, strpos($ttd, ',') + 1); // Menghapus data:image/png;base64,
+            $ttd = base64_decode($ttd);
+            $ttdFileName = uniqid() . '.png'; // Generate nama file unik
+            $ttdPath = 'public/ttd/' . $ttdFileName; // Path lengkap ke file
+            file_put_contents(storage_path('app/' . $ttdPath), $ttd);
+        }
+
+        // Membuat data absen
+        $absenData = [
+            'nama' => $validatedData['nama'],
+            'nik' => $validatedData['nik'],
+            'jabatan' => $validatedData['jabatan'],
+            'unitKantor' => $validatedData['unitKantor'],
+            'jamMengajar' => $validatedData['jamMengajar'], // Menggunakan jam mengajar yang sudah digabung
+            'materi' => $validatedData['materi'],
+            'foto' => $request->foto,
+            'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
+            'id_acara' => $id, // Mengambil ID acara dari URL
+        ];
+
+        $absen = Narasumber::create($absenData);
+
+        if ($absen) {
+            return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
+        }
+
+        return redirect()->route('absen.create')->with(['error' => 'Data gagal Disimpan!']);
     }
-
-    // Membuat data absen
-    $absenData = [
-        'nama' => $validatedData['nama'],
-        'nik' => $validatedData['nik'],
-        'jabatan' => $validatedData['jabatan'],
-        'unitKantor' => $validatedData['unitKantor'],
-        'jamMengajar' => $validatedData['jamMengajar'], // Menggunakan jam mengajar yang sudah digabung
-        'materi' => $validatedData['materi'],
-        'foto' => $request->foto,
-        'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
-        'id_acara' => $id, // Mengambil ID acara dari URL
-    ];
-
-    $absen = Narasumber::create($absenData);
-
-    if ($absen) {
-        return redirect()->route('selesai', ['id' => $absen->id_acara])->with(['success' => 'Data Berhasil Disimpan!']);
-    }
-
-    return redirect()->route('absen.create')->with(['error' => 'Data gagal Disimpan!']);
-}
 }

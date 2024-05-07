@@ -57,13 +57,14 @@ Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'download
 Route::get('/acaras/{id}/download-excel-narasumber', [DataTableController::class, 'downloadExcelNarasumber'])->name('download.excel.narasumber');
 
 // absens Controller
-Route::get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->name('acara.absen.create');
+Route::middleware('checkAcaraStatus')->get('/acaras/{id}/absens-peserta', [AbsenController::class, 'create'])->name('acara.absen.create');
 Route::post('/acaras/{id}/store', [AbsenController::class, 'store'])->name('acara.absen.store');
 Route::post('/acaras/{id}/store-narasumber', [AbsenController::class, 'storeNarasumber'])->name('acara.absen.storeNarasumber');
 Route::get('/acaras/{id}/take-foto', [AbsenController::class, 'takeFoto'])->name('acara.absen.takeFoto');
 Route::get('/acaras/{id}/take-foto-narasumber', [AbsenController::class, 'takeFotoNarasumber'])->name('acara.absen.takeFotoNarasumber');
 Route::post('/simpan-foto/{id}', [AbsenController::class, 'simpanFoto'])->name('simpan.foto');
 Route::post('/simpan-foto/{id}/narasumber', [AbsenController::class, 'simpanFotoNarasumber'])->name('simpan.fotoNarasumber');
-Route::get('/acaras/{id}/absens-narasumber', [AbsenController::class, 'narasumber'])->name('acara.absen.narasumber');
+Route::middleware('checkAcaraStatus')->get('/acaras/{id}/absens-narasumber', [AbsenController::class, 'narasumber'])->name('acara.absen.narasumber');
 Route::get('/acaras/{id}/absens-panitia', [AbsenController::class, 'panitia'])->name('acara.absen.panitia');
-
+Route::get('/acaras/tidak-ada-akses', [AbsenController::class, 'noAkses'])->name('noAkses');
+Route::post('/update-status/{id}', [AcaraController::class, 'updateStatus']);
