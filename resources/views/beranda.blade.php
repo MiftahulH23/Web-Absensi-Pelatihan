@@ -34,7 +34,7 @@
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/akunIcon.png" alt="akunIcon" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-500 font-semibold">
+                    <p class="text-gray-500 font-semibold capitalize">
                         {{ Auth::user()->name }}
                     </p>
                 </div>
