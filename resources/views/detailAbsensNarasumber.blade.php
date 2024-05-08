@@ -20,7 +20,7 @@
         </div>
     </div>
     <!-- Main content -->
-    <p class="text-lg font-bold mt-5">Tabel Absens</p>
+    <p class="text-lg font-bold mt-5">Tabel Narasumber</p>
     <div class=" bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll">
         <div class="flex justify-between">
             <a id="backButton" href="#" class="w-12 h-6 overflow-hidden border-l ml-1" data-from-home="true">
