@@ -45,14 +45,14 @@
             </div>
             <div class="mt-8 flex flex-col gap-3">
                 <!-- beranda -->
-                <div class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
+                <a href="{{ route('home.index') }}" class="bg-gray-300 rounded-xl bg-opacity-40 py-1">
                     <div class="flex gap-5 items-center ml-3">
                         <div class="w-6 h-6 overflow-hidden">
                             <img src="/images/homeIcon.png" alt="homeIcon" class="w-full h-full object-cover">
                         </div>
                         <p class="text-gray-500 font-semibold text-sm">Beranda</p>
                     </div>
-                </div>
+                </a>
                 <!-- Tambah Acara -->
                 <a href="{{ route('tambahAcara') }}" class="flex gap-5 items-center ml-3">
                     <div class="w-6 h-6 overflow-hidden">

@@ -80,7 +80,7 @@
 
                 // Jika referer URL tidak kosong dan bukan dari halaman home, arahkan kembali ke referer URL
                 if (referer !== "" && !referer.includes("home")) {
-                    window.location.href = referer;
+                    window.location.href = "{{ route('acaras.index') }}";
                 } else {
                     window.location.href = "{{ route('home.index') }}";
                 }
