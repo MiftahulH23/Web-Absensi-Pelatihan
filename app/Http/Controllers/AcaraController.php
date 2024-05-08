@@ -45,6 +45,7 @@ class AcaraController extends Controller
             'absen' => $request->input('absen'),
             'jam' => $request->input('jam'),
             'kategori' => $request->input('kategori'),
+            'status' => 'on'
         ]);
 
         return redirect()->route('acaras.index')->with('success', 'Acara berhasil ditambahkan');

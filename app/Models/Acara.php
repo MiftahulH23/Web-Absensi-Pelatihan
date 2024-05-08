@@ -12,7 +12,8 @@ class Acara extends Model
         'tanggal',
         'absen',
         'jam',
-        'kategori'
+        'kategori',
+        'status'
     ];
 
     // Nonaktifkan timestamps
