@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Beranda</title>
     @vite('resources/css/app.css')
     <link rel="icon" href="/images/logokecil.png" type="image/x-icon">
@@ -14,7 +15,20 @@
     <script src="https://cdn.jsdelivr.net/npm/datepicker.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <style>
+        .toggleButton.bg-gray-300 {
+            background-color: #D1D5DB;
+            /* Warna latar belakang untuk status "off" */
+        }
 
+        .toggleButton:focus {
+            outline: none;
+        }
+
+        .toggleCircle.translate-x-full {
+            transform: translateX(75%);
+        }
+    </style>
 </head>
 
 <body class="bg-[#efefef] mx-8 mt-5 overflow-hidden" data-aos="zoom-in-down">
@@ -96,7 +110,13 @@
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
                             <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                         </div>
-                        <div class="flex gap-4">
+                        <div class="flex gap-4 justify-center items-center">
+                            <!-- toogle button -->
+                            <div class="flex items-center justify-center h-full">
+                                <button class="toggleButton relative w-12 h-6 rounded-full focus:outline-none {{ $acara->status == 'on' ? 'bg-green-500' : 'bg-gray-300' }}" data-id="{{ $acara->id }}">
+                                    <div class="ml-1 toggleCircle absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-transform {{ $acara->status == 'on' ? 'translate-x-5' : 'translate-x-1' }}"></div>
+                                </button>
+                            </div>
                             <!-- detil -->
                             @if($acara->kategori == 'Peserta')
                             <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
@@ -142,6 +162,42 @@
         </div>
 
     </div>
+    <!-- js toggle button -->
+    <script>
+        document.querySelectorAll('.toggleButton').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const toggleCircle = this.querySelector('.toggleCircle');
+                const isActive = toggleCircle.classList.contains('translate-x-1');
+
+                fetch(`/update-status/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            isActive: !isActive
+                        }) // Mengirimkan status baru (dibolak-balik)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Terjadi kesalahan saat memperbarui status acara');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.message); // Menampilkan pesan sukses
+                        toggleCircle.classList.toggle('translate-x-5'); // Mengubah status toggle button
+                        this.classList.toggle('bg-gray-300'); // Mengubah warna latar belakang untuk status "off"
+                        this.classList.toggle('bg-green-500'); // Mengubah warna latar belakang untuk status "on"
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
     <!-- Inisialisasi datepicker -->
     <script src="datepicker.js"></script>
     <script>
@@ -181,7 +237,7 @@
             let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             for (let day of daysOfWeek) {
                 let cell = row.insertCell();
-                cell.classList.add("text-center", "text-gray-500" , "font-semibold");
+                cell.classList.add("text-center", "text-gray-500", "font-semibold");
                 cell.textContent = day;
             }
 
