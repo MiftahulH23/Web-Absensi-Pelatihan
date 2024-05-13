@@ -93,7 +93,7 @@
             <p class="font-bold text-lg">Daftar Acara</p>
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh]">
                 <!-- search judul pelatihan -->
-                <div class="flex justify-end">
+                <div class="flex justify-end mb-3">
                     <div class="border rounded-lg px-5 mr-5 flex gap-4 items-center">
                         <div class="w-4 h-4 overflow-hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search fill-slate-500 object-cover w-full h-full" viewBox="0 0 16 16">
