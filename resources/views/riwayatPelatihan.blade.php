@@ -91,7 +91,7 @@
         <!-- kanan -->
         <div class="flex flex-col w-full">
             <p class="font-bold text-lg">Daftar Acara</p>
-            <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh] overflow-y-scroll ">
+            <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh]">
                 <!-- search judul pelatihan -->
                 <div class="flex justify-end">
                     <div class="border rounded-lg px-5 mr-5 flex gap-4 items-center">
@@ -104,58 +104,59 @@
                     </div>
                     <button id="searchButton" class="bg-[#c2ebc1] px-4 py-1 rounded-lg text-[#03ad00]" data-url="{{ route('trainings.search') }}">Cari</button>
                 </div>
-
-                <div id="acaraContainer">
-                    <!-- Render semua data acara saat halaman dimuat -->
-                    @foreach($acaras as $acara)
-                    <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
-                        <div>
-                            <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
-                            <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
-                        </div>
-                        <div class="flex justify-center items-center gap-4">
-                            <!-- toogle button -->
-                            <div class="flex items-center justify-center h-full">
-                                <button class="toggleButton relative w-12 h-6 rounded-full focus:outline-none {{ $acara->status == 'on' ? 'bg-green-500' : 'bg-gray-300' }}" data-id="{{ $acara->id }}">
-                                    <div class="ml-1 toggleCircle absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-transform {{ $acara->status == 'on' ? 'translate-x-5' : 'translate-x-1' }}"></div>
-                                </button>
+                <div class="lg:h-[70vh] md:h-[80vh] overflow-y-scroll ">
+                    <div id="acaraContainer lg:h-[80vh] md:h-[90vh] overflow-y-scroll ">
+                        <!-- Render semua data acara saat halaman dimuat -->
+                        @foreach($acaras as $acara)
+                        <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                            <div>
+                                <p class="text-black font-semibold text-sm">{{ $acara->judul }}</p>
+                                <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di {{ $acara->tempat }}</p>
+                                <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : {{ $acara->kategori }}</p>
                             </div>
-                            <!-- detil -->
-                            @if($acara->kategori == 'Peserta')
-                            <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Narasumber')
-                            <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Panitia')
-                            <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5  overflow-hidden">
-                                <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                            </a>
-                            @endif
-                            <!-- edit -->
-                            <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
-                            </a>
-                            <!-- share -->
-                            @if($acara->kategori == 'Peserta')
-                            <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Narasumber')
-                            <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @elseif($acara->kategori == 'Panitia')
-                            <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
-                                <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                            </a>
-                            @endif
+                            <div class="flex justify-center items-center gap-4">
+                                <!-- toogle button -->
+                                <div class="flex items-center justify-center h-full">
+                                    <button class="toggleButton relative w-12 h-6 rounded-full focus:outline-none {{ $acara->status == 'on' ? 'bg-green-500' : 'bg-gray-300' }}" data-id="{{ $acara->id }}">
+                                        <div class="ml-1 toggleCircle absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-transform {{ $acara->status == 'on' ? 'translate-x-5' : 'translate-x-1' }}"></div>
+                                    </button>
+                                </div>
+                                <!-- detil -->
+                                @if($acara->kategori == 'Peserta')
+                                <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                                </a>
+                                @elseif($acara->kategori == 'Narasumber')
+                                <a href="{{ route('acaras.show.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                                </a>
+                                @elseif($acara->kategori == 'Panitia')
+                                <a href="{{ route('acaras.show', ['id' => $acara->id]) }}" class="w-5 h-5  overflow-hidden">
+                                    <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                                </a>
+                                @endif
+                                <!-- edit -->
+                                <a href="{{ route('acaras.edit', $acara->id) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
+                                </a>
+                                <!-- share -->
+                                @if($acara->kategori == 'Peserta')
+                                <a href="{{ route('acara.absen.create', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                                </a>
+                                @elseif($acara->kategori == 'Narasumber')
+                                <a href="{{ route('acara.absen.narasumber', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                                </a>
+                                @elseif($acara->kategori == 'Panitia')
+                                <a href="{{ route('acara.absen.panitia', ['id' => $acara->id]) }}" class="w-5 h-5 overflow-hidden">
+                                    <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                                </a>
+                                @endif
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             </div>
 
