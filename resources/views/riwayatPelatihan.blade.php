@@ -44,7 +44,7 @@
                     <div class="w-6 h-6 overflow-hidden">
                         <img src="/images/akunIcon.png" alt="akunIcon" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-500 font-semibold capitalize">
+                    <p class="text-gray-500 font-semibold">
                         {{ Auth::user()->name }}
                     </p>
                 </div>
@@ -93,7 +93,7 @@
             <p class="font-bold text-lg">Daftar Acara</p>
             <div class="flex-auto bg-white rounded-3xl shadow-xl mt-2 p-5 lg:h-[80vh] md:h-[90vh]">
                 <!-- search judul pelatihan -->
-                <div class="flex justify-end mb-3">
+                <div class="flex justify-end">
                     <div class="border rounded-lg px-5 mr-5 flex gap-4 items-center">
                         <div class="w-4 h-4 overflow-hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search fill-slate-500 object-cover w-full h-full" viewBox="0 0 16 16">
@@ -105,7 +105,7 @@
                     <button id="searchButton" class="bg-[#c2ebc1] px-4 py-1 rounded-lg text-[#03ad00]" data-url="{{ route('trainings.search') }}">Cari</button>
                 </div>
                 <div class="lg:h-[70vh] md:h-[80vh] overflow-y-scroll ">
-                    <div id="acaraContainer lg:h-[80vh] md:h-[90vh] overflow-y-scroll ">
+                    <div id="acaraContainer">
                         <!-- Render semua data acara saat halaman dimuat -->
                         @foreach($acaras as $acara)
                         <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
@@ -157,6 +157,7 @@
                         </div>
                         @endforeach
                     </div>
+
                 </div>
             </div>
 
@@ -235,15 +236,50 @@
             xhr.send();
         }
 
+        function initializeToggleButtons() {
+            document.querySelectorAll('.toggleButton').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const toggleCircle = this.querySelector('.toggleCircle');
+                    const isActive = toggleCircle.classList.contains('translate-x-1');
+
+                    fetch(`/update-status/${id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                isActive: !isActive
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Terjadi kesalahan saat memperbarui status acara');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log(data.message);
+                            toggleCircle.classList.toggle('translate-x-5');
+                            this.classList.toggle('bg-gray-300');
+                            this.classList.toggle('bg-green-500');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        }
+
         function displaySearchResults(trainings) {
             var acaraContainer = document.getElementById('acaraContainer');
             acaraContainer.innerHTML = ''; // Kosongkan kontainer acara
 
-            // Jika tidak ada hasil pencarian, tampilkan pesan "Data tidak ditemukan"
             if (trainings.length === 0) {
                 var notFoundMessage = `
-                <div class="text-center text-gray-500 font-semibold mt-3">Data tidak ditemukan</div>
-            `;
+            <div class="text-center text-gray-500 font-semibold mt-3">Data tidak ditemukan</div>
+        `;
                 acaraContainer.innerHTML = notFoundMessage;
                 return;
             }
@@ -268,30 +304,38 @@
                 }
 
                 var cardHTML = `
-                <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
-                    <div>
-                        <p class="text-black font-semibold text-sm">${training.judul}</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di ${training.tempat}</p>
-                        <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : ${training.kategori}</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <!-- detil -->
-                        <a href="${detailLink}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
-                        </a>
-                        <!-- edit -->
-                        <a href="${editLink}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
-                        </a>
-                        <!-- share -->
-                        <a href="${shareLink}" class="w-5 h-5 overflow-hidden">
-                            <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
-                        </a>
-                    </div>
+            <div class="acara-card w-full bg-[#CCCCCC] mt-3 bg-opacity-20 h-fitt py-3 px-4 rounded-3xl border shadow-xl flex justify-between items-center">
+                <div>
+                    <p class="text-black font-semibold text-sm">${training.judul}</p>
+                    <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Dilakukan di ${training.tempat}</p>
+                    <p class="text-gray-500 text-[10px] ml-3" style="font-size: 0.75rem;">Kategori : ${training.kategori}</p>
                 </div>
-            `;
+                <div class="flex justify-center items-center gap-4">
+                    <!-- toogle button -->
+                    <div class="flex items-center justify-center h-full">
+                        <button class="toggleButton relative w-12 h-6 rounded-full focus:outline-none ${training.status == 'on' ? 'bg-green-500' : 'bg-gray-300'}" data-id="${training.id}">
+                            <div class="ml-1 toggleCircle absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-transform ${training.status == 'on' ? 'translate-x-5' : 'translate-x-1'}"></div>
+                        </button>
+                    </div>
+                    <!-- detil -->
+                    <a href="${detailLink}" class="w-5 h-5 overflow-hidden">
+                        <img src="/images/openIcon.png" alt="iconOpen" class="w-full h-full object-cover">
+                    </a>
+                    <!-- edit -->
+                    <a href="${editLink}" class="w-5 h-5 overflow-hidden">
+                        <img src="/images/editIcon.png" alt="iconEdit" class="w-full h-full object-cover">
+                    </a>
+                    <!-- share -->
+                    <a href="${shareLink}" class="w-5 h-5 overflow-hidden">
+                        <img src="/images/shareIcon.png" alt="iconShare" class="w-full h-full object-cover">
+                    </a>
+                </div>
+            </div>
+        `;
                 acaraContainer.innerHTML += cardHTML; // Tambahkan card ke kontainer acara
             });
+
+            initializeToggleButtons(); // Panggil fungsi untuk menambahkan event listener ke toggle button
         }
     </script>
     <!-- Inisialisasi datepicker -->

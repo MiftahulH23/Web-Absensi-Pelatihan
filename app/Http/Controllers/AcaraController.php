@@ -118,10 +118,37 @@ class AcaraController extends Controller
         $trainings = Acara::where('judul', 'like', '%' . $keyword . '%')
             ->orWhere('kategori', 'like', '%' . $keyword . '%')
             ->orWhere('tempat', 'like', '%' . $keyword . '%')
+            ->orWhere('status', 'like', '%' . $keyword . '%')
             ->get();
 
         return response()->json($trainings);
     }
+
+    public function searchPeserta(Request $request, $id)
+    {
+        $keyword = $request->input('keyword');
+        $trainings = Absen::where('id_acara', $id)
+            ->where(function ($query) use ($keyword) {
+                $query->where('nama', 'like', '%' . $keyword . '%')
+                    ->orWhere('norek', 'like', '%' . $keyword . '%')
+                    ->orWhere('nik', 'like', '%' . $keyword . '%')
+                    ->orWhere('levelJabatan', 'like', '%' . $keyword . '%')
+                    ->orWhere('jabatan', 'like', '%' . $keyword . '%')
+                    ->orWhere('unitKantor', 'like', '%' . $keyword . '%')
+                    ->orWhere('absen', 'like', '%' . $keyword . '%')
+                    ->orWhere('status', 'like', '%' . $keyword . '%');
+            })
+            ->get()
+            ->map(function ($item) {
+                $item->foto = asset('storage/absens/' . $item->foto);
+                $item->ttd = asset('storage/ttd/' . $item->ttd);
+                return $item;
+            });
+
+        return response()->json($trainings);
+    }
+
+
 
     public function updateStatus($id)
     {

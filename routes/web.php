@@ -51,6 +51,8 @@ Route::middleware('auth')->get('/acaras/{id}/edit', [AcaraController::class, 'ed
 Route::middleware('auth')->put('/acaras/{id}', [AcaraController::class, 'update'])->name('acaras.update');
 Route::get('/selesai/{id}', [AcaraController::class, 'selesai'])->name('selesai');
 Route::get('/search-training', [AcaraController::class, 'search'])->name('trainings.search');
+Route::get('/acaras/{id}/search-peserta', [AcaraController::class, 'searchPeserta'])->name('trainings.search.peserta');
+
 
 // dataTable Controller
 Route::get('/acaras/{id}/download-excel', [DataTableController::class, 'downloadExcel'])->name('download.excel');
