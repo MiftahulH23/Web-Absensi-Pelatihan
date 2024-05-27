@@ -141,6 +141,11 @@
                     <option value="divisi_c" class="text-sm">Divisi C</option>
                 </select>
             </div>
+            <!-- Grade -->
+            <div class="flex flex-col gap-1 mt-1">
+                <p class="font-semibold ">Grade</p>
+                <input type="text" id="grade" name="grade" class="p-2 w-full md:w-full h-9 rounded-xl" required>
+            </div>
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
                 <p class="font-semibold">Tanda Tangan</p>
