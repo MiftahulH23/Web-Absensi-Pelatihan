@@ -54,7 +54,7 @@
                     <th class="w-10 font-semibold text-sm py-2">Level Jabatan</th>
                     <th class="w-20 font-semibold text-sm py-2">Jabatan</th>
                     <th class="w-20 font-semibold text-sm py-2">Unit Kantor</th>
-                    <th class="w-20 font-semibold text-sm py-2">Grade</th>
+                    <th class="w-8 font-semibold text-sm py-2">Grade</th>
                     <th class="w-12 font-semibold text-sm py-2">Dokumentasi</th>
                     <th class="w-20 font-semibold text-sm py-2">Tanda Tangan</th>
                     <th class="w-16 font-semibold text-sm py-2">Absen</th>
@@ -191,7 +191,6 @@
                 <td class="text-sm py-2">${training.jabatan}</td>
                 <td class="text-sm py-2">${training.unitKantor}</td>
                 <td class="text-sm py-2">${training.grade}</td>
-                <td></td>
                 <td class="text-sm py-2">
                     <img src="${training.foto}" alt="Foto" class="w-20 h-20 object-cover inline-block">
                 </td>
