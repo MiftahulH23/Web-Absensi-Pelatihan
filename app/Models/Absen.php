@@ -15,6 +15,7 @@ class Absen extends Model
         'levelJabatan',
         'jabatan',
         'unitKantor',
+        'grade',
         'foto',
         'ttd',
         'id_acara',

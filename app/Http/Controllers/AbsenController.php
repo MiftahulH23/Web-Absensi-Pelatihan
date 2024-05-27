@@ -113,6 +113,7 @@ class AbsenController extends Controller
             'levelJabatan' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'unitKantor' => 'required|string|max:255',
+            'grade' => 'required|string|max:255',
             'foto' => 'required',
             'ttd' => 'required|string',
         ]);
@@ -156,6 +157,7 @@ class AbsenController extends Controller
             'foto' => $request->foto,
             'ttd' => $request->has('ttd') ? $ttdFileName : null, // Simpan path tanda tangan
             'id_acara' => $id, // Mengambil ID acara dari URL
+            'grade' => $validatedData['grade'],
             'absen' => $waktuAcara, // Simpan waktu absen
             'status' => $status, // Simpan status absen
         ];

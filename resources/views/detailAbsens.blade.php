@@ -72,6 +72,7 @@
                     <td class="text-sm py-2">{{ $absen->levelJabatan }}</td>
                     <td class="text-sm py-2">{{ $absen->jabatan }}</td>
                     <td class="text-sm py-2">{{ $absen->unitKantor }}</td>
+                    <td class="text-sm py-2">{{ $absen->grade }}</td>
                     <td></td>
                     <td class="text-sm py-2">
                         <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover inline-block">
@@ -189,6 +190,7 @@
                 <td class="text-sm py-2">${training.levelJabatan}</td>
                 <td class="text-sm py-2">${training.jabatan}</td>
                 <td class="text-sm py-2">${training.unitKantor}</td>
+                <td class="text-sm py-2">${training.grade}</td>
                 <td></td>
                 <td class="text-sm py-2">
                     <img src="${training.foto}" alt="Foto" class="w-20 h-20 object-cover inline-block">
