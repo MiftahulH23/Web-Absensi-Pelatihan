@@ -168,7 +168,7 @@ class AbsenController extends Controller
 
         $officeLat = 0.5194777661419975;
         $officeLon = 101.4465743664067;
-        $radius = 5; // Radius dalam meter
+        $radius = 25; // Radius dalam meter
        
         // Mendapatkan lokasi pengguna
         $userLat = $request->input('latitude');
