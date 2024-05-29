@@ -20,9 +20,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <title>Form Absensi</title>
+    
 </head>
 
 <body data-aos="zoom-in" data-aos-duration="3000" class="bg-[#efefef]">
+<script>
+        // Ambil pesan error jika ada dari session
+        @if(session('error'))
+            alert('{{ session('error') }}');
+        @endif
+    </script>
     <div>
         <div class="container grid place-items-center mt-16">
             <div class="w-64 h-28 overflow-hidden flex justify-center items-center">
@@ -61,13 +68,24 @@
         });
 
         function showForm() {
-            // Menyembunyikan elemen form absensi
-            $('.form-absensi').fadeIn();
-            // Setelah menampilkan form absensi, maka baru menyembunyikan body
-            $('body[data-aos]').hide();
-            $('.container.grid.place-items-center').hide();
-            $('.w-80.overflow-hidden.ml-16.mt-14.fixed.right-0.bottom-0').hide();
+        // Ambil lokasi pengguna
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('latitude').value = position.coords.latitude;
+                document.getElementById('longitude').value = position.coords.longitude;
+                // Menyembunyikan elemen form absensi
+                $('.form-absensi').fadeIn();
+                // Setelah menampilkan form absensi, maka baru menyembunyikan body
+                $('body[data-aos]').hide();
+                $('.container.grid.place-items-center').hide();
+                $('.w-80.overflow-hidden.ml-16.mt-14.fixed.right-0.bottom-0').hide();
+            }, function(error) {
+                alert('Geolocation error: ' + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
         }
+    }
     </script>
 
     <!-- Form Absensi -->
@@ -161,6 +179,9 @@
             <div class="grid place-items-center">
                 <button type="submit" class="bg-[#b72026] px-7 py-2 text-white font-semibold text-lg rounded-xl mt-3 ">Submit</button>
             </div>
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+
         </form>
         <div class="w-96 overflow-hidden ml-16 fixed right-0 -bottom-16 -z-10">
             <img src="/images/gedungbrk.png" alt="logo" class="object-cover w-full h-full opacity-50">

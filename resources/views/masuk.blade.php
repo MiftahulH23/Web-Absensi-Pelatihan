@@ -49,16 +49,19 @@
                         });
                     </script>
                 @endif
-                <form action="{{ route('actionlogin') }}" method="post">
+                <form id="loginForm" action="{{ route('actionlogin') }}" method="post">
                     @csrf
                     <div class="flex flex-col mt-5 gap-5">
-                        <!-- nama -->
-                        <input type="email" placeholder="Masukkan Email" id="email" name="email" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                        <!-- email -->
+                        <input type="email" placeholder="Masukkan Email" id="email" name="email" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm" required>
                         <!-- password -->
-                        <input type="password" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm">
+                        <input type="password" placeholder="Masukkan password" id="password" name="password" class="p-2 w-full md:w-full h-12 rounded-xl shadow-xl text-sm" required>
+                        <!-- latitude dan longitude -->
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
                     </div>
                     <!-- button -->
-                    <button class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
+                    <button type="submit" class="p-2 w-full md:w-full h-12 rounded-xl mt-14 text-white font-bold bg-[#03ad00] text-sm">Masuk</button>
                 </form>
             </div>
             <!-- motif melayu -->
@@ -70,6 +73,22 @@
     <!-- Js Aos -->
     <script>
         AOS.init();
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                    console.log('Latitude:', position.coords.latitude, 'Longitude:', position.coords.longitude);
+                    document.getElementById('loginForm').submit();
+                }, function(error) {
+                    alert('Geolocation error: ' + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
     </script>
 </body>
 

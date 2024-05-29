@@ -21,8 +21,20 @@ class LoginController extends Controller
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
+        'latitude' => 'required|numeric',
+        'longitude' => 'required|numeric',
     ]);
+ // Kantor pusat Bank Riau Kepri Syariah
+ $officeLat = 0.5192642503417606;
+ $officeLon = 101.4465773437769;
+ $radius = 25; // Radius dalam meter
 
+ // Mendapatkan lokasi pengguna
+ $userLat = $request->input('latitude');
+ $userLon = $request->input('longitude');
+
+ // Periksa apakah pengguna berada dalam radius yang diizinkan
+ if ($this->isWithinRadius($userLat, $userLon, $officeLat, $officeLon, $radius)) {
     // Attempt to authenticate user
     if (Auth::attempt($request->only('email', 'password'))) {
         // Authentication successful
@@ -31,6 +43,22 @@ class LoginController extends Controller
         // Authentication failed, redirect back with error message
         return redirect()->back()->with('error', 'Email atau password tidak valid.');
     }
+} else {
+    // Jika Lokasi pengguna tidak diizinkan
+    return redirect()->back()->with('error', 'Akses ditolak. Anda berada di luar lokasi yang diizinkan.');
+}
+}
+private function isWithinRadius($lat1, $lon1, $lat2, $lon2, $radius)
+    {
+        $R = 6371000; // Radius bumi dalam meter
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $R * $c; // Jarak dalam meter
+        return $distance <= $radius;
     }
 
     public function logout(Request $request)
