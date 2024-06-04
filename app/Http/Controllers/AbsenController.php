@@ -105,6 +105,7 @@ class AbsenController extends Controller
     }
     public function store(Request $request, $id): RedirectResponse
     {
+        
         // Validasi formulir
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
@@ -119,7 +120,6 @@ class AbsenController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ]);
-
 
         // Ambil waktu dari acara yang dipilih
         $acara = Acara::findOrFail($id);
@@ -137,6 +137,26 @@ class AbsenController extends Controller
             // Ontime
             $status = 'Ontime';
         }
+         // Hitung uangMakan, uangHarian, dan total berdasarkan grade dan jabatan
+        $grade = $request->grade;
+        $jabatan = $request->jabatan;
+
+        $uangMakan = 0;
+        $uangHarian = 0;
+        
+
+        if (in_array($grade, [16, 17, 18]) && $jabatan == 'Pemimpin Divisi') {
+            $uangMakan = 300000;
+            $uangHarian = 400000;
+        } elseif (in_array($grade, [17, 18]) && $jabatan == 'Ketua Tim Desk') {
+            $uangMakan = 300000;
+            $uangHarian = 400000;
+        } elseif ($grade == 16 && in_array($jabatan, ['Pemimpin cabang utama', 'Ketua Tim Desk', 'Pinbag KPS'])) {
+            $uangMakan = 250000;
+            $uangHarian = 350000;
+        }
+
+    $total = $uangMakan + $uangHarian;
 
         // Unggah tanda tangan
         if ($request->has('ttd')) {
@@ -166,9 +186,10 @@ class AbsenController extends Controller
 
         $absen = Absen::create($absenData);
 
-        $officeLat = 0.5194777661419975;
-        $officeLon = 101.4465743664067;
-        $radius = 25; // Radius dalam meter
+       // Kantor pusat Bank Riau Kepri Syariah
+        $officeLat = 0.5192642503417606;
+        $officeLon = 101.4465773437769;
+        $radius = 100; // Radius dalam meter
        
         // Mendapatkan lokasi pengguna
         $userLat = $request->input('latitude');

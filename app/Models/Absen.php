@@ -16,6 +16,9 @@ class Absen extends Model
         'jabatan',
         'unitKantor',
         'grade',
+        'uangMakan',
+        'uangHarian', 
+        'total',
         'foto',
         'ttd',
         'id_acara',
@@ -25,5 +28,11 @@ class Absen extends Model
     protected $hidden = [
         'id_acara',
         'updated_at',
+    ];
+     // Set default value untuk kolom uangMakan, uangHarian, dan total
+     protected $attributes = [
+        'uangMakan' => null,
+        'uangHarian' => null,
+        'total' => null,
     ];
 }

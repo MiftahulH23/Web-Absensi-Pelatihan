@@ -25,9 +25,9 @@ class LoginController extends Controller
         'longitude' => 'required|numeric',
     ]);
  // Kantor pusat Bank Riau Kepri Syariah
- $officeLat = 0.5192642503417606;
- $officeLon = 101.4465773437769;
- $radius = 25; // Radius dalam meter
+ $officeLat = 0.5194026673876408;
+ $officeLon = 101.44655290848155;
+ $radius = 100; // Radius dalam meter
 
  // Mendapatkan lokasi pengguna
  $userLat = $request->input('latitude');

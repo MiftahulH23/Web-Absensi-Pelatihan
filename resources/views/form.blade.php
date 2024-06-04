@@ -144,9 +144,18 @@
                 <label for="jabatan" class="font-semibold" class="text-sm">Jabatan</label>
                 <select id="jabatan" name="jabatan" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
                     <option value="" disabled selected>- Pilih Jabatan -</option>
-                    <option value="divisi_a" class="text-sm">Divisi A</option>
-                    <option value="divisi_b" class="text-sm">Divisi B</option>
-                    <option value="divisi_c" class="text-sm">Divisi C</option>
+                    <option value="Pemimpin Divisi" class="text-sm">Pemimpin Divisi</option>
+                    <option value="Ketua Tim Desk" class="text-sm">Ketua Tim Desk</option>
+                    <option value="Pemimpin Cabang Utama" class="text-sm">Pemimpin Cabang Utama</option>
+                    <option value="pinbag KPS" class="text-sm">Pinbag KPS</option>
+                    <option value="pemimpinCabang" class="text-sm">Pemimpin Cabang</option>
+                    <option value="anggotaTimDesk" class="text-sm">Anggota Tim Desk</option>
+                    <option value="pemimpinCapem" class="text-sm">Pemimpin Capem</option>
+                    <option value="pinbagCabang" class="text-sm">Pinbag Cabang</option>
+                    <option value="pemimpinKedai" class="text-sm">Pemimpin Kedai</option>
+                    <option value="pemimpinSeksiStaf" class="text-sm">Pemimpin Seksi/Staf</option>
+                    <option value="pelaksanaPegawaiCore" class="text-sm">Pelaksana & Pegawai Core (PT&PTT)</option>
+                    <option value="pegawaiNonCore" class="text-sm">Pegawai Non Core (PT&PTT)</option>
                 </select>
             </div>
             <!-- Unit Kantor -->
@@ -162,7 +171,21 @@
             <!-- Grade -->
             <div class="flex flex-col gap-1 mt-1">
                 <p class="font-semibold ">Grade</p>
-                <input type="text" id="grade" name="grade" class="p-2 w-full md:w-full h-9 rounded-xl" required>
+                <select id="grade" name="grade" class="p-2 w-full md:w-full h-9 rounded-xl bg-white bg-opacity-90 text-base">
+                    <option value="" disabled selected>- Pilih Grade -</option>
+                    <option value="18" class="text-sm">18</option>
+                    <option value="17" class="text-sm">17</option>
+                    <option value="16" class="text-sm">16</option>
+                    <option value="15" class="text-sm">15</option>
+                    <option value="14" class="text-sm">14</option>
+                    <option value="13" class="text-sm">13</option>
+                    <option value="12" class="text-sm">12</option>
+                    <option value="11" class="text-sm">11</option>
+                    <option value="10" class="text-sm">10</option>
+                    <option value="9" class="text-sm">9</option>
+                    <option value="8" class="text-sm">8</option>
+                   
+                </select>
             </div>
             <!-- Tanda Tangan -->
             <div class="flex flex-col gap-1 mt-1 rounded-xl">
