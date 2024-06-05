@@ -38,6 +38,11 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
                 'Level Jabatan' => $absen->levelJabatan,
                 'Jabatan' => $absen->jabatan,
                 'Unit Kantor' => $absen->unitKantor,
+                'Grade' => $absen->grade,
+                'Uang Makan' => $absen->uangMakan,
+                'Uang Harian' => $absen->uangHarian,
+                'Uang Taxi' => $absen->uangTaxi,
+                'Total' => $absen->total,
                 'Dokumentasi' => $absen->dokumentasi,
                 'Tanda Tangan' => $absen->tanda_tangan,
                 'Absen' => $absen->absen,
@@ -57,7 +62,7 @@ class AbsenExport implements FromCollection, WithHeadings, WithDrawings, WithEve
     {
         return [
             'No', 'Nama', 'No Rekening', 'Nik', 'Level Jabatan', 'Jabatan', 'Unit Kantor',
-            'Dokumentasi', 'Tanda Tangan', 'Absen', 'Waktu', 'Status',
+            'Grade','Uang Makan','Uang Harian','Uang Taxi','Total','Dokumentasi', 'Tanda Tangan', 'Absen', 'Waktu', 'Status',
         ];
     }
 
