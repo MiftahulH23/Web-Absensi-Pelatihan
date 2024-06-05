@@ -168,6 +168,7 @@ if (in_array($unitKantor, $pekanbaruUnits)) {
     if (in_array($grade, [16, 17, 18]) && $jabatan == 'Pemimpin Divisi') {
         $uangMakan = 300000;
         $uangHarian = 400000;
+        
     } elseif (in_array($grade, [17, 18]) && $jabatan == 'Ketua Tim Desk') {
         $uangMakan = 300000;
         $uangHarian = 400000;
@@ -238,14 +239,14 @@ $todayAbsences = Absen::where('nama', $validatedData['nama'])
                       ->count();
 
 // Cek apakah absen 3 kali
-if ($todayAbsences == 3) {
+if ($todayAbsences == 2) {
     // Cek apakah semua absen ontime
     $ontimeAbsences = Absen::where('nama', $validatedData['nama'])
                            ->whereDate('created_at', Carbon::today())
                            ->where('status', 'Ontime')
                            ->count();
 
-    if ($ontimeAbsences == 3) {
+    if ($ontimeAbsences == 2) {
         $total = $uangMakan + $uangHarian + $uangTaxi;
     } else {
         $total = $uangMakan + (0.8 * $uangHarian); // Hanya uangHarian yang dikurangi 20% jika telat
@@ -280,7 +281,7 @@ if ($todayAbsences == 3) {
             'status' => $status, // Simpan status absen
             'uangMakan' => $uangMakan, // Simpan uang makan
             'uangHarian' => $uangHarian, // Simpan uang harian
-            'uangTaxi' => $uangHarian,
+            'uangTaxi' => $uangTaxi,
             'total' => $total, // Simpan total
         ];
 
