@@ -137,26 +137,122 @@ class AbsenController extends Controller
             // Ontime
             $status = 'Ontime';
         }
-         // Hitung uangMakan, uangHarian, dan total berdasarkan grade dan jabatan
-        $grade = $request->grade;
-        $jabatan = $request->jabatan;
+       // Hitung uangMakan, uangHarian, dan total berdasarkan grade dan jabatan
+    $grade = (int)$validatedData['grade'];
+    $jabatan = $validatedData['jabatan'];
+    $unitKantor = $validatedData['unitKantor'];
 
-        $uangMakan = 0;
-        $uangHarian = 0;
-        
+// Hitung uangMakan, uangHarian, dan total berdasarkan grade dan jabatan
+$uangMakan = 0;
+$uangHarian = 0;
+$uangTaxi = 0; 
+$total = 0;
 
-        if (in_array($grade, [16, 17, 18]) && $jabatan == 'Pemimpin Divisi') {
-            $uangMakan = 300000;
-            $uangHarian = 400000;
-        } elseif (in_array($grade, [17, 18]) && $jabatan == 'Ketua Tim Desk') {
-            $uangMakan = 300000;
-            $uangHarian = 400000;
-        } elseif ($grade == 16 && in_array($jabatan, ['Pemimpin cabang utama', 'Ketua Tim Desk', 'Pinbag KPS'])) {
-            $uangMakan = 250000;
-            $uangHarian = 350000;
-        }
+// Daftar unitKantor Pekanbaru
+$pekanbaruUnits = [
+    'BRKS Kantor Pusat', 'Divisi Audit Internal & Anti Fraud', 'Divisi Manajemen Sumber Daya Insani', 
+    'Divisi Sekretariat Perusahaan', 'Divisi Kepatuhan', 'Divisi Manajemen Risiko', 'Divisi Hukum', 
+    'Divisi Sistem Prosedur & Service Quality', 'Divisi Operasional & Akuntansi', 'Divisi Teknologi & Sistem Informasi', 
+    'Divisi Umum', 'Divisi Dana & Digital Banking', 'Divisi Treasury & International Banking', 
+    'Divisi Perencanaan & Keuangan', 'Divisi Komersial', 'Divisi Mikro, Kecil dan Menengah', 'Divisi Konsumer', 
+    'Divisi Special Asset Management', 'BRKS Pekanbaru Sudirman', 'BRKS Pekanbaru Tangkerang', 
+    'BRKS Pekanbaru Rumbai', 'BRKS Pekanbaru Senapelan', 'BRKS Pekanbaru Panam', 'BRKS Pekanbaru Tuanku Tambusai', 
+    'BRKS Pekanbaru Jalan Riau', 'BRKS Pekanbaru Sukaramai Trade Center', 'BRKS Pekanbaru Delima Panam', 
+    'BRKS Pekanbaru Cabang Utama'
+];
 
-    $total = $uangMakan + $uangHarian;
+
+// Logika untuk menentukan nilai uangMakan, uangHarian, dan uangTaxi berdasarkan grade, jabatan, dan unitKantor
+if (in_array($unitKantor, $pekanbaruUnits)) {
+    // Karyawan bekerja di Pekanbaru
+    if (in_array($grade, [16, 17, 18]) && $jabatan == 'Pemimpin Divisi') {
+        $uangMakan = 300000;
+        $uangHarian = 400000;
+    } elseif (in_array($grade, [17, 18]) && $jabatan == 'Ketua Tim Desk') {
+        $uangMakan = 300000;
+        $uangHarian = 400000;
+    } elseif ($grade == 16 && in_array($jabatan, ['Pemimpin cabang utama', 'Ketua Tim Desk', 'Pinbag KPS'])) {
+        $uangMakan = 250000;
+        $uangHarian = 350000;
+    }
+    elseif ($grade == 15 && in_array($jabatan, ['Pemimpin cabang', 'Ketua Tim Desk', 'Pinbag KPS','Anggota Tim Desk'])) {
+        $uangMakan = 225000;
+        $uangHarian = 290000;
+    }elseif (in_array($grade, [13, 14]) && in_array($jabatan, ['Pemimpin cabang', 'Pemimpin capem', 'Ketua Tim Desk', 'Pinbag KPS'])) {
+        $uangMakan = 200000;
+        $uangHarian = 260000;
+    } elseif (in_array($grade, [13, 14]) && in_array($jabatan, ['Pinbag Cabang', 'Anggota Tim Desk'])) {
+        $uangMakan = 175000;
+        $uangHarian = 230000;
+    } elseif (in_array($grade, [11, 12]) && in_array($jabatan, ['Pemimpin Kedai', 'Pemimpin Seksi/Staf'])) {
+        $uangMakan = 150000;
+        $uangHarian = 200000;
+    } elseif (in_array($grade, [9, 10, 11]) && in_array($jabatan, ['Pelaksana & Pegawai Core (PT&PTT)'])) {
+        $uangMakan = 135000;
+        $uangHarian = 175000;
+    } elseif ($grade == 8 && in_array($jabatan, ['Pegawai Non Core (PT&PTT)'])) {
+        $uangMakan = 100000;
+        $uangHarian = 140000;
+    }
+} else {
+    // Karyawan bekerja di luar Pekanbaru
+    if (in_array($grade, [16, 17, 18]) && $jabatan == 'Pemimpin Divisi') {
+        $uangMakan = 300000;
+        $uangHarian = 400000;
+   
+    } elseif (in_array($grade, [17, 18]) && $jabatan == 'Ketua Tim Desk') {
+        $uangMakan = 300000;
+        $uangHarian = 400000;
+
+    } elseif ($grade == 16 && in_array($jabatan, ['Pemimpin cabang utama', 'Ketua Tim Desk', 'Pinbag KPS'])) {
+        $uangMakan = 250000;
+        $uangHarian = 350000;
+    }
+    elseif ($grade == 15 && in_array($jabatan, ['Pemimpin cabang', 'Ketua Tim Desk', 'Pinbag KPS','Anggota Tim Desk'])) {
+        $uangMakan = 225000;
+        $uangHarian = 290000;
+    }elseif (in_array($grade, [13, 14]) && in_array($jabatan, ['Pemimpin cabang', 'Pemimpin capem', 'Ketua Tim Desk', 'Pinbag KPS'])) {
+        $uangMakan = 200000;
+        $uangHarian = 260000;
+    } elseif (in_array($grade, [13, 14]) && in_array($jabatan, ['Pinbag Cabang', 'Anggota Tim Desk'])) {
+        $uangMakan = 175000;
+        $uangHarian = 230000;
+    } elseif (in_array($grade, [11, 12]) && in_array($jabatan, ['Pemimpin Kedai', 'Pemimpin Seksi/Staf'])) {
+        $uangMakan = 150000;
+        $uangHarian = 200000;
+    } elseif (in_array($grade, [9, 10, 11]) && in_array($jabatan, ['Pelaksana & Pegawai Core (PT&PTT)'])) {
+        $uangMakan = 135000;
+        $uangHarian = 175000;
+    } elseif ($grade == 8 && in_array($jabatan, ['Pegawai Non Core (PT&PTT)'])) {
+        $uangMakan = 100000;
+        $uangHarian = 140000;
+    } 
+     // Hanya atur uang taxi jika karyawan bekerja di luar Pekanbaru
+     $uangTaxi = 400000;
+}
+
+
+// Hitung jumlah absen harian
+$todayAbsences = Absen::where('nama', $validatedData['nama'])
+                      ->whereDate('created_at', Carbon::today())
+                      ->count();
+
+// Cek apakah absen 3 kali
+if ($todayAbsences == 3) {
+    // Cek apakah semua absen ontime
+    $ontimeAbsences = Absen::where('nama', $validatedData['nama'])
+                           ->whereDate('created_at', Carbon::today())
+                           ->where('status', 'Ontime')
+                           ->count();
+
+    if ($ontimeAbsences == 3) {
+        $total = $uangMakan + $uangHarian + $uangTaxi;
+    } else {
+        $total = $uangMakan + (0.8 * $uangHarian); // Hanya uangHarian yang dikurangi 20% jika telat
+    }
+}
+
+    
 
         // Unggah tanda tangan
         if ($request->has('ttd')) {
@@ -182,6 +278,10 @@ class AbsenController extends Controller
             'grade' => $validatedData['grade'],
             'absen' => $waktuAcara, // Simpan waktu absen
             'status' => $status, // Simpan status absen
+            'uangMakan' => $uangMakan, // Simpan uang makan
+            'uangHarian' => $uangHarian, // Simpan uang harian
+            'uangTaxi' => $uangHarian,
+            'total' => $total, // Simpan total
         ];
 
         $absen = Absen::create($absenData);

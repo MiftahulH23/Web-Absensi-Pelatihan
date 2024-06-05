@@ -57,6 +57,7 @@
                     <th class="w-8 font-semibold text-sm py-2">Grade</th>
                     <th class="w-16 font-semibold text-sm py-2">Uang Makan</th>
                     <th class="w-16 font-semibold text-sm py-2">Uang Harian</th>
+                    <th class="w-16 font-semibold text-sm py-2">Uang Taxi</th>
                     <th class="w-16 font-semibold text-sm py-2">Total</th>
                     <th class="w-12 font-semibold text-sm py-2">Dokumentasi</th>
                     <th class="w-20 font-semibold text-sm py-2">Tanda Tangan</th>
@@ -78,6 +79,7 @@
                     <td class="text-sm py-2">{{ $absen->grade }}</td>
                     <td class="text-sm py-2">{{ $absen->uangMakan }}</td>
                     <td class="text-sm py-2">{{ $absen->uangHarian }}</td>
+                    <td class="text-sm py-2">{{ $absen->uangTaxi }}</td>
                     <td class="text-sm py-2">{{ $absen->total }}</td>
                     <td class="text-sm py-2">
                         <img src="{{ asset('storage/absens/' . $absen->foto) }}" alt="" class="w-20 h-20 object-cover inline-block">

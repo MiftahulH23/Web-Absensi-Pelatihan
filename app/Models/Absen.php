@@ -17,7 +17,8 @@ class Absen extends Model
         'unitKantor',
         'grade',
         'uangMakan',
-        'uangHarian', 
+        'uangHarian',
+        'uangTaxi', 
         'total',
         'foto',
         'ttd',
@@ -33,6 +34,7 @@ class Absen extends Model
      protected $attributes = [
         'uangMakan' => null,
         'uangHarian' => null,
+        'uangTaxi'=>null,
         'total' => null,
     ];
 }
