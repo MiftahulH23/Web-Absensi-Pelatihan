@@ -1,0 +1,47 @@
+name: Update dependencies
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, json, zip, gd, intl, bcmath, fileinfo, pdo_mysql
+          tools: composer:v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Composer update (within composer.json constraints)
+        run: composer update --no-interaction --no-scripts --no-install --with-all-dependencies
+
+      - name: npm update (within package.json ranges)
+        run: npm update --package-lock-only
+
+      - name: Audit (informational)
+        continue-on-error: true
+        run: |
+          composer audit --locked || true
+          npm audit --package-lock-only || true
+
+      - name: Push branch
+        run: |
+          if git diff --quiet; then echo "No changes"; exit 0; fi
+          BRANCH="deps/update-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add composer.lock package-lock.json
+          git commit -m "Update dependencies within existing version constraints"
+          git push origin "$BRANCH"
+          echo "Pushed $BRANCH"
